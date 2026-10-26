@@ -2936,7 +2936,7 @@ h1, h2, h3, h4, h5,
 .plt-unit {
   font-size: 12px;
   font-weight: 600;
-  color: rgba(212,168,67,0.6);
+  color: rgba(0,245,255,0.6);
   letter-spacing: 0.3px;
   flex-shrink: 0;
 }
@@ -3018,7 +3018,7 @@ h1, h2, h3, h4, h5,
   box-shadow: 0 0 6px rgba(0,229,160,0.6);
   animation: livePulse 2.4s ease-in-out infinite;
 }
-.res-live-dot.pulsing span { animation: none; background: #d4a843; }
+.res-live-dot.pulsing span { animation: none; background: #00F5FF; }
 @keyframes livePulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50%       { opacity: 0.4; transform: scale(0.75); }
@@ -3045,8 +3045,8 @@ h1, h2, h3, h4, h5,
   -webkit-appearance: none;
 }
 .res-search-input:focus {
-  border-color: rgba(212,168,67,0.5);
-  box-shadow: 0 0 0 3px rgba(212,168,67,0.08);
+  border-color: rgba(0,245,255,0.5);
+  box-shadow: 0 0 0 3px rgba(0,245,255,0.08);
 }
 .res-search-input::placeholder { color: rgba(255,255,255,0.3); }
 .res-search-clear {
@@ -3093,9 +3093,9 @@ h1, h2, h3, h4, h5,
 
 /* Dia ATIVO (hoje com promoção ativa) — dourado */
 .rd-folder-active {
-  border-color: rgba(212,168,67,0.45);
-  background: rgba(212,168,67,0.04);
-  box-shadow: 0 0 18px rgba(212,168,67,0.08);
+  border-color: rgba(0,245,255,0.45);
+  background: rgba(0,245,255,0.04);
+  box-shadow: 0 0 18px rgba(0,245,255,0.08);
 }
 
 /* Dias passados — mais suave */
@@ -3114,7 +3114,7 @@ h1, h2, h3, h4, h5,
   -webkit-user-select: none;
   transition: background 0.15s;
 }
-.rd-folder-active .rd-folder-header:hover { background: rgba(212,168,67,0.05); }
+.rd-folder-active .rd-folder-header:hover { background: rgba(0,245,255,0.05); }
 .rd-folder-past   .rd-folder-header:hover { background: rgba(255,255,255,0.03); }
 
 .rd-folder-left {
@@ -3178,7 +3178,7 @@ h1, h2, h3, h4, h5,
   border-top: 1px solid rgba(255,255,255,0.06);
 }
 .rd-folder-active.open .rd-folder-body {
-  border-top-color: rgba(212,168,67,0.15);
+  border-top-color: rgba(0,245,255,0.15);
 }
 
 /* ── Buscador interno de cada pasta ── */
@@ -3194,12 +3194,12 @@ h1, h2, h3, h4, h5,
   transition: border-color 0.2s;
 }
 .rd-folder-active .rd-day-search-wrap {
-  border-color: rgba(212,168,67,0.18);
-  background: rgba(212,168,67,0.04);
+  border-color: rgba(0,245,255,0.18);
+  background: rgba(0,245,255,0.04);
 }
 .rd-day-search-wrap:focus-within {
-  border-color: rgba(212,168,67,0.4);
-  box-shadow: 0 0 0 3px rgba(212,168,67,0.07);
+  border-color: rgba(0,245,255,0.4);
+  box-shadow: 0 0 0 3px rgba(0,245,255,0.07);
 }
 .rd-day-search-icon {
   font-size: 11px;
@@ -3258,7 +3258,7 @@ h1, h2, h3, h4, h5,
   padding: 9px 15px 6px;
 }
 .rd-subgroup-name {
-  font-size: 11px; font-weight: 700; color: rgba(212,168,67,0.7);
+  font-size: 11px; font-weight: 700; color: rgba(0,245,255,0.7);
   letter-spacing: 0.5px; text-transform: uppercase;
 }
 .rd-subgroup-count {
@@ -3295,10 +3295,10 @@ h1, h2, h3, h4, h5,
 /* Avatar com inicial */
 .rd-act-avatar {
   width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
-  background: rgba(212,168,67,0.1);
-  border: 1.5px solid rgba(212,168,67,0.2);
+  background: rgba(0,245,255,0.1);
+  border: 1.5px solid rgba(0,245,255,0.2);
   display: flex; align-items: center; justify-content: center;
-  font-size: 14px; font-weight: 800; color: #d4a843;
+  font-size: 14px; font-weight: 800; color: #00F5FF;
 }
 .rd-folder-past .rd-act-avatar {
   background: rgba(255,255,255,0.05);
@@ -3320,7 +3320,7 @@ h1, h2, h3, h4, h5,
   flex-shrink: 0;
   white-space: nowrap;
 }
-.rd-act-time i { font-size: 10px; color: rgba(212,168,67,0.45); }
+.rd-act-time i { font-size: 10px; color: rgba(0,245,255,0.45); }
 /* Badge de tipo de ativação na lista do bar */
 .rd-type-badge {
   display: inline-flex; align-items: center;
@@ -3342,9 +3342,9 @@ h1, h2, h3, h4, h5,
   border: 1px solid rgba(57,255,110,0.2);
 }
 .rd-type-free {
-  background: rgba(212,168,67,0.1);
-  color: #d4a843;
-  border: 1px solid rgba(212,168,67,0.25);
+  background: rgba(0,245,255,0.1);
+  color: #00F5FF;
+  border: 1px solid rgba(0,245,255,0.25);
 }
 
 /* Ponto verde "nova ativação" */
@@ -3466,7 +3466,7 @@ h1, h2, h3, h4, h5,
   display: flex; align-items: center; gap: 5px;
   white-space: nowrap; flex-shrink: 0;
 }
-.rp-event-meta i { color: rgba(212,168,67,0.5); }
+.rp-event-meta i { color: rgba(0,245,255,0.5); }
 
 /* Contador de clientes */
 .rp-list-counter {
@@ -3596,7 +3596,7 @@ h1, h2, h3, h4, h5,
   font-family: var(--font-display, 'Bebas Neue', sans-serif);
   font-size: 28px;
   font-weight: 700;
-  color: #f0c040;
+  color: #3cf7ff;
   line-height: 1;
 }
 .bex-explore-count-lbl {
@@ -3618,8 +3618,8 @@ h1, h2, h3, h4, h5,
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .bex-explore-search-wrap:focus-within {
-  border-color: rgba(212,168,67,0.45);
-  box-shadow: 0 0 0 3px rgba(212,168,67,0.08);
+  border-color: rgba(0,245,255,0.45);
+  box-shadow: 0 0 0 3px rgba(0,245,255,0.08);
 }
 .bex-explore-search-icon {
   font-size: 12px;
@@ -3668,7 +3668,7 @@ h1, h2, h3, h4, h5,
   transition: border-color 0.2s, transform 0.2s;
 }
 .bex-explore-card:hover {
-  border-color: rgba(212,168,67,0.3);
+  border-color: rgba(0,245,255,0.3);
   transform: translateY(-1px);
 }
 /* Marca o próprio bar (caso não tenha sido excluído, fica como referência) */
@@ -3759,13 +3759,13 @@ h1, h2, h3, h4, h5,
   align-items: center;
   gap: 4px;
 }
-.bex-explore-card-hood i { font-size: 10px; color: rgba(212,168,67,0.5); }
+.bex-explore-card-hood i { font-size: 10px; color: rgba(0,245,255,0.5); }
 .bex-explore-genre {
   font-size: 10px;
   font-weight: 700;
-  background: rgba(212,168,67,0.1);
-  color: #d4a843;
-  border: 1px solid rgba(212,168,67,0.2);
+  background: rgba(0,245,255,0.1);
+  color: #00F5FF;
+  border: 1px solid rgba(0,245,255,0.2);
   border-radius: 8px;
   padding: 3px 9px;
   white-space: nowrap;
@@ -3777,22 +3777,22 @@ h1, h2, h3, h4, h5,
   display: flex;
   align-items: flex-start;
   gap: 7px;
-  background: rgba(212,168,67,0.07);
-  border: 1px solid rgba(212,168,67,0.15);
+  background: rgba(0,245,255,0.07);
+  border: 1px solid rgba(0,245,255,0.15);
   border-radius: 10px;
   padding: 8px 11px;
   margin-bottom: 8px;
 }
 .bex-explore-benefit i {
   font-size: 12px;
-  color: #d4a843;
+  color: #00F5FF;
   margin-top: 1px;
   flex-shrink: 0;
 }
 .bex-explore-benefit span {
   font-size: 13px;
   font-weight: 600;
-  color: #f0c040;
+  color: #3cf7ff;
   line-height: 1.4;
 }
 
@@ -3810,7 +3810,7 @@ h1, h2, h3, h4, h5,
 /* +N benefícios */
 .bex-explore-more-promos {
   font-size: 11px;
-  color: rgba(212,168,67,0.6);
+  color: rgba(0,245,255,0.6);
   display: flex;
   align-items: center;
   gap: 5px;
@@ -3834,7 +3834,7 @@ h1, h2, h3, h4, h5,
 }
 .bex-explore-limit-fill {
   height: 100%;
-  background: linear-gradient(90deg, #00e5a0, #f0c040);
+  background: linear-gradient(90deg, #00e5a0, #3cf7ff);
   border-radius: 4px;
   transition: width 0.5s ease;
 }
@@ -3936,11 +3936,11 @@ h1, h2, h3, h4, h5,
 
 /* Card do promoter — diferenciado com borda dourada sutil */
 .prx-explore-card {
-  border-color: rgba(245,166,35,0.18) !important;
+  border-color: rgba(0,245,255,0.18) !important;
 }
 .prx-explore-card:hover {
-  border-color: rgba(245,166,35,0.4) !important;
-  box-shadow: 0 4px 20px rgba(245,166,35,0.08);
+  border-color: rgba(0,245,255,0.4) !important;
+  box-shadow: 0 4px 20px rgba(0,245,255,0.08);
 }
 
 /* Botão de ativar dentro do card */
@@ -3952,8 +3952,8 @@ h1, h2, h3, h4, h5,
   width: 100%;
   margin-top: 12px;
   padding: 11px 16px;
-  background: linear-gradient(135deg, rgba(245,166,35,0.15) 0%, rgba(245,166,35,0.08) 100%);
-  border: 1.5px solid rgba(245,166,35,0.45);
+  background: linear-gradient(135deg, rgba(0,245,255,0.15) 0%, rgba(0,245,255,0.08) 100%);
+  border: 1.5px solid rgba(0,245,255,0.45);
   border-radius: var(--r-sm);
   color: #f5c842;
   font-size: 13px;
@@ -3967,9 +3967,9 @@ h1, h2, h3, h4, h5,
   font-size: 14px;
 }
 .prx-explore-activate-btn:hover {
-  background: linear-gradient(135deg, rgba(245,166,35,0.28) 0%, rgba(245,166,35,0.15) 100%);
-  border-color: rgba(245,166,35,0.75);
-  box-shadow: 0 0 16px rgba(245,166,35,0.2);
+  background: linear-gradient(135deg, rgba(0,245,255,0.28) 0%, rgba(0,245,255,0.15) 100%);
+  border-color: rgba(0,245,255,0.75);
+  box-shadow: 0 0 16px rgba(0,245,255,0.2);
   transform: translateY(-1px);
 }
 .prx-explore-activate-btn:active {
@@ -4002,7 +4002,7 @@ h1, h2, h3, h4, h5,
 .bex-profile-hero::before {
   content: '';
   position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, #d4a843, #f0c040, #d4a843, transparent);
+  background: linear-gradient(90deg, transparent, #00F5FF, #3cf7ff, #00F5FF, transparent);
   z-index: 2;
 }
 .bex-profile-hero-top {
@@ -4017,10 +4017,10 @@ h1, h2, h3, h4, h5,
   display: flex; align-items: center; justify-content: center;
   transition: all 0.2s;
 }
-.bex-profile-back:hover { background: rgba(212,168,67,0.2); border-color: rgba(212,168,67,0.4); }
+.bex-profile-back:hover { background: rgba(0,245,255,0.2); border-color: rgba(0,245,255,0.4); }
 .bex-profile-hero-label {
   font-size: 10px; font-weight: 800; letter-spacing: 1.5px;
-  color: rgba(212,168,67,0.75); text-transform: uppercase;
+  color: rgba(0,245,255,0.75); text-transform: uppercase;
 }
 .bex-profile-identity {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
@@ -4032,7 +4032,7 @@ h1, h2, h3, h4, h5,
 .bex-profile-avatar {
   width: 72px; height: 72px; border-radius: 20px;
   background: linear-gradient(145deg,#1a0f00,#2d1a00);
-  border: 2px solid rgba(212,168,67,0.45);
+  border: 2px solid rgba(0,245,255,0.45);
   display: flex; align-items: center; justify-content: center;
   font-size: 28px; overflow: hidden;
   box-shadow: 0 4px 20px rgba(0,0,0,0.5);
@@ -4040,7 +4040,7 @@ h1, h2, h3, h4, h5,
 .bex-profile-avatar-cam {
   position: absolute; bottom: -4px; right: -4px;
   width: 24px; height: 24px; border-radius: 50%;
-  background: #d4a843; color: #000;
+  background: #00F5FF; color: #000;
   display: flex; align-items: center; justify-content: center;
   font-size: 10px; border: 2px solid #08080f;
 }
@@ -4055,8 +4055,8 @@ h1, h2, h3, h4, h5,
 }
 .bex-profile-role-tag {
   display: inline-flex; align-items: center; gap: 5px;
-  background: rgba(212,168,67,0.12); border: 1px solid rgba(212,168,67,0.3);
-  color: #d4a843; font-size: 10px; font-weight: 700;
+  background: rgba(0,245,255,0.12); border: 1px solid rgba(0,245,255,0.3);
+  color: #00F5FF; font-size: 10px; font-weight: 700;
   padding: 3px 10px; border-radius: 20px;
 }
 
@@ -4067,7 +4067,7 @@ h1, h2, h3, h4, h5,
   border-bottom: 1px solid rgba(255,255,255,0.05);
   font-size: 12px; color: rgba(255,255,255,0.45);
 }
-.bex-profile-email-row i { color: #d4a843; font-size: 12px; }
+.bex-profile-email-row i { color: #00F5FF; font-size: 12px; }
 
 .bex-profile-info-list {
   display: flex; flex-direction: column; gap: 2px;
@@ -4085,7 +4085,7 @@ h1, h2, h3, h4, h5,
   font-size: 14px; flex-shrink: 0;
 }
 .bex-pinfo-icon.music    { background: rgba(244,63,114,0.12); color: #f43f72; }
-.bex-pinfo-icon.location { background: rgba(212,168,67,0.12); color: #d4a843; }
+.bex-pinfo-icon.location { background: rgba(0,245,255,0.12); color: #00F5FF; }
 .bex-pinfo-icon.id       { background: rgba(99,102,241,0.12); color: #818cf8; }
 .bex-pinfo-icon.user     { background: rgba(0,229,160,0.12);  color: #00e5a0; }
 
@@ -4107,14 +4107,14 @@ h1, h2, h3, h4, h5,
   background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
   cursor: pointer; transition: all 0.2s; width: 100%; text-align: left;
 }
-.bex-profile-action-row:hover { border-color: rgba(212,168,67,0.2); transform: translateX(3px); }
+.bex-profile-action-row:hover { border-color: rgba(0,245,255,0.2); transform: translateX(3px); }
 
 .bex-paction-icon {
   width: 38px; height: 38px; border-radius: 11px;
   display: flex; align-items: center; justify-content: center;
   font-size: 15px; flex-shrink: 0;
 }
-.bex-paction-icon.gold { background: rgba(212,168,67,0.15); color: #d4a843; }
+.bex-paction-icon.gold { background: rgba(0,245,255,0.15); color: #00F5FF; }
 .bex-paction-icon.rose { background: rgba(244,63,114,0.15); color: #f43f72; }
 
 .bex-paction-text {

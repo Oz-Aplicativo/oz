@@ -2806,7 +2806,7 @@ async function loadBarDetailPromos(bar) {
         discount:     { icon: 'fa-percent',         color: '#34d399', label: 'Desconto'       },
         vip_entry:    { icon: 'fa-star',            color: '#f472b6', label: 'Entrada VIP'    },
         food_free:    { icon: 'fa-utensils',        color: '#60a5fa', label: 'Petisco grátis' },
-        livre:        { icon: 'fa-gift',            color: '#f59e0b', label: 'Benefício'      },
+        livre:        { icon: 'fa-gift',            color: '#00F5FF', label: 'Benefício'      },
       };
       promoList.innerHTML = promos.map(p => {
         const t = typeIcons[p.benefit_type] || typeIcons.livre;
@@ -5534,7 +5534,7 @@ function _showPixModal({ bar, type, qrData, activationId, pixCopyPaste, pixQrCod
 
           <div style="display:flex;align-items:center;gap:8px;justify-content:center;
                background:var(--surface-2);border-radius:8px;padding:10px 14px;margin-bottom:12px;">
-            <i class="fa fa-clock" style="color:var(--warning,#f59e0b);font-size:15px;"></i>
+            <i class="fa fa-clock" style="color:var(--warning,#00F5FF);font-size:15px;"></i>
             <span style="font-size:13px;color:var(--text-secondary);">
               Este PIX é válido por <strong>30 minutos</strong>. Após expirar, será necessário gerar um novo.
             </span>
@@ -7708,16 +7708,16 @@ function _renderBarDashboardChart(acts) {
       labels: days,
       datasets: [
         { label: 'Ativações', data: labelsActs,
-          borderColor: '#d4a843',
+          borderColor: '#00F5FF',
           backgroundColor: (ctx) => {
             const {ctx: c, chartArea} = ctx.chart;
-            if (!chartArea) return 'rgba(212,168,67,0.12)';
+            if (!chartArea) return 'rgba(0,245,255,0.12)';
             const g = c.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-            g.addColorStop(0, 'rgba(212,168,67,0.26)'); g.addColorStop(1, 'rgba(212,168,67,0.0)');
+            g.addColorStop(0, 'rgba(0,245,255,0.26)'); g.addColorStop(1, 'rgba(0,245,255,0.0)');
             return g;
           },
           borderWidth: 2.5, fill: true, tension: 0.45,
-          pointBackgroundColor: '#f0c84a', pointBorderColor: '#0f0e09',
+          pointBackgroundColor: '#3cf7ff', pointBorderColor: '#0f0e09',
           pointBorderWidth: 2, pointRadius: 5, pointHoverRadius: 7 },
         { label: 'Visitantes', data: labelsVisits,
           borderColor: '#a78bfa',
@@ -7736,8 +7736,8 @@ function _renderBarDashboardChart(acts) {
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false }, tooltip: {
-        backgroundColor: '#181710', borderColor: 'rgba(212,168,67,0.3)',
-        borderWidth: 1, titleColor: '#f0c84a', bodyColor: 'rgba(242,240,230,0.75)',
+        backgroundColor: '#181710', borderColor: 'rgba(0,245,255,0.3)',
+        borderWidth: 1, titleColor: '#3cf7ff', bodyColor: 'rgba(242,240,230,0.75)',
         padding: 14, cornerRadius: 10
       }},
       scales: {
@@ -11956,9 +11956,9 @@ function _renderPromoHomeCharts(stats) {
           },
           tooltip: {
             backgroundColor: 'rgba(20,20,28,0.95)',
-            borderColor: 'rgba(212,168,67,0.3)',
+            borderColor: 'rgba(0,245,255,0.3)',
             borderWidth: 1,
-            titleColor: '#f0c84a',
+            titleColor: '#3cf7ff',
             bodyColor: 'rgba(255,255,255,0.75)',
             padding: 10,
             callbacks: {
@@ -13209,9 +13209,9 @@ async function loadClientPromoterPick() {
         statusEl.style.border     = '1px solid rgba(34,197,94,0.35)';
       } else {
         statusEl.textContent = '📅 HOJE';
-        statusEl.style.background = 'rgba(245,166,35,0.15)';
-        statusEl.style.color      = '#f5a623';
-        statusEl.style.border     = '1px solid rgba(245,166,35,0.35)';
+        statusEl.style.background = 'rgba(0,245,255,0.15)';
+        statusEl.style.color      = '#00F5FF';
+        statusEl.style.border     = '1px solid rgba(0,245,255,0.35)';
       }
       statusEl.style.display = 'inline-block';
     }

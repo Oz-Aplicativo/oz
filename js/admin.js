@@ -2000,7 +2000,7 @@ const CAT_EMOJI    = { 'Comidinha': '🍔', 'Bebida': '🍺', 'Entrada VIP': '�
 const CAT_COLOR    = {
   'Comidinha':   '#f97316',
   'Bebida':      '#60a5fa',
-  'Entrada VIP': '#d4a843',
+  'Entrada VIP': '#00F5FF',
   'Desconto':    '#34d399',
   'Outros':      '#a78bfa',
 };
