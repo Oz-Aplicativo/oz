@@ -1,4 +1,4 @@
-const CACHE = 'oz-shell-v1';
+const CACHE = 'oz-shell-v2';
 const PRECACHE = [
   './',
   './index.html',
@@ -6,7 +6,7 @@ const PRECACHE = [
   './css/style.css?v=20261026d',
   './css/theme.css?v=20261026d',
   './js/supabase-auth.js',
-  './js/app.js?v=20261026d',
+  './js/app.js?v=20261026g',
   './js/pwa.js',
   './icons/icon-192.png',
   './icons/icon-512.png',

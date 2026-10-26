@@ -760,7 +760,7 @@ function switchSection(section, el) {
 /* ══════════════════════════════════════════════════
    PATROCINADOS — bar no topo da home
    Persistido em bars.featured_promo:
-   { "sponsored_until": ISO, "sponsored_at": ISO }
+   { "sponsored_until": ISO, "sponsored_at": ISO, "sponsored_rank": 1 }
 ══════════════════════════════════════════════════ */
 function parseBarSponsor(raw) {
   if (!raw || typeof raw !== 'string' || raw.charAt(0) !== '{') return null;
@@ -769,13 +769,66 @@ function parseBarSponsor(raw) {
     const until = new Date(data.sponsored_until);
     const at = new Date(data.sponsored_at || 0);
     if (Number.isNaN(until.getTime())) return null;
+    const rankNum = Number(data.sponsored_rank);
     return {
       until,
       at: Number.isNaN(at.getTime()) ? new Date(0) : at,
+      rank: Number.isFinite(rankNum) && rankNum >= 1 ? Math.floor(rankNum) : null,
       active: until.getTime() > Date.now(),
     };
   } catch {
     return null;
+  }
+}
+
+function _sponsorToJson(sponsor) {
+  return JSON.stringify({
+    sponsored_until: sponsor.until instanceof Date ? sponsor.until.toISOString() : sponsor.until,
+    sponsored_at: sponsor.at instanceof Date ? sponsor.at.toISOString() : sponsor.at,
+    sponsored_rank: sponsor.rank,
+  });
+}
+
+function _sortSponsoredItems(items) {
+  return items.sort((a, b) => {
+    const ra = a.sponsor.rank ?? 9999;
+    const rb = b.sponsor.rank ?? 9999;
+    if (ra !== rb) return ra - rb;
+    return (b.sponsor.at?.getTime?.() || 0) - (a.sponsor.at?.getTime?.() || 0);
+  });
+}
+
+function _activeSponsored(bars, excludeId) {
+  return _sortSponsoredItems(
+    bars
+      .filter(bar => !excludeId || bar.id !== excludeId)
+      .map(bar => ({ bar, sponsor: parseBarSponsor(bar.featured_promo) }))
+      .filter(item => item.sponsor?.active)
+  );
+}
+
+function _fillSponsorRankSelect(count) {
+  const sel = document.getElementById('sponsor-rank');
+  if (!sel) return;
+  const current = sel.value;
+  const max = Math.max(1, count + 1);
+  let html = '';
+  for (let i = 1; i <= max; i++) {
+    html += `<option value="${i}">${i}º lugar</option>`;
+  }
+  html += '<option value="end">No final</option>';
+  sel.innerHTML = html;
+  if ([...sel.options].some(o => o.value === current)) sel.value = current;
+  else sel.value = '1';
+}
+
+async function _applySponsorRanks(items, forceId) {
+  for (let i = 0; i < items.length; i++) {
+    const nextRank = i + 1;
+    const { bar, sponsor } = items[i];
+    if (sponsor.rank === nextRank && bar.id !== forceId) continue;
+    sponsor.rank = nextRank;
+    await _patchBarSponsor(bar.id, _sponsorToJson(sponsor));
   }
 }
 
@@ -834,22 +887,34 @@ async function loadSponsored() {
     }).join('');
     if (current) select.value = current;
 
-    const active = bars
-      .map(bar => ({ bar, sponsor: parseBarSponsor(bar.featured_promo) }))
-      .filter(item => item.sponsor?.active)
-      .sort((a, b) => b.sponsor.at - a.sponsor.at);
+    const active = _activeSponsored(bars);
+    _fillSponsorRankSelect(active.length);
+    if (active.some(item => item.sponsor.rank == null)) {
+      await _applySponsorRanks(active);
+    }
 
     if (!active.length) {
       listEl.innerHTML = '<p class="sponsor-empty">Nenhum bar no topo agora.</p>';
       return;
     }
 
-    listEl.innerHTML = active.map(({ bar, sponsor }) => `
+    listEl.innerHTML = active.map(({ bar, sponsor }, i) => `
       <article class="sponsor-row">
-        <div class="sponsor-row-info">
-          <strong>${escHtml(bar.name || 'Bar')}</strong>
-          <span>${escHtml(bar.neighborhood || 'Sem bairro')}</span>
-          <em>No topo até ${_formatSponsorUntil(sponsor.until)} · ${_formatSponsorLeft(sponsor.until)}</em>
+        <div class="sponsor-row-main">
+          <div class="sponsor-rank">
+            <button type="button" class="sponsor-rank-btn" onclick="moveSponsorRank('${bar.id}', -1)" ${i === 0 ? 'disabled' : ''} aria-label="Subir no ranking">
+              <i class="fa fa-chevron-up"></i>
+            </button>
+            <span class="sponsor-rank-num">${i + 1}º</span>
+            <button type="button" class="sponsor-rank-btn" onclick="moveSponsorRank('${bar.id}', 1)" ${i === active.length - 1 ? 'disabled' : ''} aria-label="Descer no ranking">
+              <i class="fa fa-chevron-down"></i>
+            </button>
+          </div>
+          <div class="sponsor-row-info">
+            <strong>${escHtml(bar.name || 'Bar')}</strong>
+            <span>${escHtml(bar.neighborhood || 'Sem bairro')}</span>
+            <em>No topo até ${_formatSponsorUntil(sponsor.until)} · ${_formatSponsorLeft(sponsor.until)}</em>
+          </div>
         </div>
         <button type="button" class="btn-reject" onclick="removeBarSponsor('${bar.id}')">Tirar do topo</button>
       </article>
@@ -883,11 +948,20 @@ async function saveBarSponsor() {
 
   if (btn) { btn.disabled = true; btn.textContent = 'Salvando...'; }
   try {
-    await _patchBarSponsor(barId, JSON.stringify({
-      sponsored_until: until.toISOString(),
-      sponsored_at: new Date().toISOString(),
-    }));
-    showAdminToast('Bar colocado no topo da home.', 'success');
+    const bars = await sbAdminFetchAll('bars');
+    const others = _activeSponsored(bars, barId);
+    const rankSel = document.getElementById('sponsor-rank')?.value || '1';
+    let insertAt = others.length;
+    if (rankSel !== 'end') {
+      const wanted = Number(rankSel);
+      insertAt = Number.isFinite(wanted) ? Math.max(0, Math.min(others.length, wanted - 1)) : 0;
+    }
+    others.splice(insertAt, 0, {
+      bar: { id: barId },
+      sponsor: { until, at: new Date(), rank: 0, active: true },
+    });
+    await _applySponsorRanks(others, barId);
+    showAdminToast(`${insertAt + 1}º no ranking da home.`, 'success');
     await loadSponsored();
   } catch (err) {
     showAdminToast(err?.message || 'Não foi possível patrocinar o bar.', 'error');
@@ -899,11 +973,30 @@ async function saveBarSponsor() {
   }
 }
 
+async function moveSponsorRank(barId, dir) {
+  if (!barId || !dir) return;
+  try {
+    const items = _activeSponsored(await sbAdminFetchAll('bars'));
+    const idx = items.findIndex(item => item.bar.id === barId);
+    const next = idx + dir;
+    if (idx < 0 || next < 0 || next >= items.length) return;
+    const swap = items[idx];
+    items[idx] = items[next];
+    items[next] = swap;
+    await _applySponsorRanks(items);
+    await loadSponsored();
+  } catch (err) {
+    showAdminToast(err?.message || 'Não foi possível reordenar.', 'error');
+  }
+}
+
 async function removeBarSponsor(barId) {
   if (!barId) return;
   if (!confirm('Tirar este bar do topo da home?')) return;
   try {
     await _patchBarSponsor(barId, '');
+    const remaining = _activeSponsored(await sbAdminFetchAll('bars'));
+    await _applySponsorRanks(remaining);
     showAdminToast('Bar removido do topo.', 'success');
     await loadSponsored();
   } catch (err) {

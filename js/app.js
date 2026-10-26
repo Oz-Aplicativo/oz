@@ -1713,7 +1713,7 @@ function renderBarsEmpty() {
 }
 
 /* Patrocínio fica em bars.featured_promo como JSON:
-   { sponsored_until, sponsored_at }. Campo já existia e não era usado na home. */
+   { sponsored_until, sponsored_at, sponsored_rank }. Campo já existia e não era usado na home. */
 function parseBarSponsor(raw) {
   if (!raw || typeof raw !== 'string' || raw.charAt(0) !== '{') return null;
   try {
@@ -1721,9 +1721,11 @@ function parseBarSponsor(raw) {
     const until = new Date(data.sponsored_until);
     const at = new Date(data.sponsored_at || 0);
     if (Number.isNaN(until.getTime())) return null;
+    const rankNum = Number(data.sponsored_rank);
     return {
       until,
       at: Number.isNaN(at.getTime()) ? new Date(0) : at,
+      rank: Number.isFinite(rankNum) && rankNum >= 1 ? Math.floor(rankNum) : null,
       active: until.getTime() > Date.now(),
     };
   } catch {
@@ -1749,6 +1751,9 @@ function _orderHomeBars(bars) {
   sponsored.sort((a, b) => {
     const sa = parseBarSponsor(a.featured_promo);
     const sb = parseBarSponsor(b.featured_promo);
+    const ra = sa?.rank ?? 9999;
+    const rb = sb?.rank ?? 9999;
+    if (ra !== rb) return ra - rb;
     return (sb?.at?.getTime() || 0) - (sa?.at?.getTime() || 0);
   });
   return sponsored.concat(rest);

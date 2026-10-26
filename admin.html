@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="css/admin.css?v=20261026f" />
+  <link rel="stylesheet" href="css/admin.css?v=20261026g" />
 </head>
 <body>
 
@@ -762,7 +762,7 @@
         <header class="main-header">
           <div class="header-left">
             <h1 class="header-title"><i class="fa fa-bullhorn" style="color:#00F5FF"></i> Patrocinados</h1>
-            <p class="header-sub">Escolha quem fica no topo da home e por quanto tempo</p>
+            <p class="header-sub">Escolha quem fica no topo da home, a ordem e por quanto tempo</p>
           </div>
           <div class="header-right">
             <button class="btn-refresh" onclick="loadSponsored()" title="Atualizar">
@@ -777,13 +777,20 @@
               <i class="fa fa-arrow-up" style="color:#00F5FF"></i>
               <span>Colocar um bar no topo</span>
             </div>
-            <p class="sponsor-hint">Sem filtro, o bar patrocinado aparece primeiro na lista de hoje, desde que tenha benefício ativo. Se o cliente filtrar ou buscar e o bar não combinar, ele sai da lista.</p>
+            <p class="sponsor-hint">Sem filtro, os patrocinados aparecem no topo na ordem do ranking (1º, 2º, 3º…). Se o cliente filtrar ou buscar e o bar não combinar, ele sai da lista.</p>
 
             <div class="sponsor-form">
               <div class="field-group">
                 <label>Bar</label>
                 <select id="sponsor-bar" class="field-input">
                   <option value="">Carregando bares...</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label>Posição no ranking</label>
+                <select id="sponsor-rank" class="field-input">
+                  <option value="1">1º lugar</option>
+                  <option value="end">No final</option>
                 </select>
               </div>
               <div class="field-group">
@@ -811,7 +818,7 @@
           <div class="bk-panel bk-panel-full sponsor-panel">
             <div class="bk-panel-hd">
               <i class="fa fa-star" style="color:#00F5FF"></i>
-              <span>No topo agora</span>
+              <span>Ranking no topo</span>
             </div>
             <div id="sponsor-list" class="sponsor-list">
               <p class="sponsor-empty">Carregando...</p>
@@ -1174,6 +1181,6 @@
   <div class="toast" id="admin-toast"></div>
 
   <script src="js/supabase-auth.js"></script>
-  <script src="js/admin.js?v=20261026e"></script>
+  <script src="js/admin.js?v=20261026g"></script>
 </body>
 </html>
