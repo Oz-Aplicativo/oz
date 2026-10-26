@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Termos de Uso — OZ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg:       #0d0d14;
+      --bg2:      #13131f;
+      --bg3:      #1a1a2e;
+      --border:   rgba(255,255,255,.08);
+      --text:     #e2e2f0;
+      --text2:    #8888aa;
+      --gold:     #d4a843;
+      --green:    #4ade80;
+      --blue:     #60a5fa;
+      --purple:   #c084fc;
+      --red:      #f87171;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ── HEADER ── */
+    .pp-header {
+      background: linear-gradient(135deg, #0d0d14 0%, #1a1a2e 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 24px 28px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .pp-logo {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 3px;
+      margin-bottom: 4px;
+    }
+    .pp-header-sub {
+      font-size: 12px;
+      color: var(--text2);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ── LAYOUT ── */
+    .pp-container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── HERO ── */
+    .pp-hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #13131f 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .pp-hero-icon {
+      font-size: 40px;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .pp-hero h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .pp-hero p {
+      color: var(--text2);
+      font-size: 14px;
+      max-width: 520px;
+      margin: 0 auto 20px;
+    }
+    .pp-badges {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .pp-badge {
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pp-badge i { color: var(--gold); }
+
+    /* ── ÍNDICE ── */
+    .pp-toc {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 40px;
+    }
+    .pp-toc h2 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text2);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pp-toc h2 i { color: var(--gold); }
+    .pp-toc ol {
+      padding-left: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 24px;
+    }
+    @media (max-width: 520px) {
+      .pp-toc ol { grid-template-columns: 1fr; }
+    }
+    .pp-toc li { font-size: 13px; }
+    .pp-toc a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .pp-toc a:hover { text-decoration: underline; }
+
+    /* ── SEÇÕES ── */
+    .pp-section {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+    }
+    .pp-section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .pp-section-num {
+      background: linear-gradient(135deg, var(--gold), #b8860b);
+      color: #000;
+      font-size: 13px;
+      font-weight: 700;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .pp-section-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+    .pp-section-title small {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text2);
+      margin-top: 3px;
+    }
+
+    .pp-section p { color: var(--text2); margin-bottom: 14px; font-size: 14px; }
+    .pp-section p:last-child { margin-bottom: 0; }
+    .pp-section strong { color: var(--text); }
+    .pp-section a { color: var(--blue); text-decoration: none; }
+    .pp-section a:hover { text-decoration: underline; }
+
+    /* Listas */
+    .pp-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .pp-list li {
+      color: var(--text2);
+      font-size: 14px;
+      padding-left: 22px;
+      position: relative;
+    }
+    .pp-list li::before {
+      content: '▸';
+      color: var(--gold);
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .pp-list li strong { color: var(--text); }
+
+    /* Tabela de perfis */
+    .pp-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 14px;
+      font-size: 13px;
+    }
+    .pp-table th {
+      background: rgba(255,255,255,.05);
+      color: var(--text2);
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+    }
+    .pp-table td {
+      padding: 10px 14px;
+      color: var(--text2);
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      vertical-align: top;
+    }
+    .pp-table tr:last-child td { border-bottom: none; }
+    .pp-table td strong { color: var(--text); }
+
+    /* Destaque info */
+    .pp-info-box {
+      background: rgba(96, 165, 250, .08);
+      border: 1px solid rgba(96, 165, 250, .2);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: var(--blue);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .pp-info-box i { flex-shrink: 0; margin-top: 2px; }
+
+    .pp-warn-box {
+      background: rgba(248, 113, 113, .08);
+      border: 1px solid rgba(248, 113, 113, .2);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: var(--red);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .pp-warn-box i { flex-shrink: 0; margin-top: 2px; }
+
+    .pp-gold-box {
+      background: rgba(212, 168, 67, .08);
+      border: 1px solid rgba(212, 168, 67, .2);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: var(--gold);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .pp-gold-box i { flex-shrink: 0; margin-top: 2px; }
+
+    /* Tags de perfil */
+    .role-tag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      margin-right: 4px;
+    }
+    .role-cliente  { background: rgba(96,165,250,.15);  color: var(--blue);   border: 1px solid rgba(96,165,250,.3);  }
+    .role-bar      { background: rgba(212,168,67,.15);  color: var(--gold);   border: 1px solid rgba(212,168,67,.3);  }
+    .role-promoter { background: rgba(192,132,252,.15); color: var(--purple); border: 1px solid rgba(192,132,252,.3); }
+
+    /* ── RODAPÉ ── */
+    .pp-footer {
+      margin-top: 48px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+    }
+    .pp-footer-logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 3px;
+      margin-bottom: 8px;
+    }
+    .pp-footer p {
+      font-size: 13px;
+      color: var(--text2);
+      margin-bottom: 6px;
+    }
+    .pp-footer a { color: var(--blue); text-decoration: none; }
+    .pp-footer a:hover { text-decoration: underline; }
+    .pp-footer-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .pp-footer-links a {
+      font-size: 13px;
+      color: var(--text2);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pp-footer-links a:hover { color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .pp-section { padding: 22px 18px; }
+      .pp-hero    { padding: 28px 20px; }
+      .pp-toc     { padding: 20px 18px; }
+      .pp-container { padding: 24px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ─────────────────────────────────────────────────────────────── -->
+<header class="pp-header">
+  <div class="pp-logo">OZ</div>
+  <div class="pp-header-sub">Termos de Uso da Plataforma</div>
+</header>
+
+<div class="pp-container">
+
+  <!-- ── HERO ── -->
+  <div class="pp-hero">
+    <div class="pp-hero-icon"><i class="fa fa-file-contract"></i></div>
+    <h1>Termos de Uso</h1>
+    <p>Ao criar sua conta ou utilizar a plataforma OZ, você concorda com as condições abaixo. Leia com atenção antes de prosseguir.</p>
+    <div class="pp-badges">
+      <span class="pp-badge"><i class="fa fa-calendar-alt"></i> Vigência: 18/05/2025</span>
+      <span class="pp-badge"><i class="fa fa-map-marker-alt"></i> Brasil</span>
+      <span class="pp-badge"><i class="fa fa-balance-scale"></i> LGPD · CDC · Marco Civil</span>
+      <span class="pp-badge"><i class="fa fa-envelope"></i> tecnologia@ozaplicativo.com.br</span>
+    </div>
+  </div>
+
+  <!-- ── ÍNDICE ── -->
+  <div class="pp-toc">
+    <h2><i class="fa fa-list"></i> Índice</h2>
+    <ol>
+      <li><a href="#art1">Definições e Partes</a></li>
+      <li><a href="#art2">Objeto e Natureza da Plataforma</a></li>
+      <li><a href="#art3">Cadastro e Elegibilidade</a></li>
+      <li><a href="#art4">Perfil Cliente</a></li>
+      <li><a href="#art5">Perfil Bar / Estabelecimento</a></li>
+      <li><a href="#art6">Perfil Promoter</a></li>
+      <li><a href="#art7">Benefícios, Ativações e Cancelamentos</a></li>
+      <li><a href="#art8">Pagamentos e Tarifas</a></li>
+      <li><a href="#art9">Comissões e Repasses a Promoters</a></li>
+      <li><a href="#art10">Conteúdo e Conduta</a></li>
+      <li><a href="#art11">Propriedade Intelectual</a></li>
+      <li><a href="#art12">Privacidade e Dados Pessoais</a></li>
+      <li><a href="#art13">Suspensão e Encerramento de Conta</a></li>
+      <li><a href="#art14">Limitação de Responsabilidade</a></li>
+      <li><a href="#art15">Alterações dos Termos</a></li>
+      <li><a href="#art16">Disposições Gerais</a></li>
+    </ol>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 1 — DEFINIÇÕES                                                   -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art1">
+    <div class="pp-section-header">
+      <div class="pp-section-num">1</div>
+      <div>
+        <div class="pp-section-title">Definições e Partes
+          <small>Quem somos e o que significa cada termo</small>
+        </div>
+      </div>
+    </div>
+
+    <p>Para os fins destes Termos, os termos abaixo têm as seguintes definições:</p>
+
+    <table class="pp-table">
+      <thead>
+        <tr>
+          <th>Termo</th>
+          <th>Definição</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>OZ / Plataforma</strong></td>
+          <td>Aplicativo web e/ou mobile operado pela OZ Aplicativo, que conecta clientes, bares e promoters para acesso a benefícios exclusivos em estabelecimentos parceiros.</td>
+        </tr>
+        <tr>
+          <td><strong>Usuário</strong></td>
+          <td>Qualquer pessoa física ou jurídica que acesse ou utilize a Plataforma, independentemente do perfil (Cliente, Bar ou Promoter).</td>
+        </tr>
+        <tr>
+          <td><strong>Cliente</strong></td>
+          <td>Pessoa física maior de 18 anos cadastrada para consumir benefícios nos bares parceiros.</td>
+        </tr>
+        <tr>
+          <td><strong>Bar / Estabelecimento</strong></td>
+          <td>Pessoa jurídica ou empresário individual cadastrado para oferecer benefícios exclusivos por meio da Plataforma.</td>
+        </tr>
+        <tr>
+          <td><strong>Promoter</strong></td>
+          <td>Pessoa física aprovada pela OZ para indicar clientes aos bares parceiros e receber comissões pelas ativações geradas.</td>
+        </tr>
+        <tr>
+          <td><strong>Benefício</strong></td>
+          <td>Vantagem exclusiva (drink grátis, desconto, entrada VIP etc.) publicada pelo bar e acessível mediante ativação pelo cliente.</td>
+        </tr>
+        <tr>
+          <td><strong>Ativação</strong></td>
+          <td>Ato pelo qual o cliente resgata um benefício no bar, gerando registro na Plataforma e, quando aplicável, cobrança financeira.</td>
+        </tr>
+        <tr>
+          <td><strong>Crédito Grátis</strong></td>
+          <td>Ativação gratuita concedida pela OZ como compensação por cancelamento de benefício pelo bar.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 2 — OBJETO                                                       -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art2">
+    <div class="pp-section-header">
+      <div class="pp-section-num">2</div>
+      <div>
+        <div class="pp-section-title">Objeto e Natureza da Plataforma
+          <small>O que a OZ é e o que ela não é</small>
+        </div>
+      </div>
+    </div>
+
+    <p>A OZ é uma <strong>plataforma de intermediação tecnológica</strong> que conecta clientes a bares parceiros por meio de benefícios exclusivos, e permite que promoters ganhem comissões por indicações bem-sucedidas.</p>
+
+    <div class="pp-info-box">
+      <i class="fa fa-info-circle"></i>
+      <span>A OZ <strong>não é parte</strong> na relação de consumo entre cliente e bar. A responsabilidade pelo fornecimento do benefício (qualidade, disponibilidade, atendimento) é exclusiva do estabelecimento parceiro.</span>
+    </div>
+
+    <p>A Plataforma atua como:</p>
+    <ul class="pp-list">
+      <li>Canal de descoberta de benefícios e eventos em bares;</li>
+      <li>Sistema de gestão de ativações, reservas e lista de presença;</li>
+      <li>Motor de comissionamento para promoters;</li>
+      <li>Ferramenta de comunicação entre bar, cliente e promoter.</li>
+    </ul>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 3 — CADASTRO                                                     -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art3">
+    <div class="pp-section-header">
+      <div class="pp-section-num">3</div>
+      <div>
+        <div class="pp-section-title">Cadastro e Elegibilidade
+          <small>Quem pode usar a plataforma</small>
+        </div>
+      </div>
+    </div>
+
+    <p>Para criar uma conta na OZ, o Usuário deve:</p>
+    <ul class="pp-list">
+      <li>Ser <strong>pessoa física maior de 18 anos</strong> (Cliente ou Promoter) ou <strong>pessoa jurídica regularmente constituída</strong> (Bar);</li>
+      <li>Fornecer informações verdadeiras, precisas e atualizadas no cadastro;</li>
+      <li>Manter um único cadastro por perfil;</li>
+      <li>Aceitar estes Termos de Uso e a <a href="privacy-policy.html" target="_blank">Política de Privacidade</a>.</li>
+    </ul>
+
+    <div class="pp-warn-box">
+      <i class="fa fa-exclamation-triangle"></i>
+      <span>É <strong>vedado o cadastro de menores de 18 anos</strong>. A OZ oferece acesso a ambientes com consumo de bebidas alcoólicas, sendo vedada a presença de menores conforme legislação vigente. Contas identificadas como pertencentes a menores serão imediatamente encerradas.</span>
+    </div>
+
+    <p>O Usuário é <strong>exclusivamente responsável</strong> pela guarda e sigilo de suas credenciais de acesso (e-mail e senha). Atividades realizadas com suas credenciais são de sua responsabilidade, salvo comprovação de uso não autorizado notificado à OZ em até 24 horas.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 4 — CLIENTE                                                      -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art4">
+    <div class="pp-section-header">
+      <div class="pp-section-num">4</div>
+      <div>
+        <div class="pp-section-title">Perfil Cliente
+          <small>Direitos, deveres e regras de uso para clientes</small>
+        </div>
+      </div>
+    </div>
+
+    <p><span class="role-tag role-cliente">Cliente</span> Ao se cadastrar como Cliente, o Usuário pode:</p>
+    <ul class="pp-list">
+      <li>Descobrir bares parceiros e seus benefícios ativos;</li>
+      <li>Ativar benefícios individuais (unitário) ou Noite Toda (link válido em múltiplos bares);</li>
+      <li>Receber créditos grátis como compensação por cancelamentos do bar;</li>
+      <li>Indicar amigos usando seu código de referência;</li>
+      <li>Avaliar estabelecimentos após visita.</li>
+    </ul>
+
+    <p><strong>Regras de ativação:</strong></p>
+    <ul class="pp-list">
+      <li>Cada cliente pode ativar <strong>1 benefício individual por bar por dia</strong> (ciclo encerra às 06h00);</li>
+      <li>Ativações canceladas pelo bar não bloqueiam nova ativação — o cliente recebe 1 crédito grátis de compensação;</li>
+      <li>Créditos grátis são válidos apenas para ativações <strong>individuais</strong> e expiram em 30 dias;</li>
+      <li>O benefício "Noite Toda" dá acesso a todos os bares participantes pelo valor único de R$10,00;</li>
+      <li>O cliente entra na lista do bar <strong>somente após concluir a ativação</strong> (pagamento confirmado ou uso de crédito grátis).</li>
+    </ul>
+
+    <div class="pp-info-box">
+      <i class="fa fa-info-circle"></i>
+      <span>O benefício ativado é <strong>nominal e intransferível</strong>. O bar pode solicitar identificação para validar a ativação.</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 5 — BAR                                                          -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art5">
+    <div class="pp-section-header">
+      <div class="pp-section-num">5</div>
+      <div>
+        <div class="pp-section-title">Perfil Bar / Estabelecimento
+          <small>Direitos, obrigações e responsabilidades dos bares parceiros</small>
+        </div>
+      </div>
+    </div>
+
+    <p><span class="role-tag role-bar">Bar</span> O cadastro de estabelecimentos está sujeito à <strong>aprovação prévia pela OZ</strong>. Após aprovação, o Bar poderá:</p>
+    <ul class="pp-list">
+      <li>Publicar benefícios ao vivo (imediatos) ou benefícios agendados para datas futuras;</li>
+      <li>Definir tipo, título, descrição, limite de vagas e horário do benefício;</li>
+      <li>Gerenciar a lista de presença em tempo real;</li>
+      <li>Cancelar a entrada individual de um cliente (com geração automática de crédito de compensação);</li>
+      <li>Cancelar o benefício do dia (com notificação a todos os clientes afetados).</li>
+    </ul>
+
+    <p><strong>Obrigações do Bar:</strong></p>
+    <ul class="pp-list">
+      <li>Honrar integralmente o benefício publicado para todos os clientes que ativaram;</li>
+      <li>Não discriminar clientes baseado em raça, gênero, orientação sexual, religião ou qualquer outro critério vedado por lei;</li>
+      <li>Informar o motivo ao cancelar um benefício do dia;</li>
+      <li>Manter os dados cadastrais (CNPJ, endereço, responsável) sempre atualizados e verídicos;</li>
+      <li>Respeitar a legislação vigente sobre consumo de bebidas alcoólicas (especialmente quanto a menores de idade).</li>
+    </ul>
+
+    <div class="pp-warn-box">
+      <i class="fa fa-exclamation-triangle"></i>
+      <span>O não cumprimento reiterado do benefício publicado ou a discriminação de clientes podem resultar em <strong>suspensão ou exclusão permanente</strong> do estabelecimento da Plataforma, sem prejuízo das responsabilidades legais cabíveis.</span>
+    </div>
+
+    <p>O Bar declara ter autorização para operar o estabelecimento (alvará, licenças sanitárias etc.) e mantém a OZ isenta de qualquer responsabilidade por irregularidades no estabelecimento físico.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 6 — PROMOTER                                                     -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art6">
+    <div class="pp-section-header">
+      <div class="pp-section-num">6</div>
+      <div>
+        <div class="pp-section-title">Perfil Promoter
+          <small>Regras, comissões e obrigações dos promoters</small>
+        </div>
+      </div>
+    </div>
+
+    <p><span class="role-tag role-promoter">Promoter</span> O perfil Promoter é destinado a pessoas físicas que desejam indicar clientes aos bares parceiros e receber comissões. O cadastro está sujeito à <strong>aprovação prévia pela OZ</strong>.</p>
+
+    <p><strong>O Promoter pode:</strong></p>
+    <ul class="pp-list">
+      <li>Indicar um bar por vez por meio da funcionalidade "Minha Indicação";</li>
+      <li>Receber comissão por cada ativação gerada por clientes vinculados ao seu código;</li>
+      <li>Solicitar saque do saldo acumulado em sua carteira digital;</li>
+      <li>Ativar benefícios nos bares como cliente comum.</li>
+    </ul>
+
+    <p><strong>Regras e vedações:</strong></p>
+    <ul class="pp-list">
+      <li>É vedado o uso de meios enganosos, spam ou qualquer prática de marketing abusivo para captação de clientes;</li>
+      <li>O Promoter não é empregado, sócio, representante legal nem franqueado da OZ — a relação é de <strong>parceria comercial independente</strong>;</li>
+      <li>A OZ pode alterar as regras e percentuais de comissão mediante notificação prévia de 15 dias;</li>
+      <li>Contas com indícios de fraude (ativações simuladas, auto-indicação etc.) serão suspensas e o saldo bloqueado para investigação.</li>
+    </ul>
+
+    <div class="pp-gold-box">
+      <i class="fa fa-coins"></i>
+      <span>As regras detalhadas de comissão, percentuais, prazos de repasse e condições de saque estão descritas na seção <a href="#art9">Artigo 9 — Comissões e Repasses</a>.</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 7 — BENEFÍCIOS E CANCELAMENTOS                                   -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art7">
+    <div class="pp-section-header">
+      <div class="pp-section-num">7</div>
+      <div>
+        <div class="pp-section-title">Benefícios, Ativações e Cancelamentos
+          <small>Ciclo de vida de um benefício na plataforma</small>
+        </div>
+      </div>
+    </div>
+
+    <p><strong>Ciclo de um benefício:</strong></p>
+    <ul class="pp-list">
+      <li>O bar publica o benefício (ao vivo ou agendado), tornando-o visível aos clientes;</li>
+      <li>O cliente ativa o benefício mediante pagamento ou uso de crédito grátis;</li>
+      <li>O cliente entra automaticamente na lista de presença do bar;</li>
+      <li>O benefício expira diariamente às <strong>06h00</strong>, encerrando o ciclo da noite.</li>
+    </ul>
+
+    <p><strong>Cancelamento pelo bar (entrada individual):</strong></p>
+    <ul class="pp-list">
+      <li>O bar pode remover um cliente da lista a qualquer momento;</li>
+      <li>O cliente recebe automaticamente <strong>1 crédito grátis</strong> como compensação;</li>
+      <li>O cliente fica livre para reativar no mesmo bar ou usar o crédito em outro.</li>
+    </ul>
+
+    <p><strong>Cancelamento do benefício do dia:</strong></p>
+    <ul class="pp-list">
+      <li>O bar pode cancelar o benefício inteiro do dia informando o motivo;</li>
+      <li>Todos os clientes com ativação <strong>confirmada (paga)</strong> recebem 1 crédito grátis de compensação e notificação;</li>
+      <li>Ativações com pagamento ainda não confirmado são removidas do sistema sem cobrança;</li>
+      <li>O bar é notificado da quantidade de clientes afetados.</li>
+    </ul>
+
+    <div class="pp-info-box">
+      <i class="fa fa-info-circle"></i>
+      <span>A OZ não realiza estornos financeiros diretos ao cliente. A compensação é feita via crédito grátis utilizável na Plataforma.</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 8 — PAGAMENTOS                                                   -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art8">
+    <div class="pp-section-header">
+      <div class="pp-section-num">8</div>
+      <div>
+        <div class="pp-section-title">Pagamentos e Tarifas
+          <small>Preços, meios de pagamento e política de cobrança</small>
+        </div>
+      </div>
+    </div>
+
+    <p>Os valores cobrados por ativação são definidos pelo tipo de benefício escolhido pelo cliente:</p>
+
+    <table class="pp-table">
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Descrição</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Unitário</strong></td>
+          <td>Ativação individual em um único bar</td>
+          <td>R$ 5,00</td>
+        </tr>
+        <tr>
+          <td><strong>Noite Toda</strong></td>
+          <td>Acesso a todos os bares parceiros na noite</td>
+          <td>R$ 10,00</td>
+        </tr>
+        <tr>
+          <td><strong>Crédito Grátis</strong></td>
+          <td>Compensação por cancelamento do bar</td>
+          <td>R$ 0,00</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Os valores acima são indicativos e podem ser atualizados pela OZ com notificação prévia. O valor exato é sempre exibido na tela de confirmação antes da cobrança.</p>
+
+    <p><strong>Meios de pagamento aceitos:</strong> cartão de crédito, cartão de débito e carteiras digitais, conforme disponibilidade do processador de pagamentos integrado.</p>
+
+    <div class="pp-warn-box">
+      <i class="fa fa-exclamation-triangle"></i>
+      <span>A OZ <strong>não realiza reembolsos em dinheiro</strong>. Em caso de cancelamento pelo bar após pagamento confirmado, o cliente recebe crédito grátis para uso na Plataforma.</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 9 — COMISSÕES                                                    -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art9">
+    <div class="pp-section-header">
+      <div class="pp-section-num">9</div>
+      <div>
+        <div class="pp-section-title">Comissões e Repasses a Promoters
+          <small>Como funcionam os ganhos dos promoters</small>
+        </div>
+      </div>
+    </div>
+
+    <p><span class="role-tag role-promoter">Promoter</span> O Promoter recebe comissão sobre as ativações realizadas por clientes vinculados ao seu código de referência ou à sua indicação ativa ("Minha Indicação"):</p>
+
+    <table class="pp-table">
+      <thead>
+        <tr>
+          <th>Tipo de Ativação</th>
+          <th>Percentual</th>
+          <th>Valor aproximado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Unitário via bar indicado</td>
+          <td>20% do valor</td>
+          <td>R$ 1,00</td>
+        </tr>
+        <tr>
+          <td>Noite Toda via bar indicado</td>
+          <td>10% do valor</td>
+          <td>R$ 1,00</td>
+        </tr>
+        <tr>
+          <td>Ativação grátis (crédito)</td>
+          <td>—</td>
+          <td>Não comissiona</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>Regras de repasse:</strong></p>
+    <ul class="pp-list">
+      <li>As comissões são acumuladas na carteira digital do Promoter em tempo real;</li>
+      <li>O saque está disponível quando o saldo mínimo for atingido (conforme definido na Plataforma);</li>
+      <li>Os repasses são processados em até <strong>5 dias úteis</strong> após a solicitação aprovada;</li>
+      <li>A OZ pode reter repasses em caso de suspeita de fraude, até conclusão de investigação;</li>
+      <li>Comissões geradas por ativações que sejam posteriormente estornadas ou identificadas como fraudulentas poderão ser estornadas da carteira.</li>
+    </ul>
+
+    <div class="pp-info-box">
+      <i class="fa fa-info-circle"></i>
+      <span>A OZ pode ajustar percentuais de comissão com aviso prévio de <strong>15 dias corridos</strong>. O Promoter pode encerrar sua conta caso não concorde com os novos valores.</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 10 — CONDUTA                                                     -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art10">
+    <div class="pp-section-header">
+      <div class="pp-section-num">10</div>
+      <div>
+        <div class="pp-section-title">Conteúdo e Conduta
+          <small>O que é permitido e o que é vedado na plataforma</small>
+        </div>
+      </div>
+    </div>
+
+    <p>É <strong>vedado</strong> a qualquer Usuário:</p>
+    <ul class="pp-list">
+      <li>Fornecer informações falsas, enganosas ou imprecisas no cadastro ou nas interações;</li>
+      <li>Utilizar a Plataforma para fins ilegais, incluindo lavagem de dinheiro, fraude ou evasão fiscal;</li>
+      <li>Criar contas falsas, múltiplas ou em nome de terceiros sem autorização;</li>
+      <li>Realizar engenharia reversa, scraping ou qualquer extração automatizada de dados da Plataforma;</li>
+      <li>Publicar conteúdo ofensivo, discriminatório, pornográfico ou que viole direitos de terceiros;</li>
+      <li>Simular ativações, auto-indicações ou qualquer manipulação do sistema de comissões;</li>
+      <li>Compartilhar credenciais de acesso com terceiros.</li>
+    </ul>
+
+    <p>O descumprimento das regras acima pode resultar em <strong>suspensão imediata</strong> da conta, cancelamento de saldos e comissões pendentes, e responsabilização civil e criminal nas medidas da lei.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 11 — PROPRIEDADE INTELECTUAL                                     -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art11">
+    <div class="pp-section-header">
+      <div class="pp-section-num">11</div>
+      <div>
+        <div class="pp-section-title">Propriedade Intelectual
+          <small>Direitos sobre a marca, código e conteúdo da OZ</small>
+        </div>
+      </div>
+    </div>
+
+    <p>Todos os elementos da Plataforma OZ — incluindo, mas não se limitando a marca, logo, layout, código-fonte, banco de dados, textos, ícones e funcionalidades — são de <strong>propriedade exclusiva da OZ</strong> e protegidos pela Lei n.º 9.610/1998 (Lei de Direitos Autorais) e pela Lei n.º 9.279/1996 (Propriedade Industrial).</p>
+
+    <p>É vedada qualquer reprodução, distribuição, modificação ou uso comercial sem autorização prévia e expressa da OZ.</p>
+
+    <p>O Usuário concede à OZ licença não exclusiva, gratuita e mundial para usar o conteúdo que publicar na Plataforma (fotos, textos, avaliações) exclusivamente para fins de operação e melhoria dos serviços.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 12 — PRIVACIDADE                                                 -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art12">
+    <div class="pp-section-header">
+      <div class="pp-section-num">12</div>
+      <div>
+        <div class="pp-section-title">Privacidade e Dados Pessoais
+          <small>Como tratamos seus dados</small>
+        </div>
+      </div>
+    </div>
+
+    <p>O tratamento de dados pessoais na Plataforma OZ é regido pela <strong>Lei Geral de Proteção de Dados (LGPD — Lei n.º 13.709/2018)</strong> e está detalhado em nosso documento específico.</p>
+
+    <div class="pp-gold-box">
+      <i class="fa fa-shield-alt"></i>
+      <span>Consulte a <a href="privacy-policy.html" target="_blank"><strong>Política de Privacidade</strong></a> para informações completas sobre coleta, uso, armazenamento e seus direitos como titular de dados.</span>
+    </div>
+
+    <p>Ao aceitar estes Termos, o Usuário também declara ter lido e concordado com a Política de Privacidade, que é parte integrante deste instrumento.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 13 — SUSPENSÃO                                                   -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art13">
+    <div class="pp-section-header">
+      <div class="pp-section-num">13</div>
+      <div>
+        <div class="pp-section-title">Suspensão e Encerramento de Conta
+          <small>Quando e como uma conta pode ser encerrada</small>
+        </div>
+      </div>
+    </div>
+
+    <p>A OZ pode suspender ou encerrar a conta de qualquer Usuário, a qualquer tempo, mediante notificação, nos seguintes casos:</p>
+    <ul class="pp-list">
+      <li>Violação de qualquer cláusula destes Termos;</li>
+      <li>Fornecimento de informações falsas no cadastro;</li>
+      <li>Inatividade por período superior a 12 meses;</li>
+      <li>Solicitação do próprio Usuário;</li>
+      <li>Determinação judicial ou regulatória;</li>
+      <li>Indícios de fraude ou atividade ilícita.</li>
+    </ul>
+
+    <p>O Usuário pode encerrar sua conta a qualquer momento pelo próprio aplicativo ou enviando solicitação para <a href="mailto:tecnologia@ozaplicativo.com.br">tecnologia@ozaplicativo.com.br</a>.</p>
+
+    <p>Em caso de encerramento por iniciativa do Usuário, saldos e créditos não utilizados serão cancelados sem direito a reembolso financeiro, salvo disposição legal em contrário.</p>
+
+    <p>Em caso de encerramento por violação, a OZ reserva-se o direito de bloquear novos cadastros do mesmo CPF/CNPJ.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 14 — RESPONSABILIDADE                                            -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art14">
+    <div class="pp-section-header">
+      <div class="pp-section-num">14</div>
+      <div>
+        <div class="pp-section-title">Limitação de Responsabilidade
+          <small>O que a OZ responde e o que não responde</small>
+        </div>
+      </div>
+    </div>
+
+    <p>A OZ <strong>não se responsabiliza</strong> por:</p>
+    <ul class="pp-list">
+      <li>Qualidade, disponibilidade ou adequação do benefício fornecido pelo bar;</li>
+      <li>Danos decorrentes de conduta de terceiros (bares, clientes ou promoters);</li>
+      <li>Indisponibilidade temporária da Plataforma por manutenção, falhas técnicas ou força maior;</li>
+      <li>Perda de dados causada por falha de dispositivo do Usuário ou terceiros;</li>
+      <li>Danos indiretos, lucros cessantes ou danos morais não relacionados diretamente à operação da Plataforma.</li>
+    </ul>
+
+    <p>A responsabilidade total da OZ, em qualquer hipótese, fica limitada ao <strong>valor pago pelo Usuário nos últimos 3 meses</strong> de utilização da Plataforma.</p>
+
+    <div class="pp-info-box">
+      <i class="fa fa-info-circle"></i>
+      <span>Reclamações sobre benefícios não entregues ou atendimento inadequado no estabelecimento devem ser direcionadas diretamente ao bar. A OZ pode intermediar a comunicação quando necessário.</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 15 — ALTERAÇÕES                                                  -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art15">
+    <div class="pp-section-header">
+      <div class="pp-section-num">15</div>
+      <div>
+        <div class="pp-section-title">Alterações dos Termos
+          <small>Como comunicamos mudanças neste documento</small>
+        </div>
+      </div>
+    </div>
+
+    <p>A OZ pode atualizar estes Termos a qualquer momento para refletir mudanças na legislação, nos serviços ou nas práticas da Plataforma.</p>
+
+    <p>Alterações relevantes serão comunicadas por:</p>
+    <ul class="pp-list">
+      <li>Notificação no aplicativo (banner ou modal) com pelo menos <strong>15 dias de antecedência</strong>;</li>
+      <li>E-mail para o endereço cadastrado (quando aplicável).</li>
+    </ul>
+
+    <p>O uso continuado da Plataforma após a data de vigência das novas condições implica <strong>aceitação tácita</strong> das alterações. Caso não concorde, o Usuário deve encerrar sua conta antes da data de vigência.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ART. 16 — DISPOSIÇÕES GERAIS                                          -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="pp-section" id="art16">
+    <div class="pp-section-header">
+      <div class="pp-section-num">16</div>
+      <div>
+        <div class="pp-section-title">Disposições Gerais
+          <small>Foro, legislação aplicável e contato</small>
+        </div>
+      </div>
+    </div>
+
+    <p>Estes Termos são regidos pelas leis da <strong>República Federativa do Brasil</strong>, em especial:</p>
+    <ul class="pp-list">
+      <li>Código de Defesa do Consumidor (Lei n.º 8.078/1990);</li>
+      <li>Marco Civil da Internet (Lei n.º 12.965/2014);</li>
+      <li>Lei Geral de Proteção de Dados (Lei n.º 13.709/2018);</li>
+      <li>Código Civil Brasileiro (Lei n.º 10.406/2002).</li>
+    </ul>
+
+    <p>Fica eleito o foro da <strong>Comarca de São Paulo — SP</strong> para dirimir quaisquer controvérsias decorrentes destes Termos, com renúncia a qualquer outro, por mais privilegiado que seja.</p>
+
+    <p>Se qualquer cláusula destes Termos for considerada inválida ou inexequível por decisão judicial, as demais cláusulas permanecerão em pleno vigor e efeito.</p>
+
+    <p>Para dúvidas, sugestões ou exercício de direitos, entre em contato:</p>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-top:8px;">
+      <p style="margin-bottom:8px;"><strong style="color:#fff;">OZ Aplicativo</strong></p>
+      <p style="margin-bottom:6px;"><i class="fa fa-envelope" style="color:var(--gold);margin-right:8px;"></i><a href="mailto:tecnologia@ozaplicativo.com.br">tecnologia@ozaplicativo.com.br</a></p>
+      <p style="margin-bottom:0;"><i class="fa fa-clock" style="color:var(--gold);margin-right:8px;"></i>Respondemos em até 15 dias úteis</p>
+    </div>
+  </div>
+
+  <!-- ── RODAPÉ ── -->
+  <div class="pp-footer">
+    <div class="pp-footer-logo">OZ</div>
+    <p>Termos de Uso · Versão 1.0 · Vigência a partir de 18/05/2025</p>
+    <p>© 2025 OZ Aplicativo. Todos os direitos reservados.</p>
+    <div class="pp-footer-links">
+      <a href="privacy-policy.html" target="_blank"><i class="fa fa-shield-alt"></i> Política de Privacidade</a>
+      <a href="mailto:tecnologia@ozaplicativo.com.br"><i class="fa fa-envelope"></i> tecnologia@ozaplicativo.com.br</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

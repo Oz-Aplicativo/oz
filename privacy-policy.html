@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Privacidade — OZ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg:       #0d0d14;
+      --bg2:      #13131f;
+      --bg3:      #1a1a2e;
+      --border:   rgba(255,255,255,.08);
+      --text:     #e2e2f0;
+      --text2:    #8888aa;
+      --gold:     #d4a843;
+      --green:    #4ade80;
+      --blue:     #60a5fa;
+      --purple:   #c084fc;
+      --red:      #f87171;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ── HEADER ── */
+    .pp-header {
+      background: linear-gradient(135deg, #0d0d14 0%, #1a1a2e 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 24px 28px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .pp-logo {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 3px;
+      margin-bottom: 4px;
+    }
+    .pp-header-sub {
+      font-size: 12px;
+      color: var(--text2);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ── LAYOUT ── */
+    .pp-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── META INFO ── */
+    .pp-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 36px;
+      padding: 16px 20px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 12px;
+      color: var(--text2);
+    }
+    .pp-meta-item { display: flex; align-items: center; gap: 6px; }
+    .pp-meta-item i { color: var(--gold); }
+
+    /* ── ÍNDICE ── */
+    .pp-toc {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 40px;
+    }
+    .pp-toc-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .pp-toc ol {
+      padding-left: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 24px;
+    }
+    .pp-toc li { font-size: 13px; }
+    .pp-toc a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .pp-toc a:hover { text-decoration: underline; }
+    @media (max-width: 560px) {
+      .pp-toc ol { grid-template-columns: 1fr; }
+    }
+
+    /* ── SEÇÕES ── */
+    .pp-section {
+      margin-bottom: 44px;
+      scroll-margin-top: 100px;
+    }
+    .pp-section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .pp-section-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .pp-section-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text2);
+      letter-spacing: 1px;
+    }
+    .pp-section-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* ── CONTEÚDO ── */
+    .pp-section p {
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .pp-section p:last-child { margin-bottom: 0; }
+
+    .pp-section ul, .pp-section ol {
+      padding-left: 20px;
+      margin: 10px 0 14px;
+    }
+    .pp-section li {
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .pp-section li::marker { color: var(--gold); }
+
+    strong { color: #e2e2f0; font-weight: 600; }
+
+    /* ── CALLOUT BOXES ── */
+    .pp-callout {
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 13.5px;
+      border-left: 3px solid;
+    }
+    .pp-callout.info {
+      background: rgba(96,165,250,.08);
+      border-color: var(--blue);
+    }
+    .pp-callout.warning {
+      background: rgba(212,168,67,.08);
+      border-color: var(--gold);
+    }
+    .pp-callout.success {
+      background: rgba(74,222,128,.08);
+      border-color: var(--green);
+    }
+    .pp-callout.danger {
+      background: rgba(248,113,113,.08);
+      border-color: var(--red);
+    }
+    .pp-callout-title {
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    /* ── TABELA DE DADOS ── */
+    .pp-table-wrap { overflow-x: auto; margin: 16px 0; }
+    .pp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .pp-table th {
+      background: var(--bg3);
+      color: var(--gold);
+      font-weight: 600;
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .pp-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: top;
+    }
+    .pp-table tr:last-child td { border-bottom: none; }
+    .pp-table tr:hover td { background: rgba(255,255,255,.02); }
+
+    /* ── BADGE DE DIREITO ── */
+    .rights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .right-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .right-card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .right-card p {
+      font-size: 12px !important;
+      color: var(--text2) !important;
+      margin: 0 !important;
+    }
+
+    /* ── ISO BADGE ── */
+    .iso-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .iso-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid;
+    }
+    .iso-badge.iso-27001 { background: rgba(96,165,250,.1); color: var(--blue); border-color: rgba(96,165,250,.3); }
+    .iso-badge.iso-27002 { background: rgba(192,132,252,.1); color: var(--purple); border-color: rgba(192,132,252,.3); }
+    .iso-badge.lgpd { background: rgba(74,222,128,.1); color: var(--green); border-color: rgba(74,222,128,.3); }
+
+    /* ── CONTATO ── */
+    .pp-contact {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 40px;
+      text-align: center;
+    }
+    .pp-contact h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .pp-contact p {
+      font-size: 13px;
+      color: var(--text2);
+      margin-bottom: 4px;
+    }
+    .pp-contact a { color: var(--blue); text-decoration: none; }
+    .pp-contact a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    .pp-footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: var(--text2);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── BOTÃO VOLTAR ── */
+    .pp-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      margin-bottom: 32px;
+      transition: background .18s;
+    }
+    .pp-back-btn:hover { background: rgba(255,255,255,.1); }
+
+    /* ── PRINT ── */
+    @media print {
+      .pp-header { position: static; }
+      .pp-back-btn { display: none; }
+      body { background: #fff; color: #111; }
+      .pp-callout, .right-card, .pp-contact { border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="pp-header">
+    <div class="pp-logo">OZ</div>
+    <div class="pp-header-sub">Política de Privacidade e Proteção de Dados</div>
+  </header>
+
+  <div class="pp-wrap">
+
+    <!-- BOTÃO VOLTAR -->
+    <a href="javascript:history.back()" class="pp-back-btn">
+      <i class="fa fa-arrow-left"></i> Voltar ao cadastro
+    </a>
+
+    <!-- META -->
+    <div class="pp-meta">
+      <div class="pp-meta-item"><i class="fa fa-calendar-alt"></i> Versão: 1.0 — Maio de 2025</div>
+      <div class="pp-meta-item"><i class="fa fa-sync-alt"></i> Última atualização: 11/05/2025</div>
+      <div class="pp-meta-item"><i class="fa fa-shield-alt"></i> Conformidade: LGPD · ISO/IEC 27001 · ISO/IEC 27002</div>
+      <div class="pp-meta-item"><i class="fa fa-language"></i> Idioma: Português (Brasil)</div>
+    </div>
+
+    <!-- BADGES DE CONFORMIDADE -->
+    <div class="iso-badges">
+      <span class="iso-badge lgpd"><i class="fa fa-balance-scale"></i> LGPD — Lei 13.709/2018</span>
+      <span class="iso-badge iso-27001"><i class="fa fa-lock"></i> ISO/IEC 27001:2022</span>
+      <span class="iso-badge iso-27002"><i class="fa fa-shield-alt"></i> ISO/IEC 27002:2022</span>
+    </div>
+
+    <!-- ÍNDICE -->
+    <nav class="pp-toc">
+      <div class="pp-toc-title"><i class="fa fa-list"></i> &nbsp;Índice</div>
+      <ol>
+        <li><a href="#s1">Identificação do Controlador</a></li>
+        <li><a href="#s2">Dados Coletados</a></li>
+        <li><a href="#s3">Finalidade e Base Legal</a></li>
+        <li><a href="#s4">Compartilhamento de Dados</a></li>
+        <li><a href="#s5">Retenção e Exclusão</a></li>
+        <li><a href="#s6">Segurança da Informação</a></li>
+        <li><a href="#s7">Direitos do Titular</a></li>
+        <li><a href="#s8">Cookies e Rastreamento</a></li>
+        <li><a href="#s9">Transferência Internacional</a></li>
+        <li><a href="#s10">Menores de Idade</a></li>
+        <li><a href="#s11">Alterações desta Política</a></li>
+        <li><a href="#s12">Canal de Atendimento — DPO</a></li>
+      </ol>
+    </nav>
+
+    <!-- ══════════════════════════════════════════════════
+         1. IDENTIFICAÇÃO DO CONTROLADOR
+    ══════════════════════════════════════════════════ -->
+    <section class="pp-section" id="s1">
+      <div class="pp-section-header">
+        <div class="pp-section-icon" style="background:rgba(212,168,67,.15);color:var(--gold)">
+          <i class="fa fa-building"></i>
+        </div>
+        <div>
+          <div class="pp-section-num">ARTIGO 1</div>
+          <div class="pp-section-title">Identificação do Controlador</div>
+        </div>
+      </div>
+
+      <p>A plataforma <strong>OZ</strong> ("Plataforma", "nós", "nosso") é operada pela pessoa jurídica responsável pela gestão do aplicativo OZ, doravante denominada <strong>Controladora</strong>, na qualidade de agente de tratamento de dados pessoais conforme definido pela Lei Geral de Proteção de Dados Pessoais — <strong>LGPD (Lei nº 13.709/2018)</strong>.</p>
+
+      <div class="pp-callout info">
+        <div class="pp-callout-title"><i class="fa fa-info-circle"></i> Encarregado de Proteção de Dados (DPO)</div>
+        Para exercer seus direitos ou esclarecer dúvidas sobre o tratamento de seus dados pessoais, entre em contato com nosso Encarregado (Data Protection Officer) pelo e-mail: <strong>tecnologia@ozaplicativo.com.br</strong>
+      </div>
+
+      <p>Esta Política de Privacidade aplica-se a todos os usuários da Plataforma OZ, incluindo <strong>clientes</strong>, <strong>promoters</strong> e <strong>bares parceiros</strong>, e rege a coleta, o uso, o armazenamento, o compartilhamento e a proteção de dados pessoais realizados pela Plataforma.</p>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         2. DADOS COLETADOS
+    ══════════════════════════════════════════════════ -->
+    <section class="pp-section" id="s2">
+      <div class="pp-section-header">
+        <div class="pp-section-icon" style="background:rgba(96,165,250,.15);color:var(--blue)">
+          <i class="fa fa-database"></i>
+        </div>
+        <div>
+          <div class="pp-section-num">ARTIGO 2</div>
+          <div class="pp-section-title">Dados Coletados</div>
+        </div>
+      </div>
+
+      <p>A Plataforma coleta os seguintes dados pessoais, conforme o perfil do usuário:</p>
+
+      <div class="pp-table-wrap">
+        <table class="pp-table">
+          <thead>
+            <tr>
+              <th>Categoria</th>
+              <th>Dados coletados</th>
+              <th>Perfis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Identificação</strong></td>
+              <td>Nome completo, CPF, data de nascimento, gênero</td>
+              <td>Clientes, Promoters</td>
+            </tr>
+            <tr>
+              <td><strong>Contato</strong></td>
+              <td>E-mail, telefone/WhatsApp</td>
+              <td>Todos</td>
+            </tr>
+            <tr>
+              <td><strong>Empresarial</strong></td>
+              <td>Razão social, CNPJ, nome do responsável</td>
+              <td>Bares</td>
+            </tr>
+            <tr>
+              <td><strong>Financeiro</strong></td>
+              <td>Chave Pix, histórico de transações, saldo</td>
+              <td>Promoters</td>
+            </tr>
+            <tr>
+              <td><strong>Perfil profissional</strong></td>
+              <td>Instagram, região de atuação, tipo de atuação, release/bio</td>
+              <td>Promoters, Bares</td>
+            </tr>
+            <tr>
+              <td><strong>Autenticação</strong></td>
+              <td>E-mail, senha (armazenada com hash seguro), tokens de sessão</td>
+              <td>Todos</td>
+            </tr>
+            <tr>
+              <td><strong>Comportamental</strong></td>
+              <td>Histórico de ativações, benefícios utilizados, avaliações, data/hora de acesso</td>
+              <td>Todos</td>
+            </tr>
+            <tr>
+              <td><strong>Código de convite</strong></td>
+              <td>Código de indicação utilizado e código próprio gerado</td>
+              <td>Clientes, Promoters</td>
+            </tr>
+            <tr>
+              <td><strong>Imagem</strong></td>
+              <td>Foto de perfil (opcional)</td>
+              <td>Todos</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pp-callout warning">
+        <div class="pp-callout-title"><i class="fa fa-exclamation-triangle"></i> Dados sensíveis</div>
+        CPF e data de nascimento são classificados como dados pessoais de natureza sensível para fins de controle de acesso (verificação de maioridade) e prevenção a fraudes. Esses dados são tratados com camadas adicionais de proteção conforme o art. 11 da LGPD.
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         3. FINALIDADE E BASE LEGAL
+    ══════════════════════════════════════════════════ -->
+    <section class="pp-section" id="s3">
+      <div class="pp-section-header">
+        <div class="pp-section-icon" style="background:rgba(74,222,128,.15);color:var(--green)">
+          <i class="fa fa-balance-scale"></i>
+        </div>
+        <div>
+          <div class="pp-section-num">ARTIGO 3</div>
+          <div class="pp-section-title">Finalidade e Base Legal do Tratamento</div>
+        </div>
+      </div>
+
+      <p>Todos os tratamentos de dados realizados pela Plataforma OZ possuem finalidade determinada, explícita e legítima, conforme exigido pelo art. 6º da LGPD. A seguir estão descritas as bases legais aplicáveis (art. 7º e art. 11 da LGPD):</p>
+
+      <div class="pp-table-wrap">
+        <table class="pp-table">
+          <thead>
+            <tr>
+              <th>Finalidade</th>
+              <th>Base legal (LGPD)</th>
+              <th>Descrição</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Criação e gestão de conta</strong></td>
+              <td>Art. 7º, V — Execução de contrato</td>
+              <td>Cadastro, autenticação e gerenciamento do perfil do usuário</td>
+            </tr>
+            <tr>
+              <td><strong>Prestação dos serviços</strong></td>
+              <td>Art. 7º, V — Execução de contrato</td>
+              <td>Ativação de benefícios, reservas, gestão de comissões</td>
+            </tr>
+            <tr>
+              <td><strong>Verificação de maioridade</strong></td>
+              <td>Art. 7º, II — Cumprimento de obrigação legal</td>
+              <td>Confirmação de que o usuário possui 18 anos ou mais</td>
+            </tr>
+            <tr>
+              <td><strong>Prevenção a fraudes</strong></td>
+              <td>Art. 7º, IX — Legítimo interesse</td>
+              <td>Verificação de CPF/CNPJ duplicados, detecção de uso indevido</td>
+            </tr>
+            <tr>
+              <td><strong>Pagamentos e repasses</strong></td>
+              <td>Art. 7º, V — Execução de contrato</td>
+              <td>Processamento de comissões e saques via Pix</td>
+            </tr>
+            <tr>
+              <td><strong>Melhoria da plataforma</strong></td>
+              <td>Art. 7º, IX — Legítimo interesse</td>
+              <td>Análises internas de uso, métricas de engajamento anonimizadas</td>
+            </tr>
+            <tr>
+              <td><strong>Comunicações operacionais</strong></td>
+              <td>Art. 7º, V — Execução de contrato</td>
+              <td>Notificações sobre ativações, status de conta, atualizações</td>
+            </tr>
+            <tr>
+              <td><strong>Comunicações promocionais</strong></td>
+              <td>Art. 7º, I — Consentimento</td>
+              <td>Envio de ofertas e novidades (opt-in, revogável a qualquer tempo)</td>
+            </tr>
+            <tr>
+              <td><strong>Obrigações regulatórias</strong></td>
+              <td>Art. 7º, II — Cumprimento de obrigação legal</td>
+              <td>Retenção de registros fiscais, atendimento a autoridades competentes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pp-callout success">
+        <div class="pp-callout-title"><i class="fa fa-check-circle"></i> Princípio da finalidade e necessidade</div>
+        Em consonância com os arts. 6º, I e III da LGPD e com os controles A.5.12 e A.8.2 da ISO/IEC 27002:2022, coletamos apenas os dados estritamente necessários para cada finalidade declarada (<em>data minimization</em>).
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         4. COMPARTILHAMENTO DE DADOS
+    ══════════════════════════════════════════════════ -->
+    <section class="pp-section" id="s4">
+      <div class="pp-section-header">
+        <div class="pp-section-icon" style="background:rgba(251,191,36,.15);color:var(--gold)">
+          <i class="fa fa-share-alt"></i>
+        </div>
+        <div>
+          <div class="pp-section-num">ARTIGO 4</div>
+          <div class="pp-section-title">Compartilhamento de Dados</div>
+        </div>
+      </div>
+
+      <p>A Plataforma OZ <strong>não vende, aluga nem cede</strong> dados pessoais dos usuários a terceiros para fins comerciais. O compartilhamento ocorre exclusivamente nas seguintes situações:</p>
+
+      <ul>
+        <li><strong>Bares parceiros:</strong> dados mínimos de identificação do cliente (nome, tipo de benefício ativado) para viabilizar a prestação do serviço no estabelecimento, na execução contratual.</li>
+        <li><strong>Promoters:</strong> mediante geração de comissões, o sistema registra internamente a relação entre cliente e promoter responsável pela indicação. Dados pessoais completos do cliente <em>não</em> são exibidos ao promoter.</li>
+        <li><strong>Provedores de infraestrutura:</strong> utilizamos o <strong>Supabase</strong> como plataforma de banco de dados e autenticação, com servidores localizados conforme descrito no Artigo 9. Esses provedores atuam como <em>operadores</em> sob contrato e estão sujeitos às mesmas obrigações de confidencialidade.</li>
+        <li><strong>Autoridades públicas:</strong> quando exigido por lei, ordem judicial ou regulamentação aplicável (art. 7º, VI da LGPD).</li>
+        <li><strong>Proteção de direitos:</strong> para investigar fraudes, abusos ou violações aos Termos de Uso da Plataforma (art. 7º, IX da LGPD — legítimo interesse).</li>
+      </ul>
+
+      <div class="pp-callout info">
+        <div class="pp-callout-title"><i class="fa fa-handshake"></i> Acordos com operadores</div>
+        Todos os provedores e parceiros que tratam dados em nosso nome firmam cláusulas contratuais de proteção de dados, em conformidade com o art. 39 da LGPD e o controle A.5.20 da ISO/IEC 27002:2022 (segurança em acordos com fornecedores).
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         5. RETENÇÃO E EXCLUSÃO
+    ══════════════════════════════════════════════════ -->
+    <section class="pp-section" id="s5">
+      <div class="pp-section-header">
+        <div class="pp-section-icon" style="background:rgba(248,113,113,.15);color:var(--red)">
+          <i class="fa fa-clock"></i>
+        </div>
+        <div>
+          <div class="pp-section-num">ARTIGO 5</div>
+          <div class="pp-section-title">Retenção e Exclusão de Dados</div>
+        </div>
+      </div>
+
+      <p>Os dados pessoais são retidos pelo tempo necessário ao cumprimento das finalidades para as quais foram coletados, observados os seguintes prazos:</p>
+
+      <div class="pp-table-wrap">
+        <table class="pp-table">
+          <thead>
+            <tr>
+              <th>Tipo de dado</th>
+              <th>Prazo de retenção</th>
+              <th>Fundamento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dados de conta ativa</td>
+              <td>Enquanto a conta estiver ativa</td>
+              <td>Execução contratual</td>
+            </tr>
+            <tr>
+              <td>Dados após encerramento da conta</td>
+              <td>5 anos</td>
+              <td>Art. 7º, II LGPD · Código Civil art. 206</td>
+            </tr>
+            <tr>
+              <td>Registros financeiros (comissões, saques)</td>
+              <td>5 anos</td>
+              <td>Lei 9.613/1998 · Regulação fiscal brasileira</td>
+            </tr>
+            <tr>
+              <td>Logs de acesso e segurança</td>
+              <td>6 meses</td>
+              <td>Marco Civil da Internet (Lei 12.965/2014, art. 15)</td>
+            </tr>
+            <tr>
+              <td>CPF (prevenção a fraudes)</td>
+              <td>5 anos após encerramento</td>
+              <td>Art. 7º, IX LGPD — legítimo interesse</td>
+            </tr>
+            <tr>
+              <td>Dados de avaliações e feedbacks</td>
+              <td>Indefinido (dados anonimizados após 2 anos)</td>
+              <td>Melhoria do serviço — legítimo interesse</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Após o vencimento do prazo de retenção aplicável, os dados são <strong>excluídos de forma segura e irreversível</strong> ou anonimizados, conforme os procedimentos definidos pelo controle A.8.10 da ISO/IEC 27002:2022 (descarte seguro de informações).</p>
+
+      <div class="pp-callout warning">
+        <div class="pp-callout-title"><i class="fa fa-exclamation-triangle"></i> Retenção obrigatória</div>
+        Mesmo em caso de solicitação de exclusão pelo titular, determinados dados podem ser retidos pelo prazo mínimo legal exigido por obrigações regulatórias, fiscais ou judiciais, conforme o art. 16 da LGPD.
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         6. SEGURANÇA DA INFORMAÇÃO
+    ══════════════════════════════════════════════════ -->
+    <section class="pp-section" id="s6">
+      <div class="pp-section-header">
+        <div class="pp-section-icon" style="background:rgba(192,132,252,.15);color:var(--purple)">
+          <i class="fa fa-shield-alt"></i>
+        </div>
+        <div>
+          <div class="pp-section-num">ARTIGO 6</div>
+          <div class="pp-section-title">Segurança da Informação</div>
+        </div>
+      </div>
+
+      <p>A Plataforma OZ adota medidas técnicas e organizacionais de segurança em conformidade com os princípios da <strong>ISO/IEC 27001:2022</strong> (Sistema de Gestão de Segurança da Informação — SGSI) e os controles da <strong>ISO/IEC 27002:2022</strong>. As principais salvaguardas implementadas incluem:</p>
+
+      <ul>
+        <li><strong>Autenticação segura:</strong> senhas armazenadas com algoritmos de hash criptográfico (bcrypt/argon2); suporte a autenticação multifator (MFA) — <em>ISO/IEC 27002, controle A.8.5</em>.</li>
+        <li><strong>Criptografia em trânsito:</strong> toda comunicação entre o dispositivo do usuário e os servidores é protegida por TLS 1.2+ — <em>ISO/IEC 27002, controle A.8.24</em>.</li>
+        <li><strong>Criptografia em repouso:</strong> dados sensíveis armazenados com criptografia AES-256 — <em>ISO/IEC 27002, controle A.8.24</em>.</li>
+        <li><strong>Controle de acesso:</strong> acesso aos dados restrito ao mínimo necessário (princípio do menor privilégio); autenticação por JWT com expiração controlada — <em>ISO/IEC 27002, controle A.8.2 e A.8.3</em>.</li>
+        <li><strong>Segurança em nível de banco de dados:</strong> Row Level Security (RLS) implementada via políticas Supabase/PostgreSQL — <em>ISO/IEC 27002, controle A.8.15</em>.</li>
+        <li><strong>Backups regulares:</strong> cópias de segurança automáticas com retenção mínima de 30 dias — <em>ISO/IEC 27002, controle A.8.13</em>.</li>
+        <li><strong>Monitoramento e logs:</strong> registros de auditoria de acessos e operações críticas — <em>ISO/IEC 27002, controle A.8.15 e A.8.16</em>.</li>
+        <li><strong>Gestão de vulnerabilidades:</strong> atualizações periódicas de dependências e revisões de segurança do código — <em>ISO/IEC 27002, controle A.8.8</em>.</li>
+        <li><strong>Plano de resposta a incidentes:</strong> procedimentos definidos para detecção, contenção, notificação e remediação de incidentes de segurança — <em>ISO/IEC 27001, cláusula 6.1.2; ISO/IEC 27002, controle A.5.26</em>.</li>
+      </ul>
+
+      <div class="pp-callout danger">
+        <div class="pp-callout-title"><i class="fa fa-bell"></i> Notificação de incidentes</div>
+        Em caso de incidente de segurança que possa acarretar risco ou dano relevante aos titulares, a Plataforma OZ notificará a <strong>Autoridade Nacional de Proteção de Dados (ANPD)</strong> e os titulares afetados em prazo razoável, conforme o art. 48 da LGPD — no máximo em <strong>72 horas</strong> após a ciência do incidente.
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         7. DIREITOS DO TITULAR
+    ══════════════════════════════════════════════════ -->
+    <section class="pp-section" id="s7">
+      <div class="pp-section-header">
+        <div class="pp-section-icon" style="background:rgba(74,222,128,.15);color:var(--green)">
+          <i class="fa fa-user-shield"></i>
+        </div>
+        <div>
+          <div class="pp-section-num">ARTIGO 7</div>
+          <div class="pp-section-title">Direitos do Titular de Dados</div>
+        </div>
+      </div>
+
+      <p>Nos termos dos arts. 17 a 22 da LGPD, você, como titular de dados pessoais, possui os seguintes direitos, que podem ser exercidos a qualquer momento mediante solicitação ao nosso DPO:</p>
+
+      <div class="rights-grid">
+        <div class="right-card">
+          <div class="right-card-title"><i class="fa fa-eye"></i> Acesso</div>
+          <p>Confirmar a existência de tratamento e obter cópia dos dados que possuímos sobre você.</p>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title"><i class="fa fa-edit"></i> Correção</div>
+          <p>Solicitar a correção de dados incompletos, inexatos ou desatualizados.</p>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title"><i class="fa fa-trash-alt"></i> Eliminação</div>
+          <p>Solicitar a exclusão de dados desnecessários, excessivos ou tratados em desconformidade com a LGPD.</p>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title"><i class="fa fa-ban"></i> Oposição</div>
+          <p>Opor-se a tratamentos realizados com base em legítimo interesse quando houver descumprimento da lei.</p>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title"><i class="fa fa-file-export"></i> Portabilidade</div>
+          <p>Receber seus dados em formato estruturado, para uso em outro serviço.</p>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title"><i class="fa fa-times-circle"></i> Revogação</div>
+          <p>Revogar o consentimento dado para tratamentos baseados nessa base legal, sem prejuízo à licitude dos tratamentos anteriores.</p>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title"><i class="fa fa-info-circle"></i> Informação</div>
+          <p>Obter informações sobre as entidades com as quais compartilhamos seus dados.</p>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title"><i class="fa fa-gavel"></i> Petição</div>
+          <p>Peticionar à ANPD em relação aos seus dados, quando necessário.</p>
+        </div>
+      </div>
+
+      <p>As solicitações serão atendidas em até <strong>15 dias corridos</strong>, prorrogáveis por igual período mediante justificativa, conforme o art. 19 da LGPD. Para exercer qualquer direito, entre em contato via <strong>tecnologia@ozaplicativo.com.br</strong>.</p>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         8. COOKIES E RASTREAMENTO
+    ══════════════════════════════════════════════════ -->
+    <section class="pp-section" id="s8">
+      <div class="pp-section-header">
+        <div class="pp-section-icon" style="background:rgba(251,191,36,.15);color:var(--gold)">
+          <i class="fa fa-cookie-bite"></i>
+        </div>
+        <div>
+          <div class="pp-section-num">ARTIGO 8</div>
+          <div class="pp-section-title">Cookies e Rastreamento</div>
+        </div>
+      </div>
+
+      <p>A Plataforma OZ utiliza os seguintes tipos de armazenamento local no dispositivo do usuário:</p>
+
+      <div class="pp-table-wrap">
+        <table class="pp-table">
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Finalidade</th>
+              <th>Duração</th>
+              <th>Essencial?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>localStorage</strong></td>
+              <td>Armazenamento de sessão de autenticação (token JWT), preferências de interface</td>
+              <td>Até logout ou expiração do token</td>
+              <td>Sim</td>
+            </tr>
+            <tr>
+              <td><strong>sessionStorage</strong></td>
+              <td>Estado temporário da sessão administrativa</td>
+              <td>Sessão do browser</td>
+              <td>Sim</td>
+            </tr>
+            <tr>
+              <td><strong>Cookies de sessão</strong></td>
+              <td>Autenticação Supabase Auth</td>
+              <td>Conforme expiração do token</td>
+              <td>Sim</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>A Plataforma OZ <strong>não utiliza cookies de rastreamento publicitário</strong> de terceiros, pixels de marketing, nem compartilha dados de navegação com redes de anúncios.</p>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         9. TRANSFERÊNCIA INTERNACIONAL
+    ══════════════════════════════════════════════════ -->
+    <section class="pp-section" id="s9">
+      <div class="pp-section-header">
+        <div class="pp-section-icon" style="background:rgba(96,165,250,.15);color:var(--blue)">
+          <i class="fa fa-globe-americas"></i>
+        </div>
+        <div>
+          <div class="pp-section-num">ARTIGO 9</div>
+          <div class="pp-section-title">Transferência Internacional de Dados</div>
+        </div>
+      </div>
+
+      <p>A infraestrutura da Plataforma OZ utiliza o serviço <strong>Supabase</strong>, cujos servidores podem estar localizados fora do Brasil. Toda transferência internacional de dados pessoais realizada pela Plataforma observa os requisitos do <strong>Capítulo V da LGPD (arts. 33 a 36)</strong>, especificamente:</p>
+
+      <ul>
+        <li>Transferência para países ou organismos internacionais que proporcionem grau de proteção de dados pessoais adequado ao previsto na LGPD;</li>
+        <li>Transferência mediante cláusulas contratuais específicas que garantam princípios, direitos do titular e regime de proteção equivalente ao da LGPD;</li>
+        <li>Uso de normas corporativas globais (Binding Corporate Rules) quando aplicável.</li>
+      </ul>
+
+      <div class="pp-callout info">
+        <div class="pp-callout-title"><i class="fa fa-server"></i> Infraestrutura Supabase</div>
+        O Supabase está em conformidade com GDPR (Regulamento Geral de Proteção de Dados da União Europeia), SOC 2 Tipo II e ISO/IEC 27001, oferecendo salvaguardas equivalentes ou superiores aos requisitos da LGPD. Mais informações em <a href="https://supabase.com/security" target="_blank" rel="noopener">supabase.com/security</a>.
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         10. MENORES DE IDADE
+    ══════════════════════════════════════════════════ -->
+    <section class="pp-section" id="s10">
+      <div class="pp-section-header">
+        <div class="pp-section-icon" style="background:rgba(248,113,113,.15);color:var(--red)">
+          <i class="fa fa-child"></i>
+        </div>
+        <div>
+          <div class="pp-section-num">ARTIGO 10</div>
+          <div class="pp-section-title">Menores de Idade</div>
+        </div>
+      </div>
+
+      <p>A Plataforma OZ é <strong>destinada exclusivamente a maiores de 18 anos</strong>. O cadastro de menores de idade é expressamente vedado e tecnicamente bloqueado durante o processo de registro.</p>
+
+      <p>Caso identifiquemos inadvertidamente o cadastro de um menor de idade, os dados serão imediatamente excluídos e o acesso à conta será encerrado, nos termos do art. 14 da LGPD, que exige proteção especial aos dados de crianças e adolescentes.</p>
+
+      <div class="pp-callout danger">
+        <div class="pp-callout-title"><i class="fa fa-exclamation-circle"></i> Proibição expressa</div>
+        Se você tem menos de 18 anos, não utilize esta Plataforma. Se tiver conhecimento do cadastro indevido de um menor, notifique-nos imediatamente em <strong>tecnologia@ozaplicativo.com.br</strong>.
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         11. ALTERAÇÕES DESTA POLÍTICA
+    ══════════════════════════════════════════════════ -->
+    <section class="pp-section" id="s11">
+      <div class="pp-section-header">
+        <div class="pp-section-icon" style="background:rgba(212,168,67,.15);color:var(--gold)">
+          <i class="fa fa-file-alt"></i>
+        </div>
+        <div>
+          <div class="pp-section-num">ARTIGO 11</div>
+          <div class="pp-section-title">Alterações desta Política</div>
+        </div>
+      </div>
+
+      <p>Esta Política de Privacidade pode ser atualizada periodicamente para refletir mudanças nas práticas de tratamento de dados, em requisitos legais ou em funcionalidades da Plataforma.</p>
+
+      <p>Em caso de alterações relevantes que afetem os direitos dos titulares, a Plataforma OZ adotará as seguintes medidas:</p>
+
+      <ul>
+        <li>Publicação da versão atualizada com data de vigência na Plataforma;</li>
+        <li>Notificação aos usuários por e-mail cadastrado com antecedência mínima de <strong>15 dias</strong> antes da entrada em vigor das alterações;</li>
+        <li>Quando as alterações implicarem novo tratamento baseado em consentimento, novo aceite expresso será solicitado.</li>
+      </ul>
+
+      <p>A continuidade do uso da Plataforma após a entrada em vigor das alterações implica a aceitação da nova versão da Política. Recomendamos a revisão periódica deste documento.</p>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         12. CANAL DE ATENDIMENTO — DPO
+    ══════════════════════════════════════════════════ -->
+    <section class="pp-section" id="s12">
+      <div class="pp-section-header">
+        <div class="pp-section-icon" style="background:rgba(96,165,250,.15);color:var(--blue)">
+          <i class="fa fa-headset"></i>
+        </div>
+        <div>
+          <div class="pp-section-num">ARTIGO 12</div>
+          <div class="pp-section-title">Canal de Atendimento — Encarregado (DPO)</div>
+        </div>
+      </div>
+
+      <p>Em conformidade com o art. 41 da LGPD, a Plataforma OZ designou um <strong>Encarregado pelo Tratamento de Dados Pessoais (Data Protection Officer — DPO)</strong>, responsável por:</p>
+
+      <ul>
+        <li>Aceitar reclamações e comunicações dos titulares, prestar esclarecimentos e adotar providências;</li>
+        <li>Receber comunicações da ANPD e adotar providências;</li>
+        <li>Orientar os colaboradores e os contratados sobre práticas de proteção de dados;</li>
+        <li>Executar as demais atribuições determinadas pela Controladora ou estabelecidas em normas complementares.</li>
+      </ul>
+    </section>
+
+    <!-- CONTATO -->
+    <div class="pp-contact">
+      <h3><i class="fa fa-envelope"></i> &nbsp;Entre em contato com o DPO</h3>
+      <p>Para exercer seus direitos, reportar incidentes ou esclarecer dúvidas sobre o tratamento de seus dados:</p>
+      <p><strong>E-mail:</strong> <a href="mailto:tecnologia@ozaplicativo.com.br">tecnologia@ozaplicativo.com.br</a></p>
+      <p><strong>Prazo de resposta:</strong> até 15 dias corridos</p>
+      <p style="margin-top:12px;font-size:12px;color:#8888aa">
+        Você também pode peticionar à <strong>Autoridade Nacional de Proteção de Dados (ANPD)</strong>:<br>
+        <a href="https://www.gov.br/anpd" target="_blank" rel="noopener">www.gov.br/anpd</a>
+      </p>
+    </div>
+
+  </div><!-- /pp-wrap -->
+
+  <footer class="pp-footer">
+    <p>© 2025 OZ Plataforma — Política de Privacidade v1.0</p>
+    <p style="margin-top:4px">Em conformidade com a LGPD (Lei nº 13.709/2018) · ISO/IEC 27001:2022 · ISO/IEC 27002:2022</p>
+  </footer>
+
+</body>
+</html>

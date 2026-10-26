@@ -1,0 +1,12 @@
+-- ============================================================
+--  DEPRECATED — Este arquivo foi substituido por:
+--  edge-functions/sql/rls-bars-policies.sql
+-- ============================================================
+--
+--  Este script DESABILITAVA o RLS da tabela bars como solucao
+--  temporaria. O arquivo rls-bars-policies.sql implementa as
+--  policies corretas (INSERT / UPDATE / DELETE / SELECT por owner_id),
+--  seguindo o mesmo padrao da tabela users.
+--
+--  NAO execute este arquivo em producao.
+-- ============================================================

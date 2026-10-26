@@ -1,0 +1,3978 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>OZ — O melhor da noite, com vantagens.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=Inter:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="css/style.css?v=20261023b" />
+  <link rel="stylesheet" href="css/theme.css" />
+</head>
+<body>
+
+
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  WELCOME                                             ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-welcome" class="screen screen-welcome-bg">
+  <!-- Fundo fosco — foto de balada com overlay escuro -->
+  <div class="welcome-bg-photo" aria-hidden="true"></div>
+
+  <div class="welcome-form-container">
+
+    <!-- Logo + tagline -->
+    <div class="welcome-logo-block">
+      <div class="oz-app-logo-lg">
+        <img src="images/oz-logo-new.png" alt="OZ" class="oz-logo-img-lg">
+      </div>
+      <p class="logo-tagline">O melhor da noite, com vantagens.</p>
+      <p class="logo-sub">Benefícios reais em bares e baladas de SP.</p>
+    </div>
+
+    <!-- CTAs principais -->
+    <div class="welcome-cta-block">
+      <button class="btn btn-welcome-enter" onclick="showScreen('screen-choose-register')">
+        Criar minha conta
+      </button>
+      <button class="btn btn-welcome-login" onclick="showScreen('screen-login')">
+        Já tenho uma conta
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  ESCOLHA DE TIPO DE CADASTRO                         ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-choose-register" class="screen screen-choose-register-bg">
+  <div class="choose-register-inner">
+
+    <button class="btn-back-choose" onclick="showScreen('screen-welcome')">
+      <i class="fa fa-arrow-left"></i>
+    </button>
+
+    <div class="choose-register-header">
+      <h2 class="choose-register-title">Vamos criar sua conta.</h2>
+      <p class="choose-register-sub">Escolha o tipo de cadastro que deseja iniciar.</p>
+    </div>
+
+    <div class="choose-register-cards">
+
+      <!-- Cliente -->
+      <button class="choose-card" onclick="showScreen('screen-register-cliente')">
+        <div class="choose-card-icon">
+          <i class="fa fa-location-dot"></i>
+        </div>
+        <div class="choose-card-text">
+          <strong class="choose-card-title">Quero encontrar bares e benefícios</strong>
+          <span class="choose-card-desc">Acesse ofertas exclusivas, ative vantagens e curta a noite com mais.</span>
+        </div>
+        <div class="choose-card-arrow"><i class="fa fa-chevron-right"></i></div>
+      </button>
+
+      <!-- Bar -->
+      <button class="choose-card" onclick="showScreen('screen-register-bar')">
+        <div class="choose-card-icon">
+          <i class="fa fa-martini-glass"></i>
+        </div>
+        <div class="choose-card-text">
+          <strong class="choose-card-title">Cadastrar meu bar</strong>
+          <span class="choose-card-desc">Apareça para quem tá procurando onde ir e atraia o público certo.</span>
+        </div>
+        <div class="choose-card-arrow"><i class="fa fa-chevron-right"></i></div>
+      </button>
+
+      <!-- Promoter -->
+      <button class="choose-card" onclick="showScreen('screen-register-promoter')">
+        <div class="choose-card-icon">
+          <i class="fa fa-bolt"></i>
+        </div>
+        <div class="choose-card-text">
+          <strong class="choose-card-title">Cadastrar meu perfil de promoter</strong>
+          <span class="choose-card-desc">Indique, ative sua rede e ganhe por cada conexão que você fizer.</span>
+        </div>
+        <div class="choose-card-arrow"><i class="fa fa-chevron-right"></i></div>
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  LOGIN                                               ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-login" class="screen">
+  <div class="page-header-simple">
+    <button class="btn-back" onclick="showScreen('screen-welcome')"><i class="fa fa-arrow-left"></i></button>
+    <div class="oz-app-logo-sm"><img src="images/oz-logo-new.png" alt="OZ" class="oz-logo-img-header"></div>
+  </div>
+  <div class="form-container">
+    <h2 class="form-title">De volta à noite 🌙</h2>
+    <p class="form-subtitle">Suas vantagens estão esperando por você.</p>
+    <div id="login-error" class="alert alert-error" style="display:none"></div>
+    <form autocomplete="on" onsubmit="event.preventDefault(); doLogin()">
+      <div class="field-group">
+        <label>E-mail</label>
+        <input type="email" id="login-email" placeholder="seu@email.com" autocomplete="username email" />
+      </div>
+      <div class="field-group">
+        <label>Senha</label>
+        <div class="input-password-wrap">
+          <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" />
+          <button type="button" class="btn-toggle-pass" onclick="togglePassword('login-password')"><i class="fa fa-eye"></i></button>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary mt-24">
+        <span id="login-btn-text">Entrar na OZ</span>
+        <i id="login-spinner" class="fa fa-spinner fa-spin" style="display:none"></i>
+      </button>
+    </form>
+    <p class="form-link-forgot">
+      <a href="#" onclick="showScreen('screen-forgot-password')">
+        <i class="fa fa-lock"></i> Esqueci minha senha
+      </a>
+    </p>
+    <p class="form-link">Ainda não tá dentro?
+      <a href="#" onclick="showScreen('screen-welcome')">Cria sua conta agora</a>
+    </p>
+  </div>
+</div>
+
+<!-- ╔════════════════════════════════════════════════════════╗
+     ║  ESQUECI MINHA SENHA                                  ║
+     ╚════════════════════════════════════════════════════════╝ -->
+<div id="screen-forgot-password" class="screen">
+  <div class="page-header-simple">
+    <button class="btn-back" onclick="showScreen('screen-login')"><i class="fa fa-arrow-left"></i></button>
+    <div class="oz-app-logo-sm"><img src="images/oz-logo-new.png" alt="OZ" class="oz-logo-img-header"></div>
+  </div>
+  <div class="form-container">
+
+    <!-- Estado inicial: digitar e-mail -->
+    <div id="fp-state-ask">
+      <div class="fp-icon-wrap">
+        <div class="fp-icon"><i class="fa fa-lock"></i></div>
+      </div>
+      <h2 class="form-title">Perdeu o acesso?</h2>
+      <p class="form-subtitle">Cola o e-mail da conta. A gente manda um link na hora.</p>
+      <div id="fp-error" class="alert alert-error" style="display:none"></div>
+      <form autocomplete="off" onsubmit="event.preventDefault(); doForgotPassword()">
+        <div class="field-group">
+          <label>E-mail cadastrado</label>
+          <input type="email" id="fp-email" placeholder="seu@email.com" autocomplete="email" />
+        </div>
+        <button type="submit" class="btn btn-primary mt-24">
+          <span id="fp-btn-text">Enviar link de redefinição</span>
+          <i id="fp-spinner" class="fa fa-spinner fa-spin" style="display:none"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- Estado encontrado: e-mail de redefinição enviado -->
+    <div id="fp-state-found" style="display:none">
+      <div class="fp-icon-wrap">
+        <div class="fp-icon fp-icon-success"><i class="fa fa-envelope-open-text"></i></div>
+      </div>
+      <h2 class="form-title">Link enviado! 📧</h2>
+      <p class="form-subtitle">
+        Mandamos o link de acesso para<br>
+        <strong id="fp-sent-email"></strong>
+      </p>
+      <p class="form-subtitle" style="font-size:0.85rem; margin-top:8px; opacity:0.7">
+        Dá uma olhada no spam também. O link expira em 1 hora.
+      </p>
+      <div class="fp-actions">
+        <button class="btn btn-primary" onclick="fpGoLogin()">
+          <i class="fa fa-sign-in-alt"></i> Voltar ao login
+        </button>
+        <button class="btn fp-btn-secondary" onclick="fpRetry()">
+          <i class="fa fa-redo"></i> Usar outro e-mail
+        </button>
+      </div>
+    </div>
+
+    <!-- Estado não encontrado -->
+    <div id="fp-state-notfound" style="display:none">
+      <div class="fp-icon-wrap">
+        <div class="fp-icon fp-icon-error"><i class="fa fa-user-times"></i></div>
+      </div>
+      <h2 class="form-title">E-mail não cadastrado</h2>
+      <p class="form-subtitle">Não encontramos nenhuma conta com esse e-mail. Confirma e tenta de novo.</p>
+      <div class="fp-actions">
+        <button class="btn btn-primary" onclick="fpRetry()">
+          <i class="fa fa-redo"></i> Tentar outro e-mail
+        </button>
+        <button class="btn fp-btn-secondary" onclick="showScreen('screen-welcome')">
+          <i class="fa fa-user-plus"></i> Criar conta
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CADASTRO — CLIENTE                                  ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<!-- ╔════════════════════════════════════════════════════════╗
+     ║  REDEFINIR SENHA                                      ║
+     ╚════════════════════════════════════════════════════════╝ -->
+<div id="screen-reset-password" class="screen" style="display:none">
+  <div class="page-header-simple">
+    <div class="oz-app-logo-sm"><img src="images/oz-logo-new.png" alt="OZ" class="oz-logo-img-header"></div>
+  </div>
+  <div class="form-container">
+
+    <!-- Estado: formulário de nova senha -->
+    <div id="rp-state-form">
+      <div class="fp-icon-wrap">
+        <div class="fp-icon fp-icon-success"><i class="fa fa-key"></i></div>
+      </div>
+      <h2 class="form-title">Nova senha</h2>
+      <p class="form-subtitle">Escolhe algo que você não vai esquecer — mínimo 6 caracteres.</p>
+
+      <div id="rp-error" class="alert alert-error" style="display:none"></div>
+      <div id="rp-success" class="alert alert-success" style="display:none"></div>
+
+      <form autocomplete="new-password" onsubmit="event.preventDefault(); doResetPassword()">
+        <div class="field-group">
+          <label>Nova senha <span class="required">*</span></label>
+          <div class="pass-wrap">
+            <input type="password" id="rp-password" class="field-input"
+                   placeholder="Mínimo 6 caracteres" autocomplete="new-password"
+                   oninput="checkPassMatch('rp-password','rp-password-confirm','rp-pass-hint')" />
+            <button type="button" class="pass-toggle" onclick="togglePassword('rp-password')">
+              <i class="fa fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Confirmar nova senha <span class="required">*</span></label>
+          <div class="pass-wrap">
+            <input type="password" id="rp-password-confirm" class="field-input"
+                   placeholder="Repita a senha" autocomplete="new-password"
+                   oninput="checkPassMatch('rp-password','rp-password-confirm','rp-pass-hint')" />
+            <button type="button" class="pass-toggle" onclick="togglePassword('rp-password-confirm')">
+              <i class="fa fa-eye"></i>
+            </button>
+          </div>
+          <span id="rp-pass-hint" style="font-size:0.82rem; margin-top:4px; display:block"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-24" id="rp-submit-btn">
+          <span id="rp-btn-text"><i class="fa fa-lock"></i> Salvar nova senha</span>
+          <i id="rp-spinner" class="fa fa-spinner fa-spin" style="display:none"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- Estado: link inválido / expirado -->
+    <div id="rp-state-invalid" style="display:none">
+      <div class="fp-icon-wrap">
+        <div class="fp-icon fp-icon-error"><i class="fa fa-times-circle"></i></div>
+      </div>
+      <h2 class="form-title">Link expirado</h2>
+      <p class="form-subtitle">Esse link já foi usado ou passou do prazo.<br>Pede um novo link — é rapidinho.</p>
+      <div class="fp-actions">
+        <button class="btn btn-primary" onclick="showScreen('screen-forgot-password')">
+          <i class="fa fa-redo"></i> Solicitar novo link
+        </button>
+        <button class="btn fp-btn-secondary" onclick="showScreen('screen-login')">
+          <i class="fa fa-sign-in-alt"></i> Voltar ao login
+        </button>
+      </div>
+    </div>
+
+    <!-- Estado: senha alterada com sucesso -->
+    <div id="rp-state-done" style="display:none">
+      <div class="fp-icon-wrap">
+        <div class="fp-icon fp-icon-success"><i class="fa fa-check-circle"></i></div>
+      </div>
+      <h2 class="form-title">Senha atualizada! ✅</h2>
+      <p class="form-subtitle">Tudo certo. Agora é só entrar e curtir.</p>
+      <div class="fp-actions">
+        <button class="btn btn-primary" onclick="showScreen('screen-login')">
+          <i class="fa fa-sign-in-alt"></i> Ir para o login
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ╔════════════════════════════════════════════════════════╗
+     ║  CADASTRO — CLIENTE                                   ║
+     ╚════════════════════════════════════════════════════════╝ -->
+<div id="screen-register-cliente" class="screen">
+  <div class="page-header-simple">
+    <button class="btn-back" onclick="showScreen('screen-welcome')"><i class="fa fa-arrow-left"></i></button>
+    <div class="oz-app-logo-sm"><img src="images/oz-logo-new.png" alt="OZ" class="oz-logo-img-header"></div>
+  </div>
+  <div class="form-container">
+
+    <div class="register-type-badge badge-cliente">
+      <i class="fa fa-user"></i> Cadastro de Cliente
+    </div>
+    <h2 class="form-title">Entra no rolê 🎉</h2>
+    <p class="form-subtitle">Maiores de 18 apenas. A noite tem regras — poucas, mas tem.</p>
+
+    <div id="reg-cliente-error" class="alert alert-error" style="display:none"></div>
+    <div id="reg-cliente-success" class="alert alert-success" style="display:none"></div>
+
+    <form autocomplete="on" onsubmit="event.preventDefault(); doRegisterCliente()">
+
+      <div class="form-section-title">Dados pessoais</div>
+
+      <div class="field-group">
+        <label>Nome completo <span class="required">*</span></label>
+        <input type="text" id="c-name" placeholder="Seu nome completo" autocomplete="name" />
+      </div>
+
+      <div class="field-group">
+        <label>CPF <span class="required">*</span></label>
+        <input type="text" id="c-cpf" placeholder="000.000.000-00" maxlength="14"
+               oninput="maskCPF(this)" autocomplete="off" />
+        <span class="field-hint">Seu CPF não será compartilhado</span>
+      </div>
+
+      <div class="field-group-row">
+        <div class="field-group">
+          <label>Data de nascimento <span class="required">*</span></label>
+          <input type="date" id="c-birthdate" max="" />
+        </div>
+        <div class="field-group">
+          <label>Gênero <span class="required">*</span></label>
+          <select id="c-gender">
+            <option value="">Selecionar</option>
+            <option value="masculino">Masculino</option>
+            <option value="feminino">Feminino</option>
+            <option value="nao_binario">Não-binário</option>
+            <option value="outro">Outro</option>
+            <option value="prefiro_nao_dizer">Prefiro não dizer</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Telefone / WhatsApp</label>
+        <input type="tel" id="c-phone" placeholder="(11) 99999-9999" maxlength="15"
+               oninput="maskPhone(this)" autocomplete="tel" />
+      </div>
+
+      <div class="form-section-title">Acesso à conta</div>
+
+      <div class="field-group">
+        <label>E-mail <span class="required">*</span></label>
+        <input type="email" id="c-email" placeholder="seu@email.com" autocomplete="email" />
+      </div>
+
+      <div class="field-group">
+        <label>Senha <span class="required">*</span></label>
+        <div class="input-password-wrap">
+          <input type="password" id="c-password" placeholder="Mínimo 6 caracteres" autocomplete="new-password" />
+          <button type="button" class="btn-toggle-pass" onclick="togglePassword('c-password')"><i class="fa fa-eye"></i></button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Confirmar senha <span class="required">*</span></label>
+        <div class="input-password-wrap">
+          <input type="password" id="c-password-confirm" placeholder="Repita a senha" autocomplete="new-password" oninput="checkPassMatch('c-password','c-password-confirm','c-pass-match-hint')" />
+          <button type="button" class="btn-toggle-pass" onclick="togglePassword('c-password-confirm')"><i class="fa fa-eye"></i></button>
+        </div>
+        <span class="field-hint" id="c-pass-match-hint"></span>
+      </div>
+
+      <div class="field-group" id="c-referral-group">
+        <label>Código de convite <span class="optional">(opcional)</span></label>
+        <input type="text" id="c-referral" placeholder="Código de um amigo ou promoter" autocomplete="off" />
+        <span class="field-hint" id="c-referral-hint">Se alguém te trouxe pra OZ, cola o código aqui</span>
+      </div>
+
+      <div class="terms-check">
+        <input type="checkbox" id="c-terms" />
+        <label for="c-terms">Confirmo que tenho 18 anos ou mais e aceito os <a href="terms-of-use.html" target="_blank">Termos de Uso</a></label>
+      </div>
+
+      <div class="terms-check">
+        <input type="checkbox" id="c-privacy" />
+        <label for="c-privacy">Li e concordo com a <a href="privacy-policy.html" target="_blank">Política de Privacidade</a> da plataforma</label>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-cliente mt-24">
+        <span id="c-btn-text"><i class="fa fa-user-plus"></i> Criar conta de Cliente</span>
+        <i id="c-spinner" class="fa fa-spinner fa-spin" style="display:none"></i>
+      </button>
+    </form>
+
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CADASTRO — BAR                                      ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-register-bar" class="screen">
+  <div class="page-header-simple">
+    <button class="btn-back" onclick="showScreen('screen-welcome')"><i class="fa fa-arrow-left"></i></button>
+    <div class="oz-app-logo-sm"><img src="images/oz-logo-new.png" alt="OZ" class="oz-logo-img-header"></div>
+  </div>
+  <div class="form-container">
+
+    <div class="register-type-badge badge-bar">
+      <i class="fa fa-glass-cheers"></i> Cadastro de Bar
+    </div>
+    <h2 class="form-title">Coloca seu bar no mapa 🍺</h2>
+    <p class="form-subtitle">Conecte sua casa ao público certo. Benefícios que lotam seu rolê.</p>
+
+    <div id="reg-bar-error" class="alert alert-error" style="display:none"></div>
+    <div id="reg-bar-success" class="alert alert-success" style="display:none"></div>
+
+    <form autocomplete="on" onsubmit="event.preventDefault(); doRegisterBar()">
+
+      <div class="form-section-title">Foto do estabelecimento</div>
+
+      <div class="field-group">
+        <label>Foto do bar / fachada <span class="required">*</span></label>
+        <div class="reg-photo-upload" id="b-photo-wrap" onclick="document.getElementById('b-photo-input').click()">
+          <div class="reg-photo-preview" id="b-photo-preview">
+            <i class="fa fa-camera reg-photo-icon"></i>
+            <span class="reg-photo-hint">Toque para adicionar foto</span>
+          </div>
+        </div>
+        <input type="file" id="b-photo-input" accept="image/*" style="display:none"
+               onchange="handleRegBarPhoto(event)" />
+        <span class="field-hint">JPG ou PNG · máx 2 MB · obrigatório</span>
+      </div>
+
+      <div class="form-section-title">Dados do estabelecimento</div>
+
+      <div class="field-group">
+        <label>Nome do bar / estabelecimento <span class="required">*</span></label>
+        <input type="text" id="b-barname" placeholder="Ex: Bar da Laje" autocomplete="organization" />
+      </div>
+
+      <div class="field-group">
+        <label>Gênero / estilo do bar <span class="required">*</span></label>
+        <select id="b-genre">
+          <option value="">Selecionar estilo</option>
+          <option value="balada">🎵 Balada / Club</option>
+          <option value="boteco">🍺 Boteco / Bar tradicional</option>
+          <option value="pub">🎸 Pub</option>
+          <option value="rooftop">🌆 Rooftop / Terraço</option>
+          <option value="lounge">🛋️ Lounge</option>
+          <option value="sertanejo">🤠 Sertanejo</option>
+          <option value="pagode">🥁 Pagode / Samba</option>
+          <option value="rock">🎸 Rock</option>
+          <option value="eletronica">🎧 Música Eletrônica</option>
+          <option value="mpb">🎶 MPB / Jazz</option>
+          <option value="diversificado">🎼 Diversificado</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label>Bairro / Localização <span class="required">*</span></label>
+        <input type="text" id="b-hood" placeholder="Ex: Pinheiros, São Paulo - SP" autocomplete="address-level2" />
+      </div>
+
+      <div class="field-group">
+        <label>Endereço completo <span class="required">*</span></label>
+        <input type="text" id="b-address" placeholder="Rua, número — bairro" autocomplete="street-address" />
+      </div>
+
+      <div class="field-group">
+        <label>CNPJ <span class="required">*</span></label>
+        <input type="text" id="b-cnpj" placeholder="00.000.000/0000-00" maxlength="18"
+               oninput="maskCNPJ(this)" autocomplete="off" />
+        <span class="field-hint">Seu CNPJ não será exibido publicamente</span>
+      </div>
+
+      <div class="form-section-title">Responsável pelo cadastro</div>
+
+      <div class="field-group">
+        <label>Nome do responsável <span class="required">*</span></label>
+        <input type="text" id="b-respname" placeholder="Nome completo do responsável" autocomplete="name" />
+      </div>
+
+      <div class="field-group">
+        <label>Telefone de contato <span class="required">*</span></label>
+        <input type="tel" id="b-phone" placeholder="(11) 99999-9999" maxlength="15"
+               oninput="maskPhone(this)" autocomplete="tel" />
+      </div>
+
+      <div class="form-section-title">Sobre o estabelecimento</div>
+
+      <div class="field-group">
+        <label>Instagram do bar</label>
+        <div class="input-prefix-wrap">
+          <span class="input-prefix">@</span>
+          <input type="text" id="b-instagram" placeholder="seuperfil" autocomplete="off" />
+        </div>
+        <span class="field-hint">Seu perfil no Instagram (sem o @)</span>
+      </div>
+
+      <div class="field-group">
+        <label>Release / Sobre o bar</label>
+        <textarea id="b-release" rows="4"
+          placeholder="Conte a história do bar, o ambiente, o estilo da noite..."></textarea>
+        <span class="field-hint">Essa descrição aparecerá no perfil do seu bar</span>
+      </div>
+
+      <div class="form-section-title">Acesso à conta</div>
+
+      <div class="field-group">
+        <label>E-mail <span class="required">*</span></label>
+        <input type="email" id="b-email" placeholder="contato@seubar.com" autocomplete="email" />
+      </div>
+
+      <div class="field-group">
+        <label>Senha <span class="required">*</span></label>
+        <div class="input-password-wrap">
+          <input type="password" id="b-password" placeholder="Mínimo 6 caracteres" autocomplete="new-password" />
+          <button type="button" class="btn-toggle-pass" onclick="togglePassword('b-password')"><i class="fa fa-eye"></i></button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Confirmar senha <span class="required">*</span></label>
+        <div class="input-password-wrap">
+          <input type="password" id="b-password-confirm" placeholder="Repita a senha" autocomplete="new-password" oninput="checkPassMatch('b-password','b-password-confirm','b-pass-match-hint')" />
+          <button type="button" class="btn-toggle-pass" onclick="togglePassword('b-password-confirm')"><i class="fa fa-eye"></i></button>
+        </div>
+        <span class="field-hint" id="b-pass-match-hint"></span>
+      </div>
+
+      <div class="terms-check">
+        <input type="checkbox" id="b-terms" />
+        <label for="b-terms">Li e concordo com os <a href="terms-of-use.html" target="_blank">Termos de Uso</a> da plataforma</label>
+      </div>
+
+      <div class="terms-check">
+        <input type="checkbox" id="b-privacy" />
+        <label for="b-privacy">Li e concordo com a <a href="privacy-policy.html" target="_blank">Política de Privacidade</a> da plataforma</label>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-bar mt-24">
+        <span id="b-btn-text"><i class="fa fa-glass-cheers"></i> Cadastrar estabelecimento</span>
+        <i id="b-spinner" class="fa fa-spinner fa-spin" style="display:none"></i>
+      </button>
+    </form>
+
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CADASTRO — PROMOTER                                 ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-register-promoter" class="screen">
+  <div class="page-header-simple">
+    <button class="btn-back" onclick="showScreen('screen-welcome')"><i class="fa fa-arrow-left"></i></button>
+    <div class="oz-app-logo-sm"><img src="images/oz-logo-new.png" alt="OZ" class="oz-logo-img-header"></div>
+  </div>
+  <div class="form-container">
+
+    <div class="register-type-badge badge-promoter">
+      <i class="fa fa-star"></i> Cadastro de Promoter
+    </div>
+    <h2 class="form-title">Vira Promoter ⭐</h2>
+    <p class="form-subtitle">Indica, gera ativação e embolsa até <strong style="color:var(--neon)">R$15 por indicado</strong>. Zero enrolação.</p>
+
+    <div id="reg-promoter-error" class="alert alert-error" style="display:none"></div>
+    <div id="reg-promoter-success" class="alert alert-success" style="display:none"></div>
+
+    <form autocomplete="on" onsubmit="event.preventDefault(); doRegisterPromoter()">
+
+      <div class="form-section-title">Dados pessoais</div>
+
+      <div class="field-group">
+        <label>Nome completo <span class="required">*</span></label>
+        <input type="text" id="p-name" placeholder="Seu nome completo" autocomplete="name" />
+      </div>
+
+      <div class="field-group">
+        <label>CPF <span class="required">*</span></label>
+        <input type="text" id="p-cpf" placeholder="000.000.000-00" maxlength="14"
+               oninput="maskCPF(this)" autocomplete="off" />
+        <span class="field-hint">Necessário para receber pagamentos via Pix</span>
+      </div>
+
+      <div class="field-group">
+        <label>Data de nascimento <span class="required">*</span></label>
+        <input type="date" id="p-birth-date" autocomplete="bday" />
+        <span class="field-hint">Necessário ter 18 anos ou mais para se cadastrar</span>
+      </div>
+
+      <div class="field-group">
+        <label>Gênero <span class="required">*</span></label>
+        <select id="p-gender">
+          <option value="">Selecionar gênero</option>
+          <option value="masculino">Masculino</option>
+          <option value="feminino">Feminino</option>
+          <option value="nao_binario">Não binário</option>
+          <option value="prefiro_nao_informar">Prefiro não informar</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label>Telefone / WhatsApp <span class="required">*</span></label>
+        <input type="tel" id="p-phone" placeholder="(11) 99999-9999" maxlength="15"
+               oninput="maskPhone(this)" autocomplete="tel" />
+      </div>
+
+      <div class="field-group">
+        <label>Instagram <span class="required">*</span></label>
+        <div class="input-prefix-wrap">
+          <span class="input-prefix">@</span>
+          <input type="text" id="p-instagram" placeholder="seu.perfil" autocomplete="off" />
+        </div>
+        <span class="field-hint">Seu @ no Instagram (sem o @)</span>
+      </div>
+
+      <div class="field-group">
+        <label>Região de atuação <span class="required">*</span></label>
+        <input type="text" id="p-region" placeholder="Ex: Pinheiros, Vila Madalena, Centro..." autocomplete="off" />
+        <span class="field-hint">Bairro ou região onde você vai atuar</span>
+      </div>
+
+      <div class="form-section-title">Seu perfil artístico / profissional</div>
+
+      <div class="field-group">
+        <label>Tipo de atuação <span class="required">*</span></label>
+        <select id="p-type">
+          <option value="">Selecionar tipo</option>
+          <option value="produtor">🎬 Produtor</option>
+          <option value="dj">🎧 DJ</option>
+          <option value="prp">📣 PRP (Relações Públicas)</option>
+          <option value="agitador_cultural">🎭 Agitador Cultural</option>
+        </select>
+        <span class="field-hint">Como você atua no mercado noturno</span>
+      </div>
+
+      <div class="field-group">
+        <label>Release / Bio profissional <span class="required">*</span></label>
+        <textarea id="p-release" rows="5"
+          placeholder="Conte um pouco sobre você: experiências, projetos, casas onde já trabalhou, eventos que organizou..."></textarea>
+        <span class="field-hint">Mínimo 50 caracteres — quanto mais detalhe, mais rápido validamos</span>
+      </div>
+
+      <div class="form-section-title">Acesso à conta</div>
+
+      <div class="field-group">
+        <label>E-mail <span class="required">*</span></label>
+        <input type="email" id="p-email" placeholder="seu@email.com" autocomplete="email" />
+      </div>
+
+      <div class="field-group">
+        <label>Senha <span class="required">*</span></label>
+        <div class="input-password-wrap">
+          <input type="password" id="p-password" placeholder="Mínimo 6 caracteres" autocomplete="new-password" />
+          <button type="button" class="btn-toggle-pass" onclick="togglePassword('p-password')"><i class="fa fa-eye"></i></button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Confirmar senha <span class="required">*</span></label>
+        <div class="input-password-wrap">
+          <input type="password" id="p-password-confirm" placeholder="Repita a senha" autocomplete="new-password" oninput="checkPassMatch('p-password','p-password-confirm','p-pass-match-hint')" />
+          <button type="button" class="btn-toggle-pass" onclick="togglePassword('p-password-confirm')"><i class="fa fa-eye"></i></button>
+        </div>
+        <span class="field-hint" id="p-pass-match-hint"></span>
+      </div>
+
+      <div class="form-section-title">Chave Pix para recebimento</div>
+
+      <div class="field-group">
+        <label>Chave Pix <span class="required">*</span></label>
+        <input type="text" id="p-pix" placeholder="CPF, e-mail ou telefone" autocomplete="off" />
+        <span class="field-hint">É por aqui que o dinheiro cai na sua conta</span>
+      </div>
+
+      <!-- Destaque de ganhos — nova regra -->
+      <div class="earnings-highlight">
+        <div class="eh-row eh-row-title">
+          <i class="fa fa-bolt"></i>
+          <strong>Como o dinheiro entra</strong>
+        </div>
+        <div class="eh-row">
+          <i class="fa fa-check-circle"></i>
+          <span><strong style="color:var(--neon)">R$5,00</strong> por cada ativação do seu indicado</span>
+        </div>
+        <div class="eh-row">
+          <i class="fa fa-layer-group"></i>
+          <span>Até <strong style="color:var(--neon)">3 ativações</strong> por indicado = <strong style="color:var(--neon)">R$15 máx</strong> por pessoa</span>
+        </div>
+        <div class="eh-row">
+          <i class="fa fa-users"></i>
+          <span>Sem teto — quanto mais você indica, mais você ganha</span>
+        </div>
+        <div class="eh-row">
+          <i class="fa fa-wallet"></i>
+          <span>Cai no seu Pix quando você quiser</span>
+        </div>
+      </div>
+
+      <div class="terms-check">
+        <input type="checkbox" id="p-terms" />
+        <label for="p-terms">Li e concordo com os <a href="terms-of-use.html" target="_blank">Termos de Uso</a> e as regras de comissão</label>
+      </div>
+
+      <div class="terms-check">
+        <input type="checkbox" id="p-privacy" />
+        <label for="p-privacy">Li e concordo com a <a href="privacy-policy.html" target="_blank">Política de Privacidade</a> da plataforma</label>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-promoter mt-24">
+        <span id="p-btn-text"><i class="fa fa-star"></i> Criar conta de Promoter</span>
+        <i id="p-spinner" class="fa fa-spinner fa-spin" style="display:none"></i>
+      </button>
+    </form>
+
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CLIENTE — HOME (LISTA DE BARES)                     ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-home" class="screen">
+  <!-- Área rolável -->
+  <div class="home-scroll-area">
+
+    <!-- TOP BAR Netflix-style -->
+    <div class="nfx-top-bar">
+      <div class="nfx-top-left">
+        <p class="nfx-greeting" id="home-greeting">Boa noite 🌙</p>
+        <h2 class="nfx-user-name" id="home-title">Bares parceiros</h2>
+      </div>
+      <div class="nfx-top-right">
+        <button class="nfx-search-icon-btn" id="nfx-search-toggle" onclick="toggleNfxSearch()">
+          <i class="fa fa-search"></i>
+        </button>
+        <!-- Logo OZ -->
+        <div class="nfx-oz-logo"><img src="images/oz-logo-new.png" alt="OZ" class="oz-logo-img-sm"></div>
+        <div class="nfx-avatar" id="home-avatar" onclick="switchTab('profile')">
+          <span id="home-avatar-initial">?</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barra de busca expansível -->
+    <div class="nfx-search-bar" id="nfx-search-bar" style="display:none">
+      <i class="fa fa-search nfx-search-bar-icon"></i>
+      <input type="text" id="search-bars" class="nfx-search-input" placeholder="Buscar por nome ou bairro..." oninput="filterBars()" />
+      <button class="nfx-search-close" onclick="toggleNfxSearch()"><i class="fa fa-times"></i></button>
+    </div>
+
+    <!-- Banner: Link da Noite ativo -->
+    <div class="night-active-banner" id="night-active-banner" style="display:none" onclick="switchTab('home')">
+      <div class="nab-glow"></div>
+      <div class="nab-icon">🌙</div>
+      <div class="nab-text">
+        <p class="nab-title">Você tá com acesso ativo!</p>
+        <p class="nab-sub">Toque para ver os bares disponíveis · <span id="night-banner-expiry"></span></p>
+      </div>
+      <div class="nab-arrow"><i class="fa fa-chevron-right"></i></div>
+    </div>
+
+    <!-- Tabs Netflix-style -->
+    <div class="nfx-tabs">
+      <button class="nfx-tab active" id="htab-discover"  onclick="switchHomeTab('discover')">Hoje</button>
+      <button class="nfx-tab"        id="htab-favorites" onclick="switchHomeTab('favorites')">Meus Bares</button>
+      <button class="nfx-tab"        id="htab-scheduled" onclick="switchHomeTab('scheduled')">
+        <i class="fa fa-calendar-alt" style="font-size:11px;margin-right:5px;"></i>Benefícios Agendados
+      </button>
+    </div>
+
+    <!-- ── PANE: DESCOBRIR ── -->
+    <div id="home-discover-pane">
+
+      <!-- Filtros de pesquisa -->
+      <div class="home-filters" id="home-filters">
+
+        <!-- Filtro: Tipo de benefício -->
+        <div class="hf-group">
+          <button class="hf-group-toggle" onclick="toggleFilterGroup('hf-benefit-opts')" id="hf-benefit-toggle">
+            <i class="fa fa-gift"></i> Benefício
+            <span class="hf-active-count" id="hf-benefit-count" style="display:none"></span>
+            <i class="fa fa-chevron-down hf-chevron" id="hf-benefit-chev"></i>
+          </button>
+          <div class="hf-options" id="hf-benefit-opts" style="display:none">
+            <button class="hf-chip" data-filter="benefit" data-value="Comidinha"   onclick="toggleFilterChip(this)">🍔 Comidinha</button>
+            <button class="hf-chip" data-filter="benefit" data-value="Bebida"      onclick="toggleFilterChip(this)">🍺 Bebida</button>
+            <button class="hf-chip" data-filter="benefit" data-value="Entrada VIP" onclick="toggleFilterChip(this)">⭐ Entrada VIP</button>
+            <button class="hf-chip" data-filter="benefit" data-value="Desconto"    onclick="toggleFilterChip(this)">🏷️ Desconto</button>
+            <button class="hf-chip" data-filter="benefit" data-value="Outros"      onclick="toggleFilterChip(this)">✨ Outros</button>
+          </div>
+        </div>
+
+        <!-- Filtro: Tipo de bar -->
+        <div class="hf-group">
+          <button class="hf-group-toggle" onclick="toggleFilterGroup('hf-genre-opts')" id="hf-genre-toggle">
+            <i class="fa fa-music"></i> Tipo de bar
+            <span class="hf-active-count" id="hf-genre-count" style="display:none"></span>
+            <i class="fa fa-chevron-down hf-chevron" id="hf-genre-chev"></i>
+          </button>
+          <div class="hf-options" id="hf-genre-opts" style="display:none">
+            <button class="hf-chip" data-filter="genre" data-value="balada"       onclick="toggleFilterChip(this)">🎵 Balada</button>
+            <button class="hf-chip" data-filter="genre" data-value="boteco"       onclick="toggleFilterChip(this)">🍺 Boteco</button>
+            <button class="hf-chip" data-filter="genre" data-value="pub"          onclick="toggleFilterChip(this)">🎸 Pub</button>
+            <button class="hf-chip" data-filter="genre" data-value="rooftop"      onclick="toggleFilterChip(this)">🌆 Rooftop</button>
+            <button class="hf-chip" data-filter="genre" data-value="lounge"       onclick="toggleFilterChip(this)">🛋️ Lounge</button>
+            <button class="hf-chip" data-filter="genre" data-value="sertanejo"    onclick="toggleFilterChip(this)">🤠 Sertanejo</button>
+            <button class="hf-chip" data-filter="genre" data-value="pagode"       onclick="toggleFilterChip(this)">🥁 Pagode</button>
+            <button class="hf-chip" data-filter="genre" data-value="rock"         onclick="toggleFilterChip(this)">🎸 Rock</button>
+            <button class="hf-chip" data-filter="genre" data-value="eletronica"   onclick="toggleFilterChip(this)">🎧 Eletrônica</button>
+            <button class="hf-chip" data-filter="genre" data-value="mpb"          onclick="toggleFilterChip(this)">🎶 MPB/Jazz</button>
+            <button class="hf-chip" data-filter="genre" data-value="diversificado" onclick="toggleFilterChip(this)">🎼 Diversificado</button>
+          </div>
+        </div>
+
+        <!-- Botão limpar filtros -->
+        <button class="hf-clear" id="hf-clear-btn" onclick="clearAllFilters()" style="display:none">
+          <i class="fa fa-times"></i> Limpar filtros
+        </button>
+
+      </div>
+
+      <div id="bars-list"></div>
+      <div id="bars-empty" class="empty-state" style="display:none">
+        <i class="fa fa-moon"></i><p>Nenhum bar encontrado</p>
+      </div>
+    </div>
+
+    <!-- ── PANE: MEUS BARES ── -->
+    <div id="home-favorites-pane" style="display:none">
+      <div id="fav-bars-list"></div>
+      <div id="fav-bars-empty" class="empty-state" style="display:none">
+        <i class="fa fa-heart"></i>
+        <p>Nenhum bar favoritado ainda.<br>Explora e toca em ♥ nos que você curte!</p>
+      </div>
+    </div>
+
+    <!-- ── PANE: BENEFÍCIOS AGENDADOS ── -->
+    <div id="home-scheduled-pane" style="display:none">
+
+      <!-- Calendário de filtro -->
+      <div class="hcal-wrap" id="hcal-wrap">
+        <div class="hcal-header">
+          <button class="hcal-arrow" onclick="hcalPrev()"><i class="fa fa-chevron-left"></i></button>
+          <span class="hcal-month" id="hcal-month-label">—</span>
+          <button class="hcal-arrow" onclick="hcalNext()"><i class="fa fa-chevron-right"></i></button>
+          <button class="hcal-today-btn" id="hcal-today-btn" onclick="hcalGoToday()">Hoje</button>
+        </div>
+        <div class="hcal-weekdays">
+          <span>D</span><span>S</span><span>T</span>
+          <span>Q</span><span>Q</span><span>S</span><span>S</span>
+        </div>
+        <div class="hcal-grid" id="hcal-grid"></div>
+      </div>
+
+      <!-- Label + contador do filtro ativo -->
+      <div class="hcal-filter-bar" id="hcal-filter-bar">
+        <span class="hcal-filter-label" id="hcal-filter-label">
+          <i class="fa fa-bolt"></i> Benefícios ativos hoje
+        </span>
+        <span class="hcal-filter-count" id="hcal-filter-count" style="display:none">0</span>
+      </div>
+
+      <!-- Lista filtrada por data (reutiliza bars-list-sched para não colidir) -->
+      <div id="bars-list-sched"></div>
+      <div id="bars-empty-sched" class="empty-state" style="display:none">
+        <i class="fa fa-calendar-times"></i><p>Nenhum bar agendado para esta data</p>
+      </div>
+
+    </div><!-- /home-scheduled-pane -->
+
+  </div><!-- /home-scroll-area -->
+
+  <!-- Nav inline fixada no rodapé -->
+  <nav class="client-inline-nav nfx-bottom-nav">
+    <button class="cin-item active" id="cin-home-discover" onclick="switchTab('home')"><i class="fa fa-home"></i><span>Início</span></button>
+    <button class="cin-item" id="cin-home-picks" onclick="switchTab('picks')"><i class="fa fa-star"></i><span>Indicações</span><span class="cin-badge" id="cin-picks-badge-home" style="display:none"></span></button>
+    <button class="cin-item" id="cin-home-history" onclick="switchTab('history')"><i class="fa fa-history"></i><span>Histórico</span></button>
+    <button class="cin-item" id="cin-home-profile" onclick="switchTab('profile')"><i class="fa fa-user"></i><span>Perfil</span><span class="cin-badge" id="cin-inbox-badge" style="display:none"></span></button>
+  </nav>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CLIENTE — BAR DETAIL  (estilo Deadpool)             ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-bar-detail" class="screen dp-screen">
+  <div class="dp-scroll">
+
+    <!-- ══ HERO COM AVATAR FLUTUANTE ══ -->
+    <div class="dp-hero-wrap">
+      <div class="dp-hero-img" id="bar-hero-img">
+        <div class="dp-hero-grad"></div>
+      </div>
+      <!-- Botões flutuantes topo -->
+      <button class="dp-btn-back" onclick="goBack()">
+        <i class="fa fa-arrow-left"></i>
+      </button>
+      <div class="dp-top-right">
+        <button class="dp-btn-fav" id="btn-favorite-bar" onclick="toggleFavoriteBar()">
+          <i class="fa fa-heart" id="fav-icon"></i>
+        </button>
+        <button class="dp-btn-share" onclick="shareBar()">
+          <i class="fa fa-share-alt"></i>
+        </button>
+      </div>
+
+      <!-- Avatar do bar flutuando na base do hero -->
+      <div class="dp-avatar-float-zone">
+        <div class="dp-bar-avatar-wrap">
+          <div class="dp-bar-avatar" id="dp-bar-avatar-img">
+            <i class="fa fa-store"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ IDENTIDADE DO BAR ══ -->
+    <div class="dp-identity-v2">
+      <!-- Badge de gênero musical -->
+      <span class="dp-genre-badge" id="bar-hero-genre"></span>
+
+      <!-- Nome do bar -->
+      <h1 class="dp-bar-name" id="bar-detail-name"></h1>
+
+      <!-- Meta: bairro · status · instagram -->
+      <div class="dp-meta-row">
+        <span class="dp-meta-item"><i class="fa fa-map-marker-alt"></i> <span id="bar-detail-hood-span"></span></span>
+        <span class="dp-meta-sep">·</span>
+        <span class="dp-meta-item" id="bd-status-dot">
+          <i class="fa fa-circle" style="color:#4ade80;font-size:7px"></i> Aberto agora
+        </span>
+        <span class="dp-meta-sep" id="bar-instagram-sep" style="display:none">·</span>
+        <a class="dp-meta-item dp-meta-ig" id="bar-instagram-link" href="#" target="_blank" rel="noopener" style="display:none">
+          <i class="fab fa-instagram"></i> <span id="bar-instagram-handle">@bar</span>
+        </a>
+      </div>
+
+      <!-- Atração ao vivo -->
+      <div class="dp-event-pill" id="bar-attraction-card" style="display:none">
+        <i class="fa fa-music"></i>
+        <span id="bar-event-text"></span>
+        <span class="dp-live-dot"><i class="fa fa-circle"></i> AO VIVO</span>
+      </div>
+
+      <!-- Avaliação estrelas -->
+      <div class="dp-stars-row" id="dp-stars-row">
+        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+        <i class="fa fa-star"></i><i class="far fa-star"></i>
+        <span class="dp-rating-count" id="dp-rating-text">Novo</span>
+      </div>
+
+      <!-- Ações secundárias: Favoritar · Compartilhar · Instagram -->
+      <div class="dp-quick-actions">
+        <button class="dp-qa-btn" onclick="toggleFavoriteBar()">
+          <i class="fa fa-heart" id="dp-fav-icon2"></i>
+          <span>Favoritar</span>
+        </button>
+        <button class="dp-qa-btn" onclick="shareBar()">
+          <i class="fa fa-share-alt"></i>
+          <span>Compartilhar</span>
+        </button>
+        <button class="dp-qa-btn" id="dp-action-ig-btn" style="display:none"
+          onclick="document.getElementById('bar-instagram-link').click()">
+          <i class="fab fa-instagram"></i>
+          <span>Instagram</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ CARD DE BENEFÍCIO PREMIUM ══ -->
+    <div class="dp-benefit-premium-wrap">
+      <!-- Eyebrow -->
+      <div class="dp-benefit-eyebrow">
+        <span class="dp-benefit-eyebrow-dot"></span>
+        <span>BENEFÍCIO EXCLUSIVO OZ</span>
+      </div>
+
+      <!-- Card principal do benefício -->
+      <div class="dp-benefit-premium-card" id="exec-benefit-card-main">
+        <div class="dp-benefit-premium-icon">
+          <i class="fa fa-gift"></i>
+        </div>
+        <div class="dp-benefit-premium-body">
+          <span class="dp-benefit-premium-title" id="bar-benefit-text">Carregando benefício...</span>
+          <span class="dp-benefit-premium-sub" id="exec-benefit-sub-text">Só pra quem tá na OZ · Ativo agora 🔥</span>
+        </div>
+        <span class="dp-benefit-live-dot"></span>
+      </div>
+
+      <!-- Botão CTA principal -->
+      <button class="dp-btn-activate-premium" onclick="openActivateModal()" id="dp-btn-activate-main">
+        <i class="fa fa-bolt"></i>
+        <span>Ativar benefício agora</span>
+      </button>
+    </div>
+
+    <!-- ══ CORPO COM ABAS ══ -->
+    <div class="bdv2-body">
+
+      <!-- COMPAT JS (oculto) -->
+      <div style="display:none">
+        <div class="bdv2-benefit-shimmer"></div>
+        <div class="bdv2-benefit-top">
+          <div class="bdv2-benefit-icon-wrap"><i class="fa fa-gift"></i></div>
+          <div class="bdv2-benefit-text">
+            <span class="bdv2-benefit-label">Benefício exclusivo OZ</span>
+          </div>
+        </div>
+        <button class="bdv2-btn-activate" onclick="openActivateModal()">
+          <i class="fa fa-bolt"></i><span>Ativar benefício agora</span>
+        </button>
+      </div>
+
+      <!-- ABAS DE NAVEGAÇÃO -->
+      <div class="exec-tabs-bar">
+        <button class="exec-tab active" id="bdtab-sobre" onclick="switchBarDetailTab('sobre')">Sobre</button>
+        <button class="exec-tab" id="bdtab-promocoes" onclick="switchBarDetailTab('promocoes')">Benefícios</button>
+        <button class="exec-tab" id="bdtab-avaliacoes" onclick="switchBarDetailTab('avaliacoes')">Avaliações</button>
+      </div>
+
+      <!-- ── TAB: SOBRE ── -->
+      <div class="bdv2-tab-pane active" id="bdcontent-sobre">
+
+        <!-- Sobre o bar -->
+        <div class="dp-section-card" id="bar-release-block" style="display:none">
+          <div class="dp-section-card-header">
+            <i class="fa fa-align-left"></i>
+            <span>Sobre o bar</span>
+          </div>
+          <p class="dp-section-card-text" id="bar-release-text"></p>
+        </div>
+
+        <!-- Galeria de fotos -->
+        <div class="dp-section-card" id="bar-gallery-section" style="display:none">
+          <div class="dp-section-card-header">
+            <i class="fa fa-images"></i>
+            <span>Fotos do bar</span>
+          </div>
+          <div class="bdv2-gallery-scroll" id="bar-gallery-scroll"></div>
+        </div>
+
+        <!-- Grid de chips de info -->
+        <div class="exec-info-row">
+          <div class="exec-info-chip">
+            <i class="fa fa-music"></i>
+            <div class="exec-info-chip-body">
+              <span class="exec-info-chip-label">Estilo</span>
+              <span class="exec-info-chip-value" id="bd-info-genre">—</span>
+            </div>
+          </div>
+          <div class="exec-info-chip">
+            <i class="fa fa-map-marker-alt"></i>
+            <div class="exec-info-chip-body">
+              <span class="exec-info-chip-label">Bairro</span>
+              <span class="exec-info-chip-value" id="bd-info-hood">—</span>
+            </div>
+          </div>
+          <div class="exec-info-chip">
+            <i class="fa fa-fire"></i>
+            <div class="exec-info-chip-body">
+              <span class="exec-info-chip-label">Ativações</span>
+              <span class="exec-info-chip-value" id="bd-info-acts">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Informações extras -->
+        <div class="bdv2-extra-info-list" id="bar-extra-info-list">
+          <div class="bdv2-extra-info-row" id="bd-row-hours" style="display:none">
+            <div class="bdv2-extra-icon hours"><i class="fa fa-door-open"></i></div>
+            <div class="bdv2-extra-body">
+              <span class="bdv2-extra-label">Horário</span>
+              <span class="bdv2-extra-value" id="bd-info-hours">—</span>
+            </div>
+          </div>
+          <div class="bdv2-extra-info-row" id="bd-row-address" style="display:none">
+            <div class="bdv2-extra-icon address"><i class="fa fa-map-marker-alt"></i></div>
+            <div class="bdv2-extra-body">
+              <span class="bdv2-extra-label">Endereço</span>
+              <span class="bdv2-extra-value" id="bd-info-address">—</span>
+            </div>
+            <a class="bdv2-extra-action" id="bd-maps-link" href="#" target="_blank" rel="noopener">
+              <i class="fa fa-directions"></i>
+            </a>
+          </div>
+          <div class="bdv2-extra-info-row" id="bd-row-whatsapp" style="display:none">
+            <div class="bdv2-extra-icon whatsapp"><i class="fab fa-whatsapp"></i></div>
+            <div class="bdv2-extra-body">
+              <span class="bdv2-extra-label">WhatsApp</span>
+              <span class="bdv2-extra-value" id="bd-info-whatsapp">—</span>
+            </div>
+            <a class="bdv2-extra-action green" id="bd-whatsapp-link" href="#" target="_blank" rel="noopener">
+              <i class="fa fa-paper-plane"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Benefício em destaque -->
+        <div class="exec-featured-promo" id="bar-featured-promo" style="display:none">
+          <div class="exec-fp-left">
+            <span class="exec-fp-eyebrow"><i class="fa fa-tag"></i> Benefício em destaque</span>
+            <span class="exec-fp-value" id="bar-featured-promo-text"></span>
+          </div>
+          <div class="exec-fp-badge">ATIVO</div>
+        </div>
+
+      </div><!-- /tab sobre -->
+
+      <!-- ── TAB: BENEFÍCIOS ── -->
+      <div class="bdv2-tab-pane" id="bdcontent-promocoes">
+
+        <div class="cbc-cal-wrap">
+          <div class="cbc-month-nav">
+            <button class="cbc-arrow" onclick="cbcPrev()"><i class="fa fa-chevron-left"></i></button>
+            <span class="cbc-month-label" id="cbc-month-label">—</span>
+            <button class="cbc-arrow" onclick="cbcNext()"><i class="fa fa-chevron-right"></i></button>
+          </div>
+          <div class="cbc-weekdays">
+            <span>Dom</span><span>Seg</span><span>Ter</span>
+            <span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+          </div>
+          <div class="cbc-grid" id="cbc-cal-grid"></div>
+          <div class="cbc-legend">
+            <span class="cbc-leg-item"><span class="cbc-leg-dot cbc-dot-active"></span>Ativo hoje</span>
+            <span class="cbc-leg-item"><span class="cbc-leg-dot cbc-dot-sched"></span>Agendado</span>
+            <span class="cbc-leg-item"><span class="cbc-leg-dot cbc-dot-sel"></span>Selecionado</span>
+          </div>
+        </div>
+
+        <div id="cbc-day-panel" style="display:none">
+          <div class="cbc-date-bar">
+            <div class="cbc-date-bar-left">
+              <div class="cbc-date-icon" id="cbc-date-icon"><i class="fa fa-calendar-day"></i></div>
+              <div>
+                <span class="cbc-date-label" id="cbc-date-label">—</span>
+                <span class="cbc-date-sub" id="cbc-date-sub">—</span>
+              </div>
+            </div>
+            <button class="cbc-close-btn" onclick="cbcClearDate()"><i class="fa fa-times"></i></button>
+          </div>
+
+          <div class="cbc-benefit-card" id="cbc-benefit-card">
+            <div id="cbc-no-benefit" style="display:none">
+              <div class="cbc-empty-day">
+                <i class="fa fa-calendar-times"></i>
+                <p>Nenhum benefício agendado para este dia.</p>
+              </div>
+            </div>
+
+            <div id="cbc-has-benefit" style="display:none">
+              <div id="cbc-live-banner" class="cbc-live-banner" style="display:none">
+                <span class="cbc-live-dot"></span>
+                <span>BENEFÍCIO ATIVO AGORA · Clientes podem ativar</span>
+              </div>
+              <div class="cbc-benefit-body">
+                <p class="cbc-benefit-title" id="cbc-benefit-title"></p>
+                <div id="cbc-benefit-category" class="cbc-benefit-category" style="display:none">
+                  <span id="cbc-benefit-category-text"></span>
+                </div>
+                <p class="cbc-benefit-desc" id="cbc-benefit-desc"></p>
+                <div id="cbc-benefit-event" class="cbc-benefit-meta" style="display:none">
+                  <i class="fa fa-music"></i>
+                  <span id="cbc-benefit-event-text"></span>
+                </div>
+                <div class="cbc-benefit-meta" id="cbc-slots-info">
+                  <i class="fa fa-users"></i>
+                  <span id="cbc-slots-text">Vagas livres</span>
+                </div>
+              </div>
+              <div class="cbc-action-wrap" id="cbc-action-wrap">
+                <button class="cbc-btn-activate" id="cbc-btn-activate" style="display:none" onclick="openActivateModal()">
+                  <i class="fa fa-bolt"></i> Ativar benefício agora
+                </button>
+
+                <div class="cbc-already-reserved" id="cbc-already-reserved" style="display:none">
+                  <i class="fa fa-check-circle"></i>
+                  <span>Você já reservou este benefício</span>
+                </div>
+                <div class="cbc-full-badge" id="cbc-full-badge" style="display:none">
+                  <i class="fa fa-times-circle"></i>
+                  <span>Vagas esgotadas</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="cbc-loading" class="cbc-loading" style="display:none">
+          <i class="fa fa-spinner fa-spin"></i>
+          <span>Carregando benefícios...</span>
+        </div>
+        <div id="cbc-empty-all" style="display:none">
+          <div class="cbc-empty-all">
+            <i class="fa fa-calendar-alt"></i>
+            <p>Este bar ainda não tem benefícios agendados.</p>
+            <small>Volte em breve para ver as novidades!</small>
+          </div>
+        </div>
+
+        <!-- Compat JS -->
+        <div style="display:none">
+          <div id="bar-promotions-list"></div>
+          <div id="bar-scheduled-benefits-section">
+            <div id="bar-scheduled-benefits-list"></div>
+          </div>
+        </div>
+
+      </div><!-- /bdcontent-promocoes -->
+
+      <!-- ── TAB: AVALIAÇÕES ── -->
+      <div class="bdv2-tab-pane" id="bdcontent-avaliacoes">
+
+        <div class="bdv2-rating-card">
+          <div class="bdv2-rating-left">
+            <span class="bdv2-rating-big" id="bar-rating-score">—</span>
+            <div id="bar-rating-stars" class="bdv2-stars-row"></div>
+            <span class="bdv2-rating-total" id="bar-rating-count">0 avaliações</span>
+          </div>
+          <div class="bdv2-rating-bars" id="bar-rating-bars"></div>
+        </div>
+
+        <div class="rv-section">
+          <div class="rv-form-wrap" id="rv-form-wrap">
+            <div class="rv-form-header">
+              <div class="rv-form-avatar" id="rv-form-avatar">?</div>
+              <div class="rv-form-info">
+                <span class="rv-form-label">Sua avaliação</span>
+                <div class="rv-stars-picker" id="brf-stars-row">
+                  <button class="rv-star-btn" data-v="1" onclick="setReviewStar(1)"><i class="far fa-star"></i></button>
+                  <button class="rv-star-btn" data-v="2" onclick="setReviewStar(2)"><i class="far fa-star"></i></button>
+                  <button class="rv-star-btn" data-v="3" onclick="setReviewStar(3)"><i class="far fa-star"></i></button>
+                  <button class="rv-star-btn" data-v="4" onclick="setReviewStar(4)"><i class="far fa-star"></i></button>
+                  <button class="rv-star-btn" data-v="5" onclick="setReviewStar(5)"><i class="far fa-star"></i></button>
+                </div>
+              </div>
+            </div>
+            <textarea id="brf-text" class="rv-textarea" rows="3"
+              placeholder="Conte como foi sua experiência neste bar..."></textarea>
+            <div class="rv-form-actions">
+              <span class="rv-char-hint" id="rv-char-hint">0 / 500</span>
+              <button class="rv-submit-btn" id="rv-submit-btn" onclick="submitReview()">
+                <i class="fa fa-paper-plane"></i> Publicar
+              </button>
+            </div>
+          </div>
+          <div id="bar-reviews-list" class="rv-list"></div>
+        </div>
+
+      </div><!-- /tab avaliações -->
+
+      <div style="height:60px"></div>
+
+    </div><!-- /bdv2-body -->
+  </div><!-- /dp-scroll -->
+</div><!-- /screen-bar-detail -->
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CLIENTE — HISTÓRICO                                 ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-history" class="screen hist-screen">
+
+  <!-- ══ HEADER ══ -->
+  <div class="hist-topbar">
+    <div class="hist-topbar-left">
+      <h2 class="hist-title">Meu Histórico</h2>
+      <span class="hist-subtitle" id="hist-date-label"></span>
+    </div>
+  </div>
+
+  <!-- ══ ABAS INTERNAS ══ -->
+  <div class="hist-tab-bar">
+    <button class="hist-tab active" id="htab-resumo"    onclick="histSwitchTab('resumo', this)">
+      <i class="fa fa-chart-bar"></i> Resumo
+    </button>
+    <button class="hist-tab"        id="htab-ativacoes" onclick="histSwitchTab('ativacoes', this)">
+      <i class="fa fa-bolt"></i> Ativações recentes
+    </button>
+  </div>
+
+  <!-- ══ PAINEL: RESUMO — Ativações grátis ══ -->
+  <div class="hist-panel active" id="hpanel-resumo">
+    <div class="history-scroll-area">
+
+      <!-- campos ocultos mantidos para compatibilidade com JS existente -->
+      <span id="savings-count"        style="display:none">0</span>
+      <span id="savings-bars"         style="display:none">0</span>
+      <span id="hist-saved-val"       style="display:none"></span>
+      <div  id="hist-bars-wrap"       style="display:none"></div>
+      <canvas id="hist-chart-weekly"  style="display:none" height="0"></canvas>
+      <span id="hist-funnel-ind"      style="display:none"></span>
+      <span id="hist-funnel-ind-bar"  style="display:none"></span>
+      <span id="hist-funnel-night"    style="display:none"></span>
+      <span id="hist-funnel-night-bar" style="display:none"></span>
+      <span id="hist-funnel-free"     style="display:none"></span>
+      <span id="hist-funnel-free-bar" style="display:none"></span>
+      <div  id="hist-top-bars"        style="display:none"></div>
+
+      <!-- Painel de ativações grátis -->
+      <div class="hist-card hist-fcp-card">
+
+        <div class="psc-header-static"><i class="fa fa-star"></i> Ativações grátis</div>
+
+        <!-- Seção: Por convite -->
+        <div class="fcp-section">
+          <div class="fcp-section-header fcp-header-referral">
+            <i class="fa fa-user-plus"></i>
+            <span>Por convite</span>
+            <span class="fcp-count-badge" id="hfcp-count-referral">0</span>
+          </div>
+          <div id="hfcp-loading-referral" class="fcp-loading"><i class="fa fa-spinner fa-spin"></i> Carregando…</div>
+          <div class="fcp-list" id="hfcp-list-referral"></div>
+        </div>
+
+        <!-- Seção: Por cancelamento -->
+        <div class="fcp-section">
+          <div class="fcp-section-header fcp-header-cancel">
+            <i class="fa fa-undo-alt"></i>
+            <span>Por cancelamento de benefício</span>
+            <span class="fcp-count-badge fcp-count-badge-orange" id="hfcp-count-cancel">0</span>
+          </div>
+          <div id="hfcp-loading-cancel" class="fcp-loading"><i class="fa fa-spinner fa-spin"></i> Carregando…</div>
+          <div class="fcp-list" id="hfcp-list-cancel"></div>
+        </div>
+
+      </div>
+
+      <div style="height:24px"></div>
+    </div><!-- /history-scroll-area resumo -->
+  </div><!-- /hpanel-resumo -->
+
+  <!-- ══ PAINEL: ATIVAÇÕES RECENTES ══ -->
+  <div class="hist-panel" id="hpanel-ativacoes">
+    <div class="history-scroll-area">
+
+      <!-- Contador -->
+      <div class="hist-acts-count-row">
+        <span class="hist-acts-count-lbl" id="hist-acts-count-lbl">0 ativações</span>
+      </div>
+
+      <!-- Lista -->
+      <div id="history-list" class="hist-acts-list"></div>
+      <div id="history-empty" class="hist-empty hist-empty-big" style="display:none">
+        <i class="fa fa-ticket-alt"></i>
+        <p>Nenhuma ativação ainda</p>
+        <small>Ative um benefício em um bar para ver aqui</small>
+      </div>
+
+      <div style="height:24px"></div>
+    </div><!-- /history-scroll-area ativacoes -->
+  </div><!-- /hpanel-ativacoes -->
+
+  <!-- Nav inline fixada no rodapé -->
+  <nav class="client-inline-nav">
+    <button class="cin-item" onclick="switchTab('home')"><i class="fa fa-home"></i><span>Início</span></button>
+    <button class="cin-item" onclick="switchTab('picks')"><i class="fa fa-star"></i><span>Indicações</span></button>
+    <button class="cin-item active" onclick="switchTab('history')"><i class="fa fa-history"></i><span>Histórico</span></button>
+    <button class="cin-item" onclick="switchTab('profile')"><i class="fa fa-user"></i><span>Perfil</span></button>
+  </nav>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CLIENTE — PERFIL                                    ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-profile" class="screen">
+  <!-- Área rolável: tudo menos a nav -->
+  <div class="profile-scroll-area">
+
+    <!-- ══ HERO — estilo Orb/Web3 (original) ══ -->
+    <div class="pf-hero">
+      <div class="pf-banner" id="cp-hero-bg"></div>
+      <div class="pf-banner-overlay"></div>
+
+      <!-- Botão editar (topo direito) -->
+      <div class="pf-top-bar">
+        <button class="pf-top-btn" onclick="openClientEdit()"><i class="fa fa-pen"></i> Editar</button>
+      </div>
+    </div>
+
+    <!-- ══ IDENTIDADE (avatar + nome + rings) ══ -->
+    <div class="pf-identity">
+      <div class="pf-avatar-wrap" onclick="triggerAvatarUpload('cliente')">
+        <div class="pf-avatar avatar-cliente" id="profile-avatar-big">?</div>
+        <div class="pf-avatar-cam"><i class="fa fa-camera"></i></div>
+      </div>
+      <input type="file" id="avatar-upload-cliente" accept="image/*" style="display:none" onchange="handleAvatarUpload(event,'cliente')" />
+
+      <h2 class="pf-name" id="profile-name">Usuário</h2>
+      <p class="pf-email" id="profile-email"></p>
+
+      <!-- Tag de role -->
+      <div class="pf-role-pill pf-role-cliente">
+        <i class="fa fa-user"></i> Cliente OZ
+      </div>
+
+
+
+    </div><!-- /pf-identity -->
+
+    <!-- Abas com ícone + label -->
+    <div class="pf-named-tabs">
+      <button class="pf-named-tab active" onclick="pfSwitchTab('info', this)">
+        <i class="fa fa-id-card"></i>
+        <span>Info</span>
+      </button>
+      <button class="pf-named-tab" onclick="pfSwitchTab('bares', this)">
+        <i class="fa fa-heart"></i>
+        <span>Bares</span>
+      </button>
+      <button class="pf-named-tab" onclick="pfSwitchTab('convite', this)">
+        <i class="fa fa-gift"></i>
+        <span>Convidar</span>
+      </button>
+      <button class="pf-named-tab" onclick="pfSwitchTab('notif', this)">
+        <i class="fa fa-bell"></i>
+        <span>Avisos</span>
+        <span class="pf-named-tab-badge" id="pf-tab-notif-badge" style="display:none"></span>
+      </button>
+    </div>
+
+    <div class="profile-body">
+
+      <!-- ── ABA: INFO ── -->
+      <div class="pf-tab-panel active" id="pf-panel-info">
+        <div class="pinfo-block">
+          <div class="pinfo-block-header">
+            <span class="pinfo-block-title"><i class="fa fa-id-card"></i> Informações pessoais</span>
+            <button class="btn-edit-section" onclick="openClientEdit()"><i class="fa fa-pen"></i> Editar</button>
+          </div>
+          <div class="pinfo-row"><div class="pinfo-icon"><i class="fa fa-birthday-cake"></i></div><div class="pinfo-content"><span class="pinfo-label">Nascimento</span><span class="pinfo-value" id="pinfo-birth">—</span></div></div>
+          <div class="pinfo-row"><div class="pinfo-icon"><i class="fa fa-venus-mars"></i></div><div class="pinfo-content"><span class="pinfo-label">Gênero</span><span class="pinfo-value" id="pinfo-gender">—</span></div></div>
+          <div class="pinfo-row"><div class="pinfo-icon"><i class="fa fa-phone"></i></div><div class="pinfo-content"><span class="pinfo-label">Telefone</span><span class="pinfo-value" id="pinfo-phone">—</span></div></div>
+        </div>
+        <!-- elementos ocultos mantidos para compatibilidade com JS -->
+        <span id="client-promo-avatar" style="display:none"></span>
+        <span id="client-promo-online-dot" style="display:none"></span>
+        <span id="client-promo-name" style="display:none"></span>
+        <span id="client-promo-sub" style="display:none"></span>
+        <span id="client-promo-avatar-hero" style="display:none"></span>
+        <span id="client-promo-online-dot-hero" style="display:none"></span>
+        <span id="client-promo-name-hero" style="display:none"></span>
+        <span id="client-promo-sub-hero" style="display:none"></span>
+        <span id="online-count-badge" style="display:none"></span>
+        <div id="chat-online-list" style="display:none"></div>
+        <!-- Indicação do promoter -->
+        <div class="profile-section-card client-pick-card" id="client-pick-card" style="display:none">
+          <div class="cpk-label">
+            <i class="fa fa-star cpk-star-icon"></i>
+            <span id="cpk-promoter-name">Meu Promoter</span> indica
+            <span id="cpk-status-badge" class="cpk-status-badge" style="display:none"></span>
+          </div>
+          <div class="cpk-bar-row" id="cpk-bar-row" onclick="goToPickedBar()">
+            <div class="cpk-bar-cover" id="cpk-bar-cover"></div>
+            <div class="cpk-bar-info">
+              <span class="cpk-bar-name" id="cpk-bar-name">—</span>
+              <span class="cpk-bar-hood" id="cpk-bar-hood">—</span>
+              <span class="cpk-bar-promo" id="cpk-bar-promo"></span>
+            </div>
+            <i class="fa fa-chevron-right cpk-chevron"></i>
+          </div>
+          <button class="cpk-activate-btn" onclick="goToPickedBar()">
+            <i class="fa fa-bolt"></i> Ver benefício indicado
+          </button>
+        </div>
+      </div>
+
+      <!-- ── ABA: BARES FAVORITOS ── -->
+      <div class="pf-tab-panel" id="pf-panel-bares">
+        <div class="profile-section-card">
+          <div class="psc-header-static"><i class="fa fa-heart"></i> Meus Bares favoritos</div>
+          <div id="profile-favbars-list"></div>
+          <div id="profile-favbars-empty" class="empty-state" style="display:none">
+            <i class="fa fa-heart"></i><p>Nenhum bar favorito ainda.<br>Toque no ♥ no detalhe de um bar.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ABA: CONVIDAR ── -->
+      <div class="pf-tab-panel" id="pf-panel-convite">
+
+        <!-- Código de convite -->
+        <div class="profile-section-card">
+          <div class="psc-header-static"><i class="fa fa-gift"></i> Convidar amigos</div>
+          <p class="referral-explain">Compartilhe seu código. Quando seu amigo se cadastrar e ativar um benefício, você ganha ativações grátis!</p>
+          <div class="referral-code-box" onclick="copyInviteCode()" title="Toque para copiar">
+            <span class="ref-code-label">Seu código de convite</span>
+            <span class="ref-code-value" id="ref-invite-link">---</span>
+            <span class="ref-code-copy-hint"><i class="fa fa-copy"></i> Toque para copiar</span>
+          </div>
+          <div class="referral-share-grid">
+            <button class="btn-ref-share btn-ref-copy" onclick="copyInviteCode()">
+              <i class="fa fa-copy"></i> Copiar código
+            </button>
+          </div>
+        </div>
+
+        <!-- Painel de ativações grátis -->
+        <div class="profile-section-card fcp-card">
+          <div class="psc-header-static"><i class="fa fa-star"></i> Minhas ativações grátis</div>
+          <div id="fcp-loading" class="fcp-loading"><i class="fa fa-spinner fa-spin"></i> Carregando…</div>
+
+          <!-- Seção: Por convite -->
+          <div class="fcp-section" id="fcp-section-referral">
+            <div class="fcp-section-header fcp-header-referral">
+              <i class="fa fa-user-plus"></i>
+              <span>Por convite</span>
+              <span class="fcp-count-badge" id="fcp-count-referral">0</span>
+            </div>
+            <div class="fcp-list" id="fcp-list-referral">
+              <div class="fcp-empty">Nenhuma ativação grátis por convite ainda.</div>
+            </div>
+          </div>
+
+          <!-- Seção: Por cancelamento -->
+          <div class="fcp-section" id="fcp-section-cancel">
+            <div class="fcp-section-header fcp-header-cancel">
+              <i class="fa fa-undo-alt"></i>
+              <span>Por cancelamento de benefício</span>
+              <span class="fcp-count-badge fcp-count-badge-orange" id="fcp-count-cancel">0</span>
+            </div>
+            <div class="fcp-list" id="fcp-list-cancel">
+              <div class="fcp-empty">Nenhuma compensação recebida ainda.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- elementos ocultos mantidos para compatibilidade JS -->
+        <span id="ref-invited-count" style="display:none">0</span>
+        <span id="ref-bonus-count" style="display:none">0</span>
+        <span id="ref-compensation-wrap" style="display:none"></span>
+        <span id="ref-compensation-count" style="display:none">0</span>
+        <span id="ref-compensation-banner" style="display:none"></span>
+        <span id="ref-compensation-banner-count" style="display:none">0</span>
+
+      </div>
+
+      <!-- ── ABA: NOTIFICAÇÕES ── -->
+      <div class="pf-tab-panel" id="pf-panel-notif">
+        <div class="profile-section-card inbox-section-card" id="inbox-section-card">
+          <div class="psc-header-static">
+            <i class="fa fa-bell"></i> Notificações
+            <span class="inbox-badge" id="inbox-unread-badge" style="display:none">0</span>
+          </div>
+          <div id="inbox-list">
+            <div class="inbox-loading"><i class="fa fa-spinner fa-spin"></i></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /profile-body -->
+
+    <!-- Botão Sair — sempre visível independente da aba -->
+    <div class="pf-logout-wrap">
+      <button class="btn-logout-clean" onclick="doLogout()">
+        <i class="fa fa-sign-out-alt"></i> Sair da conta
+      </button>
+    </div>
+
+  </div><!-- /profile-scroll-area -->
+
+  <!-- Nav inline fixada no rodapé -->
+  <nav class="client-inline-nav">
+    <button class="cin-item" onclick="switchTab('home')"><i class="fa fa-home"></i><span>Início</span></button>
+    <button class="cin-item" onclick="switchTab('picks')"><i class="fa fa-star"></i><span>Indicações</span></button>
+    <button class="cin-item" onclick="switchTab('history')"><i class="fa fa-history"></i><span>Histórico</span></button>
+    <button class="cin-item active" onclick="switchTab('profile')"><i class="fa fa-user"></i><span>Perfil</span><span class="cin-badge" id="cin-inbox-badge-2" style="display:none"></span></button>
+  </nav>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CLIENTE — INDICAÇÕES DE PROMOTERS                   ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-picks" class="screen">
+  <div class="picks-scroll-area">
+
+    <!-- Header fixo -->
+    <div class="picks-header">
+      <div class="picks-header-top">
+        <div class="picks-header-content">
+          <h2 class="picks-title"><i class="fa fa-star"></i> Indicações</h2>
+          <p class="picks-sub">Bares recomendados pelos promoters da plataforma</p>
+        </div>
+        <div class="picks-live-count" id="picks-live-count" style="display:none">
+          <span class="picks-live-dot"></span>
+          <span id="picks-live-num">0</span> hoje
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Skeleton / Lista de indicações -->
+    <div id="picks-list" class="picks-list">
+      <div class="picks-loading">
+        <i class="fa fa-spinner fa-spin"></i>
+        <p>Carregando indicações...</p>
+      </div>
+    </div>
+
+    <!-- Estado vazio -->
+    <div id="picks-empty" class="picks-empty" style="display:none">
+      <i class="fa fa-moon"></i>
+      <h3>Nenhuma indicação hoje</h3>
+      <p>Quando um promoter indicar um bar com benefício ativo ou agendado para hoje, ele aparecerá aqui.<br><small>As indicações expiram às 06h da manhã.</small></p>
+    </div>
+
+    <div style="height:80px"></div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="client-inline-nav">
+    <button class="cin-item" onclick="switchTab('home')"><i class="fa fa-home"></i><span>Início</span></button>
+    <button class="cin-item active" onclick="switchTab('picks')"><i class="fa fa-star"></i><span>Indicações</span></button>
+    <button class="cin-item" onclick="switchTab('history')"><i class="fa fa-history"></i><span>Histórico</span></button>
+    <button class="cin-item" onclick="switchTab('profile')"><i class="fa fa-user"></i><span>Perfil</span></button>
+  </nav>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  BAR — PAINEL                                        ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-bar-panel" class="screen screen-bar app-screen-flex">
+
+  <!-- ══════════════════════════════════
+       HEADER EXECUTIVO
+  ══════════════════════════════════ -->
+  <div class="bex-header" id="bar-panel-hero-bg">
+    <div class="bex-header-overlay"></div>
+    <div class="bex-header-content">
+      <div class="bex-logo-wrap" id="bex-avatar-wrap">
+        <div class="bex-logo" id="bex-logo-img">🍺</div>
+      </div>
+      <div class="bex-header-info">
+        <p class="bex-label">PAINEL DO BAR</p>
+        <h2 class="bex-bar-name" id="bar-panel-name">Meu Bar</h2>
+        <span class="bex-genre-badge" id="bar-panel-genre"></span>
+      </div>
+      <div class="bex-status-dot" title="Online"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       NAVEGAÇÃO POR ABAS
+  ══════════════════════════════════ -->
+  <div class="bex-tabs">
+    <button class="bex-tab active" id="btab-painel" onclick="switchBarTab('painel')">
+      <i class="fa fa-chart-bar"></i><span>Resultados</span>
+    </button>
+
+    <button class="bex-tab" id="btab-ativados" onclick="switchBarTab('ativados')">
+      <i class="fa fa-users"></i><span>Ativados do dia</span>
+      <span class="bex-tab-badge" id="btab-ativados-badge" style="display:none">0</span>
+    </button>
+    <button class="bex-tab" id="btab-comentarios" onclick="switchBarTab('comentarios')">
+      <i class="fa fa-comments"></i><span>Avaliações</span>
+      <span class="bex-tab-badge" id="btab-comentarios-badge" style="display:none">0</span>
+    </button>
+  </div>
+
+  <!-- ══════════════════════════════════
+       ÁREA ROLÁVEL
+  ══════════════════════════════════ -->
+  <div class="app-scroll-area">
+
+  <!-- ────────────────────────────────
+       TAB: PAINEL (Dashboard)
+  ──────────────────────────────── -->
+  <div id="bar-tab-painel" class="tab-content active">
+
+    <!-- IDs legados ocultos -->
+    <span id="bm-activations" style="display:none"></span>
+    <span id="bm-visitors"    style="display:none"></span>
+    <span id="bm-peak"        style="display:none"></span>
+    <span id="bm-promos"      style="display:none"></span>
+    <span id="bm-acts-today"  style="display:none"></span>
+
+    <!-- ── KPIs: 4 métricas principais ── -->
+    <div class="bpd-totais-grid bpd-totais-grid-top">
+      <div class="bpd-totais-kpi">
+        <span class="bpd-totais-icon"><i class="fa fa-bolt"></i></span>
+        <span class="bpd-totais-val" id="bpit-total-acts">0</span>
+        <span class="bpd-totais-lbl">Ativações</span>
+      </div>
+      <div class="bpd-totais-kpi bpd-totais-kpi-b">
+        <span class="bpd-totais-icon"><i class="fa fa-calendar-day"></i></span>
+        <span class="bpd-totais-val" id="bpit-today-acts">0</span>
+        <span class="bpd-totais-lbl">Hoje</span>
+      </div>
+      <div class="bpd-totais-kpi bpd-totais-kpi-c">
+        <span class="bpd-totais-icon"><i class="fa fa-users"></i></span>
+        <span class="bpd-totais-val" id="bpit-visitors">0</span>
+        <span class="bpd-totais-lbl">Visitantes</span>
+      </div>
+      <div class="bpd-totais-kpi bpd-totais-kpi-d">
+        <span class="bpd-totais-icon"><i class="fa fa-tags"></i></span>
+        <span class="bpd-totais-val" id="bpit-promos">0</span>
+        <span class="bpd-totais-lbl">Benefícios ativos</span>
+      </div>
+    </div>
+
+    <!-- ── CARD: Últimos 7 dias ── -->
+    <div class="bpd-card bpd-acts-tab-card">
+      <div id="bpit-panel-7dias" class="bpd-inner-panel active">
+        <div class="bpd-7d-legend">
+          <span class="bpd-leg-dot bpd-leg-gold"></span><span class="bpd-leg-txt">Ativações</span>
+          <span class="bpd-leg-dot bpd-leg-purple"></span><span class="bpd-leg-txt">Visitantes</span>
+        </div>
+        <div class="bpd-chart-wrap">
+          <canvas id="bar-chart-activations" height="160"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FÃS RECENTES ── -->
+    <!-- ── ATIVAÇÕES RECENTES (expansível) ── -->
+    <div class="bpd-card bpd-recent-card" id="bpd-recent-acts-card">
+      <div class="bpd-card-hd bpd-recent-hd" onclick="toggleBpdRecentActs()">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <p class="bpd-card-title">Ativações recentes</p>
+          <span class="bpd-recent-count" id="bpd-recent-count">0</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="bpd-recent-toggle-lbl" id="bpd-recent-toggle-lbl">Ver tudo</span>
+          <i class="fa fa-chevron-down bpd-recent-chevron" id="bpd-recent-chevron"></i>
+        </div>
+      </div>
+      <!-- Preview: 5 primeiras -->
+      <div id="bpd-recent-preview">
+        <div class="bpd-table-head">
+          <span>Cliente</span><span>Data</span>
+        </div>
+        <div id="bm-acts-table">
+          <div class="bpd-empty"><i class="fa fa-spinner fa-spin"></i> Carregando…</div>
+        </div>
+      </div>
+      <!-- Lista completa (oculta por padrão) -->
+      <div id="bpd-recent-full" class="bpd-recent-full" style="display:none">
+        <div class="bpd-table-head">
+          <span>Cliente</span><span>Data</span>
+        </div>
+        <div id="bm-acts-table-full">
+          <div class="bpd-empty"><i class="fa fa-spinner fa-spin"></i> Carregando…</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="height:28px"></div>
+  </div><!-- /tab painel -->
+
+  <!-- bar-tab-fas vazio: conteúdo movido para screen-bar-profile (Conta) -->
+  <div id="bar-tab-fas" class="tab-content" style="display:none"></div>
+  <!-- bar-tab-info vazio: conteúdo movido para screen-bar-perfil -->
+  <div id="bar-tab-info" class="tab-content" style="display:none"></div>
+  <!-- bar-tab-promocoes vazio: conteúdo movido para screen-bar-beneficios -->
+  <div id="bar-tab-promocoes" class="tab-content" style="display:none"></div>
+
+  <!-- bar-tab-resultados removido -->
+
+  <!-- ══════════════════════════════════
+       ABA: ATIVADOS DO DIA
+  ══════════════════════════════════ -->
+  <div id="bar-tab-ativados" class="tab-content">
+    <div class="bex-section bex-section-live">
+
+      <!-- Cabeçalho com título e dot pulsante -->
+      <div class="res-live-header">
+        <p class="bex-section-label"><i class="fa fa-users"></i> Ativados do dia</p>
+        <div class="res-live-dot" id="ativados-live-dot" title="Atualizando automaticamente">
+          <span></span>
+        </div>
+      </div>
+
+      <!-- Lista de clientes -->
+      <div id="ativados-list-wrap">
+        <div id="ativados-groups-container"></div>
+        <div id="ativados-empty" class="bex-empty" style="display:none">
+          <i class="fa fa-moon"></i>
+          <p>Nenhuma ativação hoje ainda.<br><small>Os clientes aparecem aqui assim que ativarem.</small></p>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /bar-tab-ativados -->
+
+  <!-- bar-tab-explorar vazio: conteúdo movido para screen-bar-explorar -->
+  <div id="bar-tab-explorar" class="tab-content" style="display:none"></div>
+
+  <!-- ══════════════════════════════════
+       ABA: COMENTÁRIOS DO BAR
+  ══════════════════════════════════ -->
+  <div id="bar-tab-comentarios" class="tab-content">
+    <div class="bex-comments-wrap">
+
+      <!-- Header da aba -->
+      <div class="bex-comments-header">
+        <i class="fa fa-comments"></i>
+        <div>
+          <h3 class="bex-comments-title">Comentários dos clientes</h3>
+          <p class="bex-comments-sub">Responda às avaliações e interaja com seus clientes</p>
+        </div>
+      </div>
+
+      <!-- Filtros -->
+      <div class="bex-comments-filters">
+        <button class="bex-cf-btn active" data-filter="all"         onclick="filterBarComments('all')">Todos</button>
+        <button class="bex-cf-btn"        data-filter="pending"     onclick="filterBarComments('pending')">Sem resposta</button>
+        <button class="bex-cf-btn"        data-filter="replied"     onclick="filterBarComments('replied')">Respondidos</button>
+      </div>
+
+      <!-- Lista -->
+      <div id="bar-comments-list" class="bex-comments-list">
+        <div class="bex-comments-loading">
+          <i class="fa fa-spinner fa-spin"></i><p>Carregando comentários...</p>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /tab comentários -->
+
+  <div style="height:32px"></div>
+
+  </div><!-- /app-scroll-area -->
+
+  <!-- Nav fixa no rodapé -->
+  <nav class="app-bottom-nav bar-inline-nav">
+    <button class="bin-item active" id="bar-nav-painel" onclick="switchTab('bar-panel'); updateBarNav('painel')">
+      <i class="fa fa-th-large"></i><span>Painel</span>
+    </button>
+    <div class="bin-sep"></div>
+    <button class="bin-item" id="bar-nav-beneficios-p" onclick="switchTab('bar-beneficios'); updateBarNav('beneficios')">
+      <i class="fa fa-bolt"></i><span>Benefícios</span>
+    </button>
+    <div class="bin-sep"></div>
+    <button class="bin-item" id="bar-nav-explorar-p" onclick="switchTab('bar-explorar'); updateBarNav('explorar')">
+      <i class="fa fa-compass"></i><span>Explorar</span>
+    </button>
+    <div class="bin-sep"></div>
+    <button class="bin-item" id="bar-nav-profile" onclick="switchTab('bar-profile'); updateBarNav('profile')">
+      <i class="fa fa-user-circle"></i><span>Conta</span>
+    </button>
+  </nav>
+
+</div><!-- /screen-bar-panel -->
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  BAR — BENEFÍCIOS                                    ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-bar-beneficios" class="screen screen-bar app-screen-flex">
+  <div class="app-scroll-area bsl-root">
+
+    <!-- Banner: cadastro pendente de aprovação -->
+    <div id="bar-approval-banner" style="display:none">
+      <div class="bab-inner">
+        <div class="bab-icon"><i class="fa fa-hourglass-half"></i></div>
+        <div class="bab-text">
+          <strong>Cadastro em análise</strong>
+          <span>Seu bar ainda não foi aprovado pelo admin. Assim que aprovado, você poderá publicar benefícios e aparecer para os clientes.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         AGENDA DE BENEFÍCIOS — único calendário para tudo
+    ══════════════════════════════════════════════════════ -->
+
+    <!-- Cabeçalho -->
+    <div class="bsl-cal-section" style="padding-bottom:0 !important">
+      <div class="bsl-cal-topbar">
+        <div class="bsl-cal-nav-group">
+          <button class="bsl-cal-arrow" onclick="schedCalPrev()">
+            <i class="fa fa-chevron-left"></i>
+          </button>
+          <span class="bsl-cal-month-label" id="sched-cal-month-label">—</span>
+          <button class="bsl-cal-arrow" onclick="schedCalNext()">
+            <i class="fa fa-chevron-right"></i>
+          </button>
+        </div>
+        <button class="bsl-today-btn" onclick="schedCalGoToday()">
+          <i class="fa fa-dot-circle"></i> Hoje
+        </button>
+      </div>
+
+      <!-- Dias da semana -->
+      <div class="bsl-cal-weekdays">
+        <span>Dom</span><span>Seg</span><span>Ter</span>
+        <span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+      </div>
+
+      <!-- Grade de dias -->
+      <div class="bsl-cal-grid" id="sched-cal-grid"></div>
+
+      <!-- Legenda -->
+      <div class="bsl-cal-legend">
+        <span class="bsl-legend-item">
+          <span class="bsl-legend-dot bsl-dot-today"></span>Hoje
+        </span>
+        <span class="bsl-legend-item">
+          <span class="bsl-legend-dot bsl-dot-sched" style="opacity:1"></span>Agendado
+        </span>
+        <span class="bsl-legend-item">
+          <span class="bsl-legend-dot bsl-dot-sel"></span>Selecionado
+        </span>
+      </div>
+    </div>
+
+    <!-- ── PAINEL DO DIA (aparece ao clicar num dia) ── -->
+    <div id="sched-form-panel" class="bsl-form-panel" style="display:none; padding: 0 16px 16px;">
+
+      <!-- Barra de data selecionada -->
+      <div class="bsl-date-bar">
+        <div class="bsl-date-bar-left">
+          <div class="bsl-date-icon"><i class="fa fa-calendar-day"></i></div>
+          <div>
+            <span class="bsl-date-label" id="sched-cal-selected-label">—</span>
+            <span class="bsl-date-sub" id="bsl-date-sub">Sem benefício agendado</span>
+          </div>
+        </div>
+        <button class="bsl-date-close" onclick="clearSchedDate()">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Card do formulário -->
+      <div class="bsl-form-card">
+
+        <!-- MODO EDIÇÃO: dia já tem benefício → preview + ações -->
+        <div id="bsl-edit-mode" style="display:none">
+
+          <!-- Banner "AO VIVO" (só aparece se hoje tem benefício ativo) -->
+          <div id="bsl-today-live-banner" style="display:none; align-items:center; gap:8px;
+               background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.25);
+               border-radius:10px; padding:10px 12px; margin-bottom:12px;">
+            <div style="display:flex;align-items:center;gap:6px;flex:1">
+              <span style="width:8px;height:8px;border-radius:50%;background:#ef4444;
+                animation:bsl-blink 1.2s ease-in-out infinite;display:inline-block;flex-shrink:0"></span>
+              <span style="font-size:12px;font-weight:800;color:#ef4444;text-transform:uppercase;letter-spacing:.5px">AO VIVO AGORA</span>
+            </div>
+            <span style="font-size:11px;color:var(--gray-3)">Clientes podem ativar</span>
+          </div>
+
+          <!-- Badge: existe agendamento -->
+          <div class="bsl-existing-badge">
+            <i class="fa fa-check-circle"></i>
+            <span>Benefício agendado</span>
+          </div>
+
+          <!-- Preview do conteúdo -->
+          <div class="bsl-existing-preview" id="bsl-existing-preview"></div>
+
+          <!-- Ações: editar / remover -->
+          <div class="bsl-edit-actions">
+            <button class="bsl-btn-edit-toggle" onclick="bslToggleEdit()">
+              <i class="fa fa-pencil-alt"></i> Editar
+            </button>
+            <button class="bsl-btn-delete" onclick="bslDeleteSelected()">
+              <i class="fa fa-trash"></i> Remover
+            </button>
+          </div>
+
+        </div><!-- /bsl-edit-mode -->
+
+        <!-- MODO NOVO / EDITAR FORM: formulário de agendamento -->
+        <div id="bsl-new-mode">
+
+          <div id="sched-form-alert" class="bsl-alert" style="display:none"></div>
+
+          <!-- Benefício -->
+          <div class="bsl-field">
+            <label class="bsl-label">
+              <i class="fa fa-tag"></i> Benefício
+              <span class="bsl-required">*</span>
+            </label>
+            <input id="sched-title" class="bsl-input" type="text"
+              placeholder="Ex: 2x1 em caipirinhas, Entrada grátis…" />
+          </div>
+
+          <!-- Categoria -->
+          <div class="bsl-field">
+            <label class="bsl-label">
+              <i class="fa fa-th-large"></i> Categoria
+              <span class="bsl-required">*</span>
+            </label>
+            <div class="bsl-cat-grid" id="sched-cat-grid">
+              <button type="button" class="bsl-cat-btn" data-cat="Comidinha"   onclick="selectSchedCat(this)">🍔 Comidinha</button>
+              <button type="button" class="bsl-cat-btn" data-cat="Bebida"      onclick="selectSchedCat(this)">🍺 Bebida</button>
+              <button type="button" class="bsl-cat-btn" data-cat="Entrada VIP" onclick="selectSchedCat(this)">⭐ Entrada VIP</button>
+              <button type="button" class="bsl-cat-btn" data-cat="Desconto"    onclick="selectSchedCat(this)">🏷️ Desconto</button>
+              <button type="button" class="bsl-cat-btn" data-cat="Outros"      onclick="selectSchedCat(this)">✨ Outros</button>
+            </div>
+            <input type="hidden" id="sched-category" />
+          </div>
+
+          <!-- Descrição -->
+          <div class="bsl-field">
+            <label class="bsl-label">
+              <i class="fa fa-align-left"></i> Descrição
+              <span class="bsl-required">*</span>
+            </label>
+            <textarea id="sched-desc" class="bsl-textarea" rows="3"
+              placeholder="O que o cliente ganha? Seja específico…"></textarea>
+          </div>
+
+          <!-- Atração / Evento (opcional) -->
+          <div class="bsl-field">
+            <label class="bsl-label">
+              <i class="fa fa-music"></i> Atração / Evento
+              <span class="bsl-optional">opcional</span>
+            </label>
+            <input id="sched-event" class="bsl-input" type="text"
+              placeholder="Ex: DJ Set a partir das 22h, Banda ao vivo…" />
+          </div>
+
+          <!-- Número de ativações -->
+          <div class="bsl-field">
+            <label class="bsl-label">
+              <i class="fa fa-users"></i> Número de ativações
+            </label>
+            <div class="bsl-limit-toggle">
+              <button type="button" class="bsl-limit-btn active" id="sched-plt-off"
+                onclick="setSchedLimit(false)">
+                <i class="fa fa-infinity"></i> Sem limite
+              </button>
+              <button type="button" class="bsl-limit-btn" id="sched-plt-on"
+                onclick="setSchedLimit(true)">
+                <i class="fa fa-sliders-h"></i> Definir quantidade
+              </button>
+            </div>
+            <div class="bsl-qty-row" id="sched-limit-input-wrap" style="display:none">
+              <button type="button" class="bsl-qty-btn" onclick="stepSchedLimit(-10)">
+                <i class="fa fa-minus"></i>
+              </button>
+              <input id="sched-max" class="bsl-qty-input" type="number"
+                min="1" max="9999" value="50" oninput="clampSchedLimit(this)" />
+              <span class="bsl-qty-unit">ativações</span>
+              <button type="button" class="bsl-qty-btn" onclick="stepSchedLimit(10)">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+            <span class="bsl-field-note" id="sched-limit-note">
+              Sem limite: qualquer número de clientes pode ativar neste dia.
+            </span>
+          </div>
+
+          <!-- Botão agendar -->
+          <button class="bsl-btn-save" id="btn-schedule-promo" onclick="schedulePromotion()">
+            <i class="fa fa-calendar-check"></i>
+            <span id="bsl-btn-save-label">Agendar benefício</span>
+          </button>
+
+        </div><!-- /bsl-new-mode -->
+
+      </div><!-- /bsl-form-card -->
+    </div><!-- /sched-form-panel -->
+
+    <!-- ── LISTA DE PRÓXIMOS AGENDAMENTOS ── -->
+    <div class="bsl-list-section" id="bsl-list-section" style="display:none">
+      <div class="bsl-list-hdr">
+        <i class="fa fa-calendar-alt"></i>
+        <span>Próximos agendamentos</span>
+        <span class="bsl-list-count" id="bsl-list-count">0</span>
+      </div>
+      <div id="sched-list"></div>
+    </div>
+
+    <!-- Reservas por data -->
+    <div id="sched-reservations-section" style="display:none; padding: 0 16px 16px;">
+      <div class="bsl-list-hdr" style="margin-bottom:8px">
+        <i class="fa fa-users"></i>
+        <span>Reservas por data</span>
+      </div>
+      <div id="sched-reservations-list"></div>
+    </div>
+
+    <!-- Campos legados ocultos — mantidos para compatibilidade JS -->
+    <div style="display:none">
+      <div id="bar-promos-list"></div>
+      <div id="bar-promos-empty"></div>
+      <div id="bsl-cancel-all-btn"></div>
+      <input id="new-promo-title" /><input id="new-promo-desc" />
+      <input id="new-promo-event" /><input id="new-promo-from" value="20:00" />
+      <input id="new-promo-max" value="50" />
+      <span id="plt-off"></span><span id="plt-on"></span>
+      <div id="promo-create-section"></div>
+      <div id="promo-already-active-notice"></div>
+      <div id="promo-create-form">
+        <div id="promo-form-alert"></div>
+        <div id="promo-limit-input-wrap-legacy">
+          <input id="promo-limit-toggle" />
+        </div>
+      </div>
+      <span id="promo-limit-note"></span>
+      <button id="btn-publish-promo" onclick="createPromotion()"></button>
+    </div>
+
+    <div style="height:32px"></div>
+  </div><!-- /app-scroll-area -->
+
+  <!-- Nav fixa no rodapé -->
+  <nav class="app-bottom-nav bar-inline-nav">
+    <button class="bin-item" id="bar-nav-painel-b" onclick="switchTab('bar-panel'); updateBarNav('painel')">
+      <i class="fa fa-th-large"></i><span>Painel</span>
+    </button>
+    <div class="bin-sep"></div>
+    <button class="bin-item active" id="bar-nav-beneficios" onclick="switchTab('bar-beneficios'); updateBarNav('beneficios')">
+      <i class="fa fa-bolt"></i><span>Benefícios</span>
+    </button>
+    <div class="bin-sep"></div>
+    <button class="bin-item" id="bar-nav-explorar-b" onclick="switchTab('bar-explorar'); updateBarNav('explorar')">
+      <i class="fa fa-compass"></i><span>Explorar</span>
+    </button>
+    <div class="bin-sep"></div>
+    <button class="bin-item" id="bar-nav-profile-b" onclick="switchTab('bar-profile'); updateBarNav('profile')">
+      <i class="fa fa-user-circle"></i><span>Conta</span>
+    </button>
+  </nav>
+
+</div><!-- /screen-bar-beneficios -->
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  BAR — PERFIL PÚBLICO                                ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-bar-perfil" class="screen screen-bar app-screen-flex">
+  <div class="app-scroll-area">
+
+    <!-- Cabeçalho fixo da tela -->
+    <div class="bpf-edit-header">
+      <button class="bpf-back-btn" onclick="switchTab('bar-profile'); updateBarNav('profile')">
+        <i class="fa fa-arrow-left"></i>
+      </button>
+      <div>
+        <h2 class="bpf-edit-title"><i class="fa fa-store"></i> Perfil do Bar</h2>
+        <p class="bpf-edit-sub">Gerencie as informações exibidas para os clientes</p>
+      </div>
+    </div>
+
+    <!-- Alerta de sucesso -->
+    <div id="bar-info-alert" class="bex-alert bex-alert-success" style="display:none;margin:0 16px 0">✅ Salvo com sucesso!</div>
+
+    <!-- ── FOTO DE CAPA ── -->
+    <div class="bex-section">
+      <p class="bex-section-label">
+        <i class="fa fa-image"></i> Foto de capa
+        <span class="bex-label-badge">Exibida no topo para clientes</span>
+      </p>
+      <input type="file" id="bar-cover-file" accept="image/*" style="display:none" onchange="handleBarCoverUpload(event)" />
+      <div class="bex-upload-box" id="bar-cover-preview-wrap" onclick="document.getElementById('bar-cover-file').click()">
+        <img id="bar-cover-preview-img" src="" alt="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px;" />
+        <div class="bex-upload-placeholder" id="bar-cover-placeholder">
+          <div class="bex-upload-icon-wrap"><i class="fa fa-images"></i></div>
+          <span class="bex-upload-title">Toque para escolher da galeria</span>
+          <small class="bex-upload-hint">Foto de capa · JPG ou PNG · máx 5 MB</small>
+        </div>
+        <div class="bex-upload-change-badge" id="bar-cover-change-badge" style="display:none">
+          <i class="fa fa-images"></i> Trocar foto
+        </div>
+      </div>
+      <div class="bex-url-toggle-row">
+        <button class="bex-url-toggle-btn" onclick="toggleUrlInput('cover')">
+          <i class="fa fa-link"></i> Usar URL de imagem
+        </button>
+      </div>
+      <div class="bex-url-input-wrap" id="bex-url-wrap-cover" style="display:none">
+        <input type="text" id="bar-edit-cover" class="bex-url-input" placeholder="Cole a URL da foto de capa..." oninput="previewBarCover()" />
+      </div>
+    </div>
+
+    <!-- ── FOTO DE PERFIL / LOGO ── -->
+    <div class="bex-section">
+      <p class="bex-section-label">
+        <i class="fa fa-user-circle"></i> Foto de perfil / Logo
+        <span class="bex-label-badge bex-label-badge-purple">Avatar do bar</span>
+      </p>
+      <input type="file" id="bar-photo-file" accept="image/*" style="display:none" onchange="handleBarPhotoUpload(event)" />
+      <div class="bex-profile-photo-row">
+        <div class="bex-profile-photo-wrap" onclick="document.getElementById('bar-photo-file').click()">
+          <div class="bex-profile-photo-circle" id="bar-edit-logo-preview">🍺</div>
+          <div class="bex-profile-photo-cam"><i class="fa fa-images"></i></div>
+        </div>
+        <div class="bex-profile-photo-info">
+          <button class="bex-upload-pick-btn" onclick="document.getElementById('bar-photo-file').click()">
+            <i class="fa fa-images"></i> Escolher da galeria
+          </button>
+          <small>Logo ou foto do bar · JPG ou PNG · máx 2 MB</small>
+        </div>
+      </div>
+      <div class="bex-url-toggle-row">
+        <button class="bex-url-toggle-btn" onclick="toggleUrlInput('photo')">
+          <i class="fa fa-link"></i> Usar URL de imagem
+        </button>
+      </div>
+      <div class="bex-url-input-wrap" id="bex-url-wrap-photo" style="display:none">
+        <input type="text" id="bar-edit-photo" class="bex-url-input" placeholder="Cole a URL do logo..." oninput="previewBarPhoto()" />
+      </div>
+    </div>
+
+    <!-- ── GALERIA DE FOTOS ── -->
+    <div class="bex-section">
+      <p class="bex-section-label">
+        <i class="fa fa-images"></i> Galeria de fotos
+        <span class="bex-label-badge">Até 6 fotos · visível para clientes</span>
+      </p>
+      <input type="file" id="bar-gallery-file" accept="image/*" multiple style="display:none" onchange="handleBarGalleryUpload(event)" />
+      <div class="bex-gallery-grid" id="bar-gallery-grid"></div>
+      <button class="bex-gallery-pick-btn" onclick="document.getElementById('bar-gallery-file').click()">
+        <i class="fa fa-images"></i>
+        <span>Adicionar fotos da galeria</span>
+        <small>Selecione até 6 fotos</small>
+      </button>
+      <div class="bex-url-toggle-row">
+        <button class="bex-url-toggle-btn" onclick="toggleUrlInput('gallery')">
+          <i class="fa fa-link"></i> Adicionar por URL
+        </button>
+      </div>
+      <div class="bex-url-input-wrap" id="bex-url-wrap-gallery" style="display:none">
+        <div class="bex-gallery-add-row">
+          <input type="text" id="bar-gallery-url-input" class="bex-url-input" placeholder="Cole a URL da foto..." />
+          <button class="bex-gallery-add-btn" onclick="addGalleryPhoto()"><i class="fa fa-plus"></i></button>
+        </div>
+      </div>
+      <p class="bex-gallery-hint"><i class="fa fa-lightbulb"></i> Fotos do ambiente, drinks e eventos atraem mais clientes.</p>
+    </div>
+
+    <!-- ── INFORMAÇÕES ── -->
+    <div class="bex-section">
+      <p class="bex-section-label"><i class="fa fa-store"></i> Informações do estabelecimento</p>
+      <div class="bex-field">
+        <label>Nome do bar</label>
+        <input type="text" id="bar-edit-name" placeholder="Nome do estabelecimento" />
+      </div>
+      <div class="bex-field">
+        <label>Bairro / Localização</label>
+        <input type="text" id="bar-edit-hood" placeholder="Ex: Pinheiros, SP" />
+      </div>
+      <div class="bex-field">
+        <label>Endereço completo <span class="bex-field-hint">· opcional</span></label>
+        <input type="text" id="bar-edit-address" placeholder="Rua, número — bairro" />
+      </div>
+      <div class="bex-field">
+        <label>Horário de funcionamento <span class="bex-field-hint">· opcional</span></label>
+        <div class="trp-days-row">
+          <button type="button" class="trp-day" data-day="Dom" onclick="toggleHoursDay(this)">Dom</button>
+          <button type="button" class="trp-day" data-day="Seg" onclick="toggleHoursDay(this)">Seg</button>
+          <button type="button" class="trp-day" data-day="Ter" onclick="toggleHoursDay(this)">Ter</button>
+          <button type="button" class="trp-day" data-day="Qua" onclick="toggleHoursDay(this)">Qua</button>
+          <button type="button" class="trp-day" data-day="Qui" onclick="toggleHoursDay(this)">Qui</button>
+          <button type="button" class="trp-day" data-day="Sex" onclick="toggleHoursDay(this)">Sex</button>
+          <button type="button" class="trp-day" data-day="Sáb" onclick="toggleHoursDay(this)">Sáb</button>
+        </div>
+        <div class="trp-time-row">
+          <div class="trp-time-block">
+            <span class="trp-time-label"><i class="fa fa-door-open"></i> Abre às</span>
+            <div class="trp-select-wrap">
+              <select id="bar-hours-open" onchange="updateHoursPreview()"><option value="">--</option></select>
+            </div>
+          </div>
+          <div class="trp-time-arrow"><i class="fa fa-arrow-right"></i></div>
+          <div class="trp-time-block">
+            <span class="trp-time-label"><i class="fa fa-moon"></i> Fecha às</span>
+            <div class="trp-select-wrap">
+              <select id="bar-hours-close" onchange="updateHoursPreview()"><option value="">--</option></select>
+            </div>
+          </div>
+        </div>
+        <div class="trp-error" id="trp-error" style="display:none">
+          <i class="fa fa-exclamation-circle"></i> O horário de fechamento deve ser diferente do de abertura.
+        </div>
+        <div class="trp-preview" id="trp-preview" style="display:none">
+          <i class="fa fa-clock"></i><span id="trp-preview-text"></span>
+        </div>
+        <input type="hidden" id="bar-edit-hours" />
+      </div>
+      <div class="bex-field">
+        <label>Gênero / Estilo</label>
+        <select id="bar-edit-genre">
+          <option value="balada">🎵 Balada / Club</option>
+          <option value="boteco">🍺 Boteco / Bar tradicional</option>
+          <option value="pub">🎸 Pub</option>
+          <option value="rooftop">🌆 Rooftop / Terraço</option>
+          <option value="lounge">🛋️ Lounge</option>
+          <option value="sertanejo">🤠 Sertanejo</option>
+          <option value="pagode">🥁 Pagode / Samba</option>
+          <option value="rock">🎸 Rock</option>
+          <option value="eletronica">🎧 Eletrônica</option>
+          <option value="mpb">🎶 MPB / Jazz</option>
+          <option value="diversificado">🎼 Diversificado</option>
+        </select>
+      </div>
+      <div class="bex-field">
+        <label>Sobre o bar <span class="bex-field-hint">· exibido para clientes</span></label>
+        <textarea id="bar-edit-release" rows="4" placeholder="Conte a história do bar, o ambiente, o que o torna especial..."></textarea>
+      </div>
+      <div class="bex-field">
+        <label>Instagram</label>
+        <div class="bex-input-at">
+          <span>@</span>
+          <input type="text" id="bar-edit-instagram" placeholder="seuperfil" autocomplete="off" />
+        </div>
+      </div>
+      <div class="bex-field">
+        <label>WhatsApp <span class="bex-field-hint">· opcional</span></label>
+        <input type="tel" id="bar-edit-whatsapp" placeholder="(11) 99999-0000" />
+      </div>
+      <div class="bex-field">
+        <label>Status</label>
+        <select id="bar-edit-active">
+          <option value="true">✅ Ativo — visível para clientes</option>
+          <option value="false">⛔ Inativo — oculto</option>
+        </select>
+      </div>
+      <button class="bex-btn-save" onclick="saveBarInfo()">
+        <i class="fa fa-check"></i> Salvar alterações
+      </button>
+    </div>
+
+    <div style="height:32px"></div>
+  </div><!-- /app-scroll-area -->
+
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  BAR — CONTA                                         ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-bar-profile" class="screen screen-bar app-screen-flex">
+  <div class="app-scroll-area">
+
+    <!-- ══ HERO CINEMATOGRÁFICO BAR ══ -->
+    <div class="cp-hero">
+      <div class="cp-hero-bg profile-cover-bar" id="bex-profile-hero-bg"></div>
+      <div class="cp-hero-fade cp-hero-fade-gold"></div>
+
+      <!-- Botão voltar -->
+      <button class="cp-hero-back-btn" onclick="switchTab('bar-panel'); updateBarNav('painel')">
+        <i class="fa fa-arrow-left"></i>
+      </button>
+
+      <!-- Botão editar -->
+      <button class="cp-hero-edit-btn cp-edit-gold" onclick="switchTab('bar-perfil')" title="Editar">
+        <i class="fa fa-pen"></i> Editar
+      </button>
+
+      <div class="cp-hero-content">
+        <div class="cp-avatar-wrap" onclick="triggerAvatarUpload('bar')">
+          <div class="cp-avatar avatar-bar" id="bar-avatar-big">🍺</div>
+          <div class="cp-avatar-cam"><i class="fa fa-camera"></i></div>
+        </div>
+        <input type="file" id="avatar-upload-bar" accept="image/*" style="display:none" onchange="handleAvatarUpload(event,'bar')" />
+        <div class="cp-hero-info">
+          <span class="cp-role-tag tag-bar"><i class="fa fa-glass-cheers"></i> Bar Parceiro</span>
+          <h2 class="cp-name" id="bar-profile-name">Meu Bar</h2>
+          <span class="cp-email" id="bar-profile-email">—</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Informações do bar -->
+    <div class="bex-section">
+      <p class="bex-section-label"><i class="fa fa-info-circle"></i> Informações do bar</p>
+      <div class="bex-profile-info-list">
+
+        <div class="bex-profile-info-row">
+          <div class="bex-pinfo-icon music"><i class="fa fa-music"></i></div>
+          <div class="bex-pinfo-body">
+            <span class="bex-pinfo-label">Tipo de bar</span>
+            <span class="bex-pinfo-value" id="bpinfo-genre">—</span>
+          </div>
+        </div>
+
+        <div class="bex-profile-info-row">
+          <div class="bex-pinfo-icon location"><i class="fa fa-map-marker-alt"></i></div>
+          <div class="bex-pinfo-body">
+            <span class="bex-pinfo-label">Bairro</span>
+            <span class="bex-pinfo-value" id="bpinfo-hood">—</span>
+          </div>
+        </div>
+
+        <div class="bex-profile-info-row" id="bpinfo-row-address" style="display:none">
+          <div class="bex-pinfo-icon location"><i class="fa fa-road"></i></div>
+          <div class="bex-pinfo-body">
+            <span class="bex-pinfo-label">Endereço</span>
+            <span class="bex-pinfo-value" id="bpinfo-address">—</span>
+          </div>
+        </div>
+
+        <div class="bex-profile-info-row" id="bpinfo-row-hours" style="display:none">
+          <div class="bex-pinfo-icon" style="background:rgba(99,102,241,.18);color:#818cf8"><i class="fa fa-clock"></i></div>
+          <div class="bex-pinfo-body">
+            <span class="bex-pinfo-label">Horário de funcionamento</span>
+            <span class="bex-pinfo-value" id="bpinfo-hours">—</span>
+          </div>
+        </div>
+
+        <div class="bex-profile-info-row" id="bpinfo-row-instagram" style="display:none">
+          <div class="bex-pinfo-icon" style="background:rgba(236,72,153,.18);color:#f472b6"><i class="fab fa-instagram"></i></div>
+          <div class="bex-pinfo-body">
+            <span class="bex-pinfo-label">Instagram</span>
+            <span class="bex-pinfo-value" id="bpinfo-instagram">—</span>
+          </div>
+        </div>
+
+        <div class="bex-profile-info-row" id="bpinfo-row-whatsapp" style="display:none">
+          <div class="bex-pinfo-icon" style="background:rgba(34,197,94,.18);color:#4ade80"><i class="fab fa-whatsapp"></i></div>
+          <div class="bex-pinfo-body">
+            <span class="bex-pinfo-label">WhatsApp</span>
+            <span class="bex-pinfo-value" id="bpinfo-whatsapp">—</span>
+          </div>
+        </div>
+
+        <div class="bex-profile-info-row">
+          <div class="bex-pinfo-icon id"><i class="fa fa-id-card"></i></div>
+          <div class="bex-pinfo-body">
+            <span class="bex-pinfo-label">CNPJ</span>
+            <span class="bex-pinfo-value" id="bpinfo-cnpj">—</span>
+          </div>
+        </div>
+
+        <div class="bex-profile-info-row">
+          <div class="bex-pinfo-icon user"><i class="fa fa-user-tie"></i></div>
+          <div class="bex-pinfo-body">
+            <span class="bex-pinfo-label">Responsável</span>
+            <span class="bex-pinfo-value" id="bpinfo-resp">—</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Sobre o bar -->
+    <div class="bex-section" id="bpinfo-section-release" style="display:none">
+      <p class="bex-section-label"><i class="fa fa-align-left"></i> Sobre o bar</p>
+      <p class="bpinfo-release-text" id="bpinfo-release">—</p>
+    </div>
+
+    <!-- Logout -->
+    <div class="bex-section">
+      <button class="bex-btn-logout" onclick="doLogout()">
+        <i class="fa fa-sign-out-alt"></i> Sair da conta
+      </button>
+    </div>
+
+    <div style="height:32px"></div>
+  </div><!-- /app-scroll-area -->
+
+  <!-- Nav fixa no rodapé -->
+  <nav class="app-bottom-nav bar-inline-nav">
+    <button class="bin-item" id="bar-nav-painel2" onclick="switchTab('bar-panel'); updateBarNav('painel')">
+      <i class="fa fa-th-large"></i><span>Painel</span>
+    </button>
+    <div class="bin-sep"></div>
+    <button class="bin-item" id="bar-nav-beneficios2" onclick="switchTab('bar-beneficios'); updateBarNav('beneficios')">
+      <i class="fa fa-bolt"></i><span>Benefícios</span>
+    </button>
+    <div class="bin-sep"></div>
+    <button class="bin-item" id="bar-nav-explorar2" onclick="switchTab('bar-explorar'); updateBarNav('explorar')">
+      <i class="fa fa-compass"></i><span>Explorar</span>
+    </button>
+    <div class="bin-sep"></div>
+    <button class="bin-item active" id="bar-nav-profile2" onclick="switchTab('bar-profile'); updateBarNav('profile')">
+      <i class="fa fa-user-circle"></i><span>Conta</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  BAR — EXPLORAR                                      ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-bar-explorar" class="screen screen-bar app-screen-flex">
+  <div class="app-scroll-area">
+
+    <!-- Header estilo Netflix -->
+    <div class="nfx-explore-header">
+      <div class="nfx-explore-header-left">
+        <p class="nfx-explore-title"><i class="fa fa-compass"></i> Explorar plataforma</p>
+        <div class="nfx-explore-live-row">
+          <div class="res-live-dot" id="explore-live-dot"><span></span></div>
+          <span class="nfx-explore-live-label">Ao vivo · <span id="explore-total-bars">0</span> bar<span id="explore-bars-plural">es</span> ativos</span>
+        </div>
+      </div>
+      <span class="nfx-explore-notice-tag"><i class="fa fa-eye"></i> Visualização</span>
+    </div>
+
+    <!-- Busca Netflix-style -->
+    <div class="nfx-search-bar" style="margin:0 16px 14px; display:flex;">
+      <i class="fa fa-search nfx-search-bar-icon"></i>
+      <input
+        type="text"
+        id="explore-search"
+        class="nfx-search-input"
+        placeholder="Buscar bar ou bairro..."
+        oninput="filterBarExplore()"
+        autocomplete="off"
+      />
+      <button class="nfx-search-close" id="explore-search-clear"
+        onclick="clearBarExploreSearch()" style="display:none">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+
+    <div id="explore-bars-list"></div>
+
+    <!-- Empty state -->
+    <div id="explore-empty" class="bex-empty" style="display:none">
+      <i class="fa fa-store-slash"></i>
+      <p>Nenhum bar com benefício ativo agora.<br><small>Quando algum bar publicar, aparece aqui.</small></p>
+    </div>
+
+    <div style="height:32px"></div>
+  </div><!-- /app-scroll-area -->
+
+  <!-- Nav fixa no rodapé -->
+  <nav class="app-bottom-nav bar-inline-nav">
+    <button class="bin-item" id="bar-nav-painel-e" onclick="switchTab('bar-panel'); updateBarNav('painel')">
+      <i class="fa fa-th-large"></i><span>Painel</span>
+    </button>
+    <div class="bin-sep"></div>
+    <button class="bin-item" id="bar-nav-beneficios-e" onclick="switchTab('bar-beneficios'); updateBarNav('beneficios')">
+      <i class="fa fa-bolt"></i><span>Benefícios</span>
+    </button>
+    <div class="bin-sep"></div>
+    <button class="bin-item active" id="bar-nav-explorar-e" onclick="switchTab('bar-explorar'); updateBarNav('explorar')">
+      <i class="fa fa-compass"></i><span>Explorar</span>
+    </button>
+    <div class="bin-sep"></div>
+    <button class="bin-item" id="bar-nav-profile-e" onclick="switchTab('bar-profile'); updateBarNav('profile')">
+      <i class="fa fa-user-circle"></i><span>Conta</span>
+    </button>
+  </nav>
+
+</div><!-- /screen-bar-explorar -->
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  PROMOTER — HOME                                     ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-promoter-home" class="screen app-screen-flex">
+  <div class="app-scroll-area">
+
+    <!-- Banner: cadastro pendente de aprovação -->
+    <div id="promoter-approval-banner" style="display:none">
+      <div class="pab-inner">
+        <div class="pab-icon"><i class="fa fa-hourglass-half"></i></div>
+        <div class="pab-text">
+          <strong>Cadastro em análise</strong>
+          <span>Seu perfil de promoter ainda não foi aprovado pelo admin. O código de convite e a indicação de bar ficam disponíveis após a aprovação.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ HEADER ══ -->
+    <div class="nx-header">
+      <div>
+        <p class="nx-header-sub">Painel do Promoter</p>
+        <h2 class="nx-header-title" id="promo-greeting">Bom dia</h2>
+      </div>
+      <button class="nx-withdraw-btn" onclick="openWithdrawModal()">
+        <i class="fa fa-wallet"></i> Resgatar
+      </button>
+    </div>
+
+    <!-- ══ SALDO — card hero ══ -->
+    <div class="nx-balance-card">
+      <div class="nx-balance-glow"></div>
+      <p class="nx-balance-lbl">Saldo disponível</p>
+      <p class="nx-balance-val" id="promo-balance">R$ 0,00</p>
+      <div class="nx-balance-bar-row">
+        <div class="nx-bar-track">
+          <div class="nx-bar-fill" id="promo-gauge-fill" style="width:0%"></div>
+        </div>
+        <span class="nx-bar-pct" id="promo-gauge-pct">0%</span>
+      </div>
+      <p class="nx-balance-rule">R$5 por ativação &nbsp;·&nbsp; máx R$15 por indicado</p>
+    </div>
+
+    <!-- ══ KPIs 2×2 ══ -->
+    <div class="nx-kpi-grid">
+
+      <div class="nx-kpi nx-kpi-a">
+        <p class="nx-kpi-lbl">Convidados</p>
+        <p class="nx-kpi-val" id="promo-total-refs">0</p>
+        <i class="fa fa-users nx-kpi-ico"></i>
+      </div>
+
+      <div class="nx-kpi nx-kpi-b">
+        <p class="nx-kpi-lbl">Ativações</p>
+        <p class="nx-kpi-val" id="promo-total-acts">0</p>
+        <p class="nx-kpi-sub" id="promo-acts-detail"></p>
+        <i class="fa fa-bolt nx-kpi-ico"></i>
+      </div>
+
+      <div class="nx-kpi nx-kpi-c">
+        <p class="nx-kpi-lbl">Total ganho</p>
+        <p class="nx-kpi-val nx-kpi-val-sm" id="promo-total-earned">R$0</p>
+        <i class="fa fa-coins nx-kpi-ico"></i>
+      </div>
+
+      <div class="nx-kpi nx-kpi-d">
+        <p class="nx-kpi-lbl">Conversão</p>
+        <p class="nx-kpi-val nx-kpi-val-sm" id="promo-conv-rate">0%</p>
+        <i class="fa fa-chart-pie nx-kpi-ico"></i>
+      </div>
+
+    </div>
+
+    <!-- ══ GANHOS SEMANAIS — Chart.js ══ -->
+    <div class="nx-card nx-card-weekly">
+      <div class="nx-card-hd">
+        <p class="nx-card-title"><i class="fa fa-chart-bar" style="color:#d4a843;margin-right:7px;font-size:13px;"></i>Ganhos últimos 7 dias</p>
+        <span class="nx-weekly-total" id="promo-weekly-total">R$ 0,00</span>
+      </div>
+      <div class="nx-weekly-chart-wrap">
+        <canvas id="promo-weekly-chart"></canvas>
+      </div>
+    </div>
+
+    <!-- ══ INDICADOS — LISTA ══ -->
+    <div class="nx-card">
+      <div class="nx-card-hd">
+        <p class="nx-card-title">Meus indicados</p>
+        <button class="nx-see-all" onclick="switchTab('promoter-history')">Ver tudo <i class="fa fa-arrow-right"></i></button>
+      </div>
+      <div class="nx-table-head">
+        <span>Cliente</span>
+        <span>Ativações</span>
+        <span>Ganho</span>
+        <span>Status</span>
+      </div>
+      <div id="promo-refs-table">
+        <div class="nx-empty"><i class="fa fa-spinner fa-spin"></i> Carregando…</div>
+      </div>
+    </div>
+
+    <!-- ══ DIVULGAR ══ -->
+    <div class="nx-card" id="promoter-share-card">
+      <div class="nx-card-hd">
+        <p class="nx-card-title">Compartilhar convite</p>
+      </div>
+      <div class="nx-share-body">
+
+        <div class="nx-share-row">
+          <button class="nx-share-btn nx-cp"  onclick="copyPromoterContact()">
+            <i class="fa fa-copy"></i> Copiar
+          </button>
+        </div>
+        <div class="nx-msg-box" id="promo-msg-preview">
+          <p class="nx-msg-lbl"><i class="fa fa-comment-dots"></i> Mensagem de convite</p>
+          <p class="nx-msg-txt" id="promo-msg-text">Carregando…</p>
+        </div>
+        <span id="promo-code-text" style="display:none"></span>
+      </div>
+    </div>
+
+    <!-- ══ POTENCIAL ══ -->
+    <div class="nx-card nx-card-gold">
+      <div class="nx-card-hd">
+        <p class="nx-card-title">Potencial de ganho</p>
+      </div>
+      <div class="nx-pot-list">
+        <div class="nx-pot-row">
+          <span class="nx-pot-lbl">10 indicados × 3 ativações</span>
+          <span class="nx-pot-val">R$ 150</span>
+        </div>
+        <div class="nx-pot-row">
+          <span class="nx-pot-lbl">50 indicados × 3 ativações</span>
+          <span class="nx-pot-val">R$ 750</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="height:32px"></div>
+  </div><!-- /app-scroll-area -->
+
+  <!-- Nav fixa no rodapé -->
+  <nav class="app-bottom-nav promoter-inline-nav">
+    <button class="pin-item active" onclick="switchTab('promoter-home')">
+      <i class="fa fa-star"></i><span>Início</span>
+    </button>
+    <button class="pin-item" onclick="switchTab('promoter-explore')">
+      <i class="fa fa-compass"></i><span>Explorar</span>
+    </button>
+    <button class="pin-item" onclick="switchTab('promoter-history')">
+      <i class="fa fa-history"></i><span>Histórico</span>
+    </button>
+    <button class="pin-item" onclick="switchTab('promoter-profile')">
+      <i class="fa fa-user"></i><span>Perfil</span>
+      <span class="pin-badge" id="pin-promoter-badge-home" style="display:none"></span>
+    </button>
+  </nav>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  PROMOTER — EXPLORAR                                 ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-promoter-explore" class="screen app-screen-flex">
+  <div class="app-scroll-area">
+
+    <!-- Header Netflix-style -->
+    <div class="nfx-explore-header">
+      <div class="nfx-explore-header-left">
+        <p class="nfx-explore-title"><i class="fa fa-compass"></i> Explorar bares</p>
+        <div class="nfx-explore-live-row">
+          <div class="res-live-dot" id="prx-explore-live-dot"><span></span></div>
+          <span class="nfx-explore-live-label">Ao vivo · <span id="prx-explore-total-bars">0</span> bar<span id="prx-explore-bars-plural">es</span> ativos</span>
+        </div>
+      </div>
+      <span class="nfx-explore-activate-tag"><i class="fa fa-bolt"></i> Ativar</span>
+    </div>
+
+    <!-- ── TABS: Ao Vivo | Benefícios Agendados ── -->
+    <div class="nfx-tabs" id="prx-explore-tabs" style="margin:0 16px 4px;">
+      <button class="nfx-tab active" id="prx-etab-live"      onclick="switchPromoterExploreTab('live')">
+        <i class="fa fa-bolt" style="font-size:11px;margin-right:5px;"></i>Ao Vivo
+      </button>
+      <button class="nfx-tab"        id="prx-etab-scheduled" onclick="switchPromoterExploreTab('scheduled')">
+        <i class="fa fa-calendar-alt" style="font-size:11px;margin-right:5px;"></i>Benefícios Agendados
+      </button>
+    </div>
+
+    <!-- ── PANE: AO VIVO ── -->
+    <div id="prx-explore-live-pane">
+      <!-- Busca Netflix-style -->
+      <div class="nfx-search-bar" style="margin:8px 16px 14px; display:flex;">
+        <i class="fa fa-search nfx-search-bar-icon"></i>
+        <input
+          type="text"
+          id="prx-explore-search"
+          class="nfx-search-input"
+          placeholder="Buscar bar ou bairro..."
+          oninput="filterPromoterExplore()"
+          autocomplete="off"
+        />
+        <button class="nfx-search-close" id="prx-explore-search-clear"
+          onclick="clearPromoterExploreSearch()" style="display:none">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Lista de bares (explorar do promoter) -->
+      <div id="prx-explore-bars-list"></div>
+
+      <!-- Empty state -->
+      <div id="prx-explore-empty" class="bex-empty" style="display:none">
+        <i class="fa fa-store-slash"></i>
+        <p>Nenhum bar com benefício ativo agora.<br><small>Quando algum bar publicar, aparece aqui.</small></p>
+      </div>
+    </div><!-- /prx-explore-live-pane -->
+
+    <!-- ── PANE: BENEFÍCIOS AGENDADOS ── -->
+    <div id="prx-explore-sched-pane" style="display:none">
+
+      <!-- Calendário -->
+      <div class="hcal-wrap" id="prx-hcal-wrap" style="margin:8px 16px 0;">
+        <div class="hcal-header">
+          <button class="hcal-arrow" onclick="prxCalPrev()"><i class="fa fa-chevron-left"></i></button>
+          <span class="hcal-month" id="prx-hcal-month-label">—</span>
+          <button class="hcal-arrow" onclick="prxCalNext()"><i class="fa fa-chevron-right"></i></button>
+          <button class="hcal-today-btn" onclick="prxCalGoToday()">Hoje</button>
+        </div>
+        <div class="hcal-weekdays">
+          <span>D</span><span>S</span><span>T</span>
+          <span>Q</span><span>Q</span><span>S</span><span>S</span>
+        </div>
+        <div class="hcal-grid" id="prx-hcal-grid"></div>
+      </div>
+
+      <!-- Label de filtro ativo -->
+      <div class="hcal-filter-bar" id="prx-hcal-filter-bar">
+        <span class="hcal-filter-label" id="prx-hcal-filter-label">
+          <i class="fa fa-calendar-day"></i> Benefícios agendados
+        </span>
+        <span class="hcal-filter-count" id="prx-hcal-filter-count" style="display:none">0</span>
+      </div>
+
+      <!-- Lista de bares para a data selecionada -->
+      <div id="prx-sched-bars-list"></div>
+      <div id="prx-sched-empty" class="bex-empty" style="display:none">
+        <i class="fa fa-calendar-times"></i>
+        <p>Nenhum benefício agendado para esta data.<br><small>Selecione outro dia no calendário.</small></p>
+      </div>
+
+    </div><!-- /prx-explore-sched-pane -->
+
+  </div><!-- /app-scroll-area -->
+
+  <!-- Nav fixa no rodapé -->
+  <nav class="app-bottom-nav promoter-inline-nav">
+    <button class="pin-item" onclick="switchTab('promoter-home')">
+      <i class="fa fa-star"></i><span>Início</span>
+    </button>
+    <button class="pin-item active" onclick="switchTab('promoter-explore')">
+      <i class="fa fa-compass"></i><span>Explorar</span>
+    </button>
+    <button class="pin-item" onclick="switchTab('promoter-history')">
+      <i class="fa fa-history"></i><span>Histórico</span>
+    </button>
+    <button class="pin-item" onclick="switchTab('promoter-profile')">
+      <i class="fa fa-user"></i><span>Perfil</span>
+      <span class="pin-badge" id="pin-promoter-badge-explore" style="display:none"></span>
+    </button>
+  </nav>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  PROMOTER — HISTÓRICO                                ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-promoter-history" class="screen app-screen-flex">
+  <!-- Área rolável -->
+  <div class="app-scroll-area">
+    <div class="page-header">
+      <h2>Histórico</h2>
+      <p>Indicados, ativações e ganhos</p>
+    </div>
+    <div class="page-body">
+      <div class="inner-tabs">
+        <button class="inner-tab active" onclick="switchPromoterHistoryTab('indicados')">Convidados</button>
+        <button class="inner-tab" onclick="switchPromoterHistoryTab('ativacoes')">Ativações</button>
+      </div>
+      <div id="ph-tab-indicados" class="inner-tab-content active">
+        <div class="ph-refs-header" id="ph-referrals-header" style="display:none">
+          <span id="ph-refs-count" class="ph-refs-count"></span>
+          <span class="ph-refs-hint">mais recentes primeiro</span>
+        </div>
+        <div id="ph-referrals-list"></div>
+        <div id="ph-referrals-empty" class="empty-state" style="display:none">
+          <i class="fa fa-user-friends"></i><p>Nenhum indicado ainda.</p>
+        </div>
+      </div>
+      <div id="ph-tab-ativacoes" class="inner-tab-content">
+        <div id="ph-acts-list"></div>
+        <div id="ph-acts-empty" class="empty-state" style="display:none">
+          <i class="fa fa-bolt"></i><p>Nenhuma ativação gerada ainda.</p>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /app-scroll-area -->
+
+  <!-- Nav fixa no rodapé -->
+  <nav class="app-bottom-nav promoter-inline-nav">
+    <button class="pin-item" onclick="switchTab('promoter-home')">
+      <i class="fa fa-star"></i><span>Início</span>
+    </button>
+    <button class="pin-item" onclick="switchTab('promoter-explore')">
+      <i class="fa fa-compass"></i><span>Explorar</span>
+    </button>
+    <button class="pin-item active" onclick="switchTab('promoter-history')">
+      <i class="fa fa-history"></i><span>Histórico</span>
+    </button>
+    <button class="pin-item" onclick="switchTab('promoter-profile')">
+      <i class="fa fa-user"></i><span>Perfil</span>
+      <span class="pin-badge" id="pin-promoter-badge-hist" style="display:none"></span>
+    </button>
+  </nav>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  PROMOTER — PERFIL                                   ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="screen-promoter-profile" class="screen app-screen-flex">
+  <div class="app-scroll-area">
+
+    <!-- ══ HERO — conceito Orb/Web3 PROMOTER ══ -->
+    <div class="pf-hero">
+      <div class="pf-banner pf-banner-promoter" id="prx-hero-bg"></div>
+      <div class="pf-banner-overlay pf-banner-overlay-green"></div>
+
+      <!-- Badges flutuantes -->
+      <div class="pf-badges-row">
+        <div class="pf-badge pf-badge-green">
+          <i class="fa fa-users"></i>
+          <span id="pf-badge-refs-val">0</span> indicados
+        </div>
+        <div class="pf-badge pf-badge-gold">
+          <i class="fa fa-wallet"></i>
+          <span id="pf-badge-earned-val">R$0</span>
+        </div>
+      </div>
+
+      <!-- Botões topo -->
+      <div class="pf-top-bar">
+        <button class="pf-top-btn pf-top-btn-green" onclick="togglePromoterEdit(true)"><i class="fa fa-pen"></i> Editar</button>
+      </div>
+    </div>
+
+    <!-- ══ AVATAR CENTRAL SOBREPOSTO ══ -->
+    <div class="pf-identity">
+      <div class="pf-avatar-wrap" onclick="triggerAvatarUpload('promoter')">
+        <div class="pf-avatar avatar-promoter" id="prom-avatar-big">⭐</div>
+        <div class="pf-avatar-cam"><i class="fa fa-camera"></i></div>
+      </div>
+      <input type="file" id="avatar-upload-promoter" accept="image/*" style="display:none" onchange="handleAvatarUpload(event,'promoter')" />
+
+      <h2 class="pf-name" id="prom-profile-name">Promoter</h2>
+      <p class="pf-email" id="prom-profile-email"></p>
+
+      <!-- Tag de role -->
+      <div class="pf-role-pill pf-role-promoter">
+        <i class="fa fa-star"></i> Promoter OZ
+      </div>
+
+      <!-- Indicadores circulares promoter -->
+      <div class="pf-rings-row">
+
+        <div class="pf-ring-item">
+          <div class="pf-ring-wrap">
+            <svg class="pf-ring-svg" viewBox="0 0 64 64">
+              <defs>
+                <linearGradient id="rg-prefs" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#4ade80"/>
+                  <stop offset="100%" stop-color="#16a34a"/>
+                </linearGradient>
+              </defs>
+              <circle class="pf-ring-track" cx="32" cy="32" r="27"/>
+              <circle class="pf-ring-fill" cx="32" cy="32" r="27" stroke="url(#rg-prefs)" id="pf-ring-prefs"/>
+            </svg>
+            <div class="pf-ring-inner">
+              <i class="fa fa-users pf-ring-icon" style="color:#4ade80"></i>
+              <span class="pf-ring-val" id="prom-stat-refs">0</span>
+            </div>
+          </div>
+          <span class="pf-ring-lbl">Indicados</span>
+        </div>
+
+        <div class="pf-ring-item">
+          <div class="pf-ring-wrap">
+            <svg class="pf-ring-svg" viewBox="0 0 64 64">
+              <defs>
+                <linearGradient id="rg-pacts" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#60a5fa"/>
+                  <stop offset="100%" stop-color="#2563eb"/>
+                </linearGradient>
+              </defs>
+              <circle class="pf-ring-track" cx="32" cy="32" r="27"/>
+              <circle class="pf-ring-fill" cx="32" cy="32" r="27" stroke="url(#rg-pacts)" id="pf-ring-pacts"/>
+            </svg>
+            <div class="pf-ring-inner">
+              <i class="fa fa-bolt pf-ring-icon" style="color:#60a5fa"></i>
+              <span class="pf-ring-val" id="prom-stat-acts">0</span>
+            </div>
+          </div>
+          <span class="pf-ring-lbl">Ativações</span>
+        </div>
+
+        <div class="pf-ring-item">
+          <div class="pf-ring-wrap">
+            <svg class="pf-ring-svg" viewBox="0 0 64 64">
+              <defs>
+                <linearGradient id="rg-pearned" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fde68a"/>
+                  <stop offset="100%" stop-color="#f59e0b"/>
+                </linearGradient>
+              </defs>
+              <circle class="pf-ring-track" cx="32" cy="32" r="27"/>
+              <circle class="pf-ring-fill" cx="32" cy="32" r="27" stroke="url(#rg-pearned)" id="pf-ring-pearned"/>
+            </svg>
+            <div class="pf-ring-inner">
+              <i class="fa fa-wallet pf-ring-icon" style="color:#fbbf24"></i>
+              <span class="pf-ring-val pf-ring-val-sm" id="prom-stat-earned">R$0</span>
+            </div>
+          </div>
+          <span class="pf-ring-lbl">Ganhos</span>
+        </div>
+
+      </div>
+
+      <!-- Abas nomeadas — igual ao perfil do cliente -->
+      <div class="pf-named-tabs">
+        <button class="pf-named-tab active" onclick="pfPromoterSwitchTab('info', this)">
+          <i class="fa fa-user-circle"></i>
+          <span>Perfil</span>
+        </button>
+        <button class="pf-named-tab" onclick="pfPromoterSwitchTab('indicacoes', this)">
+          <i class="fa fa-star"></i>
+          <span>Minha Indicação</span>
+        </button>
+        <button class="pf-named-tab" onclick="pfPromoterSwitchTab('historico', this)">
+          <i class="fa fa-bell"></i>
+          <span>Notificações</span>
+        </button>
+        <button class="pf-named-tab" onclick="pfPromoterSwitchTab('config', this)">
+          <i class="fa fa-cog"></i>
+          <span>Config</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- ── ABA: INFO ── -->
+    <div class="pf-tab-panel active" id="pfp-panel-info">
+
+    <!-- ── INFORMAÇÕES (somente leitura) ── -->
+    <div class="prx-section" id="prx-view-section">
+      <div class="prx-section-header">
+        <span class="prx-section-label"><i class="fa fa-user-circle"></i> Meu perfil</span>
+        <button class="prx-edit-toggle-btn" onclick="togglePromoterEdit(true)">
+          <i class="fa fa-pen"></i> Editar
+        </button>
+      </div>
+      <div class="prx-info-list">
+        <div class="prx-info-row">
+          <div class="prx-iicon type"><i class="fa fa-id-badge"></i></div>
+          <div class="prx-ibody">
+            <span class="prx-ilabel">Tipo de promoter</span>
+            <span class="prx-ivalue" id="ppinfo-type">—</span>
+          </div>
+        </div>
+        <div class="prx-info-row">
+          <div class="prx-iicon ig"><i class="fab fa-instagram"></i></div>
+          <div class="prx-ibody">
+            <span class="prx-ilabel">Instagram</span>
+            <span class="prx-ivalue" id="ppinfo-instagram">—</span>
+          </div>
+        </div>
+        <div class="prx-info-row">
+          <div class="prx-iicon location"><i class="fa fa-map-marker-alt"></i></div>
+          <div class="prx-ibody">
+            <span class="prx-ilabel">Região de atuação</span>
+            <span class="prx-ivalue" id="ppinfo-region">—</span>
+          </div>
+        </div>
+        <div class="prx-info-row">
+          <div class="prx-iicon phone"><i class="fa fa-phone"></i></div>
+          <div class="prx-ibody">
+            <span class="prx-ilabel">WhatsApp</span>
+            <span class="prx-ivalue" id="ppinfo-phone">—</span>
+          </div>
+        </div>
+        <div class="prx-info-row">
+          <div class="prx-iicon telegram"><i class="fab fa-telegram-plane"></i></div>
+          <div class="prx-ibody">
+            <span class="prx-ilabel">Telegram</span>
+            <span class="prx-ivalue" id="ppinfo-telegram">—</span>
+          </div>
+        </div>
+        <div class="prx-info-row">
+          <div class="prx-iicon pix"><i class="fa fa-wallet"></i></div>
+          <div class="prx-ibody">
+            <span class="prx-ilabel">Chave Pix</span>
+            <span class="prx-ivalue" id="ppinfo-pix">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div><!-- /pfp-panel-info -->
+
+    <!-- ── ABA: MINHAS INDICAÇÕES ── -->
+    <div class="pf-tab-panel" id="pfp-panel-indicacoes">
+
+    <!-- ── INDICAÇÃO DE BAR ── -->
+    <div class="prx-section prx-pick-section" id="prx-pick-section">
+      <div class="prx-section-header prx-pick-header" onclick="togglePromoterSection('prx-pick-body')">
+        <span class="prx-section-label">
+          <i class="fa fa-star"></i> Minha Indicação
+        </span>
+        <i class="fa fa-chevron-down prx-section-arrow" id="prx-pick-body-arrow"></i>
+      </div>
+      <div id="prx-pick-body" style="display:none" class="prx-pick-body">
+
+        <!-- Estado: nenhuma indicação ativa -->
+        <div id="prx-pick-empty" class="prx-pick-empty">
+          <i class="fa fa-store-slash"></i>
+          <p>Você ainda não indicou nenhum bar.</p>
+          <small>Escolha um bar para recomendar aos seus clientes.</small>
+        </div>
+
+        <!-- Card do bar indicado (quando há indicação salva) -->
+        <div id="prx-pick-card" class="prx-pick-card" style="display:none">
+          <div class="prx-pick-card-cover" id="prx-pick-cover"></div>
+          <div class="prx-pick-card-body">
+            <div class="prx-pick-card-info">
+              <div id="prx-pick-bar-status"></div>
+              <span class="prx-pick-bar-name" id="prx-pick-bar-name">—</span>
+              <span class="prx-pick-bar-hood" id="prx-pick-bar-hood">—</span>
+              <span class="prx-pick-bar-promo" id="prx-pick-bar-promo"></span>
+            </div>
+            <button class="prx-pick-remove-btn" onclick="clearPromoterPick()" title="Remover indicação">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Resumo de ganhos pela indicação -->
+        <div class="prx-pick-earnings" id="prx-pick-earnings" style="display:none">
+          <div class="prx-pick-earn-row">
+            <span class="prx-pick-earn-label"><i class="fa fa-coins"></i> Ganhos por este bar</span>
+            <span class="prx-pick-earn-value" id="prx-pick-earn-total">R$0,00</span>
+          </div>
+          <div class="prx-pick-earn-row prx-pick-earn-row-sub">
+            <span class="prx-pick-earn-label">Ativações geradas</span>
+            <span class="prx-pick-earn-count" id="prx-pick-earn-count">0</span>
+          </div>
+          <p class="prx-pick-earn-hint">20% por ativação unitária · 10% por noite toda · grátis não conta</p>
+        </div>
+
+        <!-- Banner de comissão -->
+        <div class="prx-pick-commission-banner">
+          <div class="prx-pcb-item">
+            <i class="fa fa-bolt"></i>
+            <div>
+              <strong>Unitário</strong>
+              <span>20% · R$1 por ativação</span>
+            </div>
+          </div>
+          <div class="prx-pcb-divider"></div>
+          <div class="prx-pcb-item">
+            <i class="fa fa-moon"></i>
+            <div>
+              <strong>Noite Toda</strong>
+              <span>10% · R$1 por ativação</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hint de travamento diário -->
+        <div class="prx-pick-date-hint" id="prx-pick-date-hint" style="display:none">
+          <i class="fa fa-lock"></i> Indicação travada até amanhã
+        </div>
+
+        <!-- Botão escolher bar -->
+        <button class="prx-pick-choose-btn" id="prx-pick-choose-btn" onclick="openPickBarModalGuarded()">
+          <i class="fa fa-search"></i>
+          <span id="prx-pick-choose-label">Escolher bar para indicar</span>
+        </button>
+
+      </div>
+    </div>
+
+    </div><!-- /pfp-panel-indicacoes -->
+
+    <!-- ── ABA: HISTÓRICO ── -->
+    <div class="pf-tab-panel" id="pfp-panel-historico">
+
+    <!-- ── INBOX DE NOTIFICAÇÕES ── -->
+    <div class="prx-section prx-inbox-section" id="prx-inbox-section">
+      <div class="psc-header-static">
+        <i class="fa fa-bell"></i> Notificações
+        <span class="prx-inbox-badge" id="prx-inbox-badge" style="display:none">0</span>
+      </div>
+      <div id="prx-inbox-body" class="prx-inbox-body">
+        <div id="prx-inbox-list"><div class="prx-inbox-loading"><i class="fa fa-spinner fa-spin"></i></div></div>
+      </div>
+    </div>
+
+    </div><!-- /pfp-panel-historico -->
+
+    <!-- ── ABA: CONFIG ── -->
+    <div class="pf-tab-panel" id="pfp-panel-config">
+
+    <!-- ── FORMULÁRIO DE EDIÇÃO DE PERFIL ── -->
+    <div class="prx-section prx-edit-section" id="prx-edit-section">
+      <div class="prx-section-header">
+        <span class="prx-section-label"><i class="fa fa-pen"></i> Editar perfil</span>
+      </div>
+
+      <div id="prx-edit-alert" class="prx-alert prx-alert-success" style="display:none"></div>
+
+      <!-- Foto / Avatar -->
+      <div class="prx-field">
+        <label>Foto de perfil</label>
+        <div class="prx-photo-row">
+          <div class="prx-photo-preview" id="prx-photo-preview-wrap" onclick="triggerAvatarUpload('promoter')">
+            <div class="prx-photo-avatar" id="prx-photo-preview-avatar">⭐</div>
+            <div class="prx-photo-cam"><i class="fa fa-camera"></i></div>
+          </div>
+          <div class="prx-photo-info">
+            <p>Toque no avatar para trocar a foto</p>
+            <small>JPG ou PNG · máx 2 MB</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nome -->
+      <div class="prx-field">
+        <label>Nome completo <span class="prx-required">*</span></label>
+        <input type="text" id="prx-edit-name" placeholder="Seu nome" />
+      </div>
+
+      <!-- Tipo de promoter -->
+      <div class="prx-field">
+        <label>Tipo de promoter</label>
+        <select id="prx-edit-type">
+          <option value="prp">📣 PRP — Promoter de Relacionamento Público</option>
+          <option value="produtor">🎬 Produtor de eventos</option>
+          <option value="dj">🎧 DJ</option>
+          <option value="agitador_cultural">🎭 Agitador Cultural</option>
+        </select>
+      </div>
+
+      <!-- Instagram -->
+      <div class="prx-field">
+        <label>Instagram</label>
+        <div class="prx-input-at">
+          <span>@</span>
+          <input type="text" id="prx-edit-instagram" placeholder="seuperfil" autocomplete="off" />
+        </div>
+      </div>
+
+      <!-- Região -->
+      <div class="prx-field">
+        <label>Região de atuação</label>
+        <input type="text" id="prx-edit-region" placeholder="Ex: Vila Madalena, Pinheiros" />
+      </div>
+
+      <!-- WhatsApp -->
+      <div class="prx-field">
+        <label>WhatsApp</label>
+        <input type="tel" id="prx-edit-phone" placeholder="(11) 99999-0000" />
+      </div>
+
+      <!-- Telegram -->
+      <div class="prx-field">
+        <label><i class="fab fa-telegram-plane"></i> Telegram</label>
+        <div class="prx-input-at">
+          <span>@</span>
+          <input type="text" id="prx-edit-telegram" placeholder="seuusername" autocomplete="off" />
+        </div>
+        <small class="prx-field-hint">Username do Telegram (sem @)</small>
+      </div>
+
+      <!-- Chave Pix -->
+      <div class="prx-field">
+        <label>Chave Pix <span class="prx-hint">· para receber seus ganhos</span></label>
+        <input type="text" id="prx-edit-pix" placeholder="CPF, e-mail ou telefone" />
+      </div>
+
+      <!-- Botão salvar -->
+      <button class="prx-btn-save" onclick="savePromoterProfile()">
+        <i class="fa fa-check"></i> Salvar alterações
+      </button>
+    </div>
+
+    <!-- ── AÇÕES DA CONTA ── -->
+    <div class="prx-section">
+      <div class="prx-section-label"><i class="fa fa-cog"></i> Conta</div>
+      <div class="prx-actions-list">
+        <button class="prx-action-row" onclick="switchTab('promoter-home')">
+          <div class="prx-action-icon gold"><i class="fa fa-qrcode"></i></div>
+          <div class="prx-action-text">
+            <span>Meu código de indicação</span>
+            <small>Compartilhe e ganhe R$5 por ativação</small>
+          </div>
+          <i class="fa fa-chevron-right prx-action-arrow"></i>
+        </button>
+      </div>
+    </div>
+
+    <div style="height:8px"></div>
+
+    </div><!-- /pfp-panel-config -->
+
+    <!-- Botão Sair — sempre visível independente da aba -->
+    <div class="pf-logout-wrap">
+      <button class="btn-logout-clean" onclick="doLogout()">
+        <i class="fa fa-sign-out-alt"></i> Sair da conta
+      </button>
+    </div>
+    <div style="height:24px"></div>
+
+  </div><!-- /app-scroll-area -->
+
+  <!-- Nav fixa no rodapé -->
+  <nav class="app-bottom-nav promoter-inline-nav">
+    <button class="pin-item" onclick="switchTab('promoter-home')">
+      <i class="fa fa-star"></i><span>Início</span>
+    </button>
+    <button class="pin-item" onclick="switchTab('promoter-explore')">
+      <i class="fa fa-compass"></i><span>Explorar</span>
+    </button>
+    <button class="pin-item" onclick="switchTab('promoter-history')">
+      <i class="fa fa-history"></i><span>Histórico</span>
+    </button>
+    <button class="pin-item active" onclick="switchTab('promoter-profile')">
+      <i class="fa fa-user"></i><span>Perfil</span>
+      <span class="pin-badge" id="pin-promoter-badge" style="display:none"></span>
+    </button>
+  </nav>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  MODAL — CHAT CLIENTE ↔ PROMOTER                     ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="modal-client-promo-chat" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box">
+    <div class="cpc-header">
+      <button class="cpc-back-btn" onclick="closeModal('modal-client-promo-chat')">
+        <i class="fa fa-arrow-left"></i>
+      </button>
+      <div class="cpc-promoter-avatar" id="cpc-promoter-avatar">⭐</div>
+      <div class="cpc-header-info">
+        <span class="cpc-promoter-name" id="cpc-promoter-name">Meu Promoter</span>
+        <span class="cpc-online-status" id="cpc-online-status">⚫ offline</span>
+      </div>
+    </div>
+    <div class="cpc-messages" id="cpc-messages"></div>
+    <div class="cpc-input-row">
+      <input type="text" id="cpc-input" class="cpc-input" placeholder="Mensagem..."
+        maxlength="500" onkeydown="if(event.key==='Enter')sendClientPromoterMessage()" />
+      <button class="cpc-send-btn" onclick="sendClientPromoterMessage()">
+        <i class="fa fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  MODAL — ESCOLHER BAR PARA INDICAR (promoter)        ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="modal-pick-bar" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box pick-bar-modal-box">
+    <button class="modal-close" onclick="closeModal('modal-pick-bar')"><i class="fa fa-times"></i></button>
+    <div class="pbm-header">
+      <div class="pbm-icon"><i class="fa fa-star"></i></div>
+      <h3 class="pbm-title">Indicar um bar</h3>
+      <p class="pbm-sub">Bares com benefício ativo agora ou agendado para hoje</p>
+    </div>
+
+    <!-- Aviso de travamento diário (aparece quando já indicou hoje) -->
+    <div id="pbm-day-lock" class="pbm-day-lock" style="display:none">
+      <div class="pbm-lock-icon"><i class="fa fa-lock"></i></div>
+      <h4 class="pbm-lock-title">Indicação do dia registrada!</h4>
+      <p class="pbm-lock-sub">Você já fez sua indicação de hoje. A cada dia você pode indicar um bar diferente.</p>
+      <p class="pbm-lock-sub">A indicação será liberada para mudança amanhã.</p>
+    </div>
+
+    <!-- Campo de busca -->
+    <div class="pbm-search-wrap">
+      <i class="fa fa-search pbm-search-icon"></i>
+      <input type="text" id="pbm-search" class="pbm-search-input"
+        placeholder="Buscar bar por nome ou bairro..."
+        oninput="filterPickBars(this.value)" autocomplete="off" />
+    </div>
+
+    <!-- Lista de bares -->
+    <div id="pbm-list" class="pbm-list">
+      <div class="pbm-loading"><i class="fa fa-spinner fa-spin"></i> Carregando bares...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  MODAL — CANCELAR BENEFÍCIO (bar)                    ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="modal-cancel-promo" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box modal-cancel-promo-box">
+    <div class="mcp-icon"><i class="fa fa-exclamation-triangle"></i></div>
+    <h3 class="mcp-title">Cancelar benefício?</h3>
+    <p class="mcp-subtitle">Você está prestes a cancelar:</p>
+    <p class="mcp-promo-name" id="cancel-promo-modal-title"></p>
+    <div class="mcp-warning">
+      <i class="fa fa-gift"></i>
+      <span>Todos os clientes que já ativaram receberão <strong>1 ativação grátis</strong> como compensação e uma mensagem de aviso.</span>
+    </div>
+
+    <!-- Fase 1: pedido do motivo -->
+    <div id="mcp-step-reason">
+      <label class="mcp-reason-label">
+        <i class="fa fa-comment-alt"></i> Motivo do cancelamento <span class="mcp-reason-req">(obrigatório)</span>
+      </label>
+      <textarea id="mcp-cancel-reason" class="mcp-reason-textarea"
+        placeholder="Ex: Mudança de programação, evento adiado, problema técnico…"
+        maxlength="300" rows="3"></textarea>
+      <div class="mcp-char-counter"><span id="mcp-reason-len">0</span>/300</div>
+      <p class="mcp-confirm-text">Sua mensagem será enviada a todos os clientes afetados. Esta ação não pode ser desfeita.</p>
+      <div class="mcp-actions">
+        <button class="mcp-btn-back" onclick="closeModal('modal-cancel-promo')">
+          <i class="fa fa-arrow-left"></i> Voltar
+        </button>
+        <button class="mcp-btn-confirm" id="btn-confirm-cancel-promo" onclick="cancelPromotion()">
+          <i class="fa fa-times-circle"></i> Cancelar e avisar clientes
+        </button>
+      </div>
+    </div>
+
+    <!-- Fase 2: confirmação de envio -->
+    <div id="mcp-step-done" style="display:none" class="mcp-done-card">
+      <div class="mcp-done-icon"><i class="fa fa-check-circle"></i></div>
+      <p class="mcp-done-title">Mensagem enviada!</p>
+      <p class="mcp-done-sub">Sua mensagem foi encaminhada para todos os clientes que ativaram este benefício.</p>
+      <button class="mcp-btn-close-done" onclick="closeModal('modal-cancel-promo')">
+        <i class="fa fa-times"></i> Fechar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  MODAL — ATIVAR BENEFÍCIO                            ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="modal-activate" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-activate')"><i class="fa fa-times"></i></button>
+    <h3 class="modal-title"><i class="fa fa-bolt"></i> Ativar benefício</h3>
+    <p class="modal-bar-name" id="modal-bar-name"></p>
+
+    <!-- Contexto: benefício + validade + horário -->
+    <div class="act-context-card" id="act-context-card" style="display:none">
+      <div class="act-context-benefit">
+        <i class="fa fa-gift"></i>
+        <span id="act-context-benefit-text">—</span>
+      </div>
+      <div class="act-context-meta">
+        <span class="act-context-meta-item">
+          <i class="fa fa-clock"></i> Válido até as <strong>06h00</strong>
+        </span>
+        <span class="act-context-meta-sep" id="act-context-sep" style="display:none">·</span>
+        <span class="act-context-meta-item" id="act-context-hours" style="display:none">
+          <i class="fa fa-door-open"></i> <span id="act-context-hours-text"></span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Banner: créditos grátis disponíveis — visível apenas quando free > 0 -->
+    <div class="activate-free-banner" id="activate-free-banner" style="display:none">
+      <i class="fa fa-gift"></i>
+      <div>
+        <p>Você tem <strong id="activate-free-count">0</strong> ativação(es) grátis disponível(is).</p>
+        <small>Válido apenas para a ativação <strong>Unitária</strong>. A Noite Toda sempre custa R$10.</small>
+      </div>
+    </div>
+
+    <!-- ── Estado: limite de ativações atingido (vagas esgotadas) ── -->
+    <div id="act-limit-reached" style="display:none">
+      <div class="act-limit-icon-wrap">
+        <i class="fa fa-ban"></i>
+      </div>
+      <div class="act-limit-card">
+        <strong class="act-limit-title">Vagas esgotadas</strong>
+        <span class="act-limit-sub" id="act-limit-sub">Todas as vagas deste benefício foram preenchidas.</span>
+      </div>
+      <div class="act-limit-hint">
+        <i class="fa fa-store"></i>
+        Que tal descobrir outro bar? Feche e explore a lista de benefícios disponíveis.
+      </div>
+      <button class="act-btn-close-already" onclick="closeModal('modal-activate')">
+        <i class="fa fa-times" style="margin-right:6px;opacity:.6"></i> Fechar
+      </button>
+    </div>
+
+    <!-- ── Estado: benefício já ativado neste bar ── -->
+    <div id="act-already-used" style="display:none">
+      <div class="act-already-icon-wrap">
+        <i class="fa fa-check-circle"></i>
+      </div>
+      <div class="act-already-card">
+        <strong class="act-already-title" id="act-already-title">Você já está na lista deste bar</strong>
+        <span class="act-already-sub" id="act-already-sub">Este benefício foi ativado hoje neste bar.</span>
+      </div>
+      <div class="act-already-other-hint">
+        <i class="fa fa-map-marker-alt"></i>
+        Quer ir a outro bar? Feche e ative em qualquer outro bar da lista.
+      </div>
+      <button class="act-btn-close-already" onclick="closeModal('modal-activate')">
+        <i class="fa fa-times" style="margin-right:6px;opacity:.6"></i> Fechar
+      </button>
+    </div>
+
+    <!-- ── Estado: Noite Toda ativa → confirmação direta VIP ── -->
+    <div id="act-night-direct" style="display:none">
+      <!-- Aura VIP -->
+      <div class="vip-aura">
+        <div class="vip-crown"><i class="fa fa-crown"></i></div>
+        <div class="vip-glow"></div>
+      </div>
+      <!-- Badge -->
+      <div class="vip-badge-row">
+        <span class="vip-badge"><i class="fa fa-moon"></i> Link da Noite Toda</span>
+        <span class="vip-valid">Válido até 06h00</span>
+      </div>
+      <!-- Nome do bar -->
+      <div class="vip-bar-name-wrap">
+        <span class="vip-bar-label">Entrando em</span>
+        <strong class="vip-bar-name" id="act-night-bar-name">—</strong>
+      </div>
+      <!-- Benefício -->
+      <div class="vip-benefit-chip">
+        <i class="fa fa-gift"></i>
+        <span id="act-night-direct-benefit">Benefício exclusivo OZ</span>
+      </div>
+      <!-- Divider -->
+      <div class="vip-divider"></div>
+      <!-- Cliente -->
+      <div class="vip-user-row">
+        <div class="vip-user-avatar"><i class="fa fa-user"></i></div>
+        <div class="vip-user-info">
+          <span class="vip-user-label">Confirmando como</span>
+          <strong class="vip-user-name" id="act-night-direct-name">—</strong>
+        </div>
+        <div class="vip-user-check"><i class="fa fa-shield-halved"></i></div>
+      </div>
+      <!-- Hint -->
+      <p class="vip-hint">
+        <i class="fa fa-bolt"></i> Seu nome vai para a lista do bar imediatamente
+      </p>
+      <!-- Botão -->
+      <button class="vip-confirm-btn" id="btn-night-direct-confirm" onclick="confirmNightDirectCheckin()">
+        <i class="fa fa-check-circle"></i>
+        <span>Confirmar entrada</span>
+      </button>
+    </div>
+
+    <!-- ── Opções normais (sem Noite Toda prévia) ── -->
+    <div id="act-options-wrap">
+      <div class="benefit-options">
+        <div class="benefit-option" id="opt-individual" onclick="selectBenefit('individual')" data-type="individual">
+          <div class="benefit-opt-icon">🎯</div>
+          <div class="benefit-opt-info">
+            <strong>Unitário</strong>
+          </div>
+          <div class="benefit-opt-price" id="opt-individual-price">R$5</div>
+        </div>
+        <div class="benefit-option" id="opt-night" onclick="selectBenefit('night_link')">
+          <div class="benefit-opt-icon">🌙</div>
+          <div class="benefit-opt-info">
+            <strong>Link da Noite Toda</strong>
+            <span>Válido para <strong>todos os bares</strong> até as 6h</span>
+          </div>
+          <div class="benefit-opt-price" id="opt-night-price">R$10</div>
+        </div>
+      </div>
+      <div id="selected-benefit-info" class="selected-info" style="display:none">
+        <div class="selected-divider"></div>
+        <p id="selected-summary"></p>
+      </div>
+      <button class="btn btn-primary mt-16" id="btn-confirm-activate" onclick="confirmActivation()" style="display:none">
+        <i class="fa fa-bolt"></i> Confirmar ativação
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  MODAL — LINK DA NOITE: ESCOLHER BAR (CHECK-IN)      ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="modal-night-checkin" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box modal-night-checkin-box">
+    <button class="modal-close" onclick="closeModal('modal-night-checkin')"><i class="fa fa-times"></i></button>
+
+    <!-- Cabeçalho -->
+    <div class="ncm-header">
+      <div class="ncm-header-icon">🌙</div>
+      <div>
+        <h3 class="ncm-title">Link da Noite Toda</h3>
+        <p class="ncm-expiry" id="ncm-expiry">Válido até 6h</p>
+      </div>
+    </div>
+    <p class="ncm-subtitle">Escolha o bar — seu nome entra na lista na hora. Pode usar quantas vezes quiser!</p>
+
+    <!-- Lista de bares -->
+    <div class="ncm-bars-list" id="ncm-bars-list">
+      <div class="ncm-loading"><i class="fa fa-spinner fa-spin"></i> Carregando bares...</div>
+    </div>
+    <div class="empty-state" id="ncm-bars-empty" style="display:none">
+      <i class="fa fa-moon"></i><p>Nenhum bar disponível no momento.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  MODAL — RESERVAR BENEFÍCIO AGENDADO                 ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="modal-reserve-benefit" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box modal-reserve-box">
+    <button class="modal-close" onclick="closeModal('modal-reserve-benefit')"><i class="fa fa-times"></i></button>
+    <div class="modal-reserve-header">
+      <div class="modal-reserve-icon"><i class="fa fa-calendar-check"></i></div>
+      <div>
+        <p class="modal-reserve-title" id="reserve-modal-title">Reservar benefício</p>
+        <p class="modal-reserve-bar" id="reserve-modal-bar"></p>
+      </div>
+    </div>
+    <div class="modal-reserve-date-badge">
+      <i class="fa fa-calendar-alt"></i>
+      <span id="reserve-modal-date"></span>
+    </div>
+    <div class="modal-reserve-benefit-card">
+      <p class="modal-reserve-benefit-title" id="reserve-modal-benefit-title"></p>
+      <p class="modal-reserve-benefit-desc" id="reserve-modal-benefit-desc"></p>
+      <p class="modal-reserve-event" id="reserve-modal-event" style="display:none">
+        <i class="fa fa-music"></i> <span id="reserve-modal-event-text"></span>
+      </p>
+    </div>
+    <div class="modal-reserve-slots" id="reserve-modal-slots" style="display:none">
+      <i class="fa fa-users"></i>
+      <span id="reserve-modal-slots-text"></span>
+    </div>
+    <div class="modal-reserve-info">
+      <i class="fa fa-info-circle"></i>
+      <span>Sua reserva garante seu lugar na lista. No dia, ative o benefício normalmente pelo app.</span>
+    </div>
+
+    <div id="reserve-already-done" style="display:none">
+      <div class="reserve-done-badge">
+        <i class="fa fa-check-circle"></i> Você já tem reserva para este benefício
+      </div>
+      <button class="btn-reserve-cancel" onclick="cancelReservation()">
+        <i class="fa fa-times"></i> Cancelar reserva
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  MODAL — ATIVAÇÃO ANTECIPADA (Benefícios Agendados)  ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="modal-advance-activate" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box adv-modal-box">
+    <button class="modal-close" onclick="closeModal('modal-advance-activate')"><i class="fa fa-times"></i></button>
+
+    <!-- Header -->
+    <div class="adv-modal-header">
+      <div class="adv-modal-icon-wrap">
+        <div class="adv-modal-icon-glow"></div>
+        <div class="adv-modal-icon"><i class="fa fa-bolt"></i></div>
+      </div>
+      <div>
+        <p class="adv-modal-title">Ativar por antecipação</p>
+        <p class="adv-modal-bar-name" id="adv-modal-bar-name">—</p>
+      </div>
+    </div>
+
+    <!-- Badge de data -->
+    <div class="adv-modal-date-badge">
+      <i class="fa fa-calendar-alt"></i>
+      <span id="adv-modal-date-label">—</span>
+    </div>
+
+    <!-- Card do benefício -->
+    <div class="adv-modal-benefit-card">
+      <div class="adv-modal-benefit-icon"><i class="fa fa-gift"></i></div>
+      <div class="adv-modal-benefit-body">
+        <p class="adv-modal-benefit-title" id="adv-modal-benefit-title">—</p>
+        <p class="adv-modal-benefit-desc"  id="adv-modal-benefit-desc" style="display:none"></p>
+        <p class="adv-modal-benefit-event" id="adv-modal-benefit-event" style="display:none">
+          <i class="fa fa-music"></i> <span id="adv-modal-event-text"></span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Opções de tipo (individual ou noite toda) -->
+    <div class="adv-modal-options" id="adv-modal-options">
+      <p class="adv-modal-options-label">Escolha o tipo de ativação:</p>
+      <div class="adv-opt-cards">
+        <div class="adv-opt-card" id="adv-opt-individual" onclick="selectAdvanceType('individual')">
+          <div class="adv-opt-icon"><i class="fa fa-ticket-alt"></i></div>
+          <div class="adv-opt-info">
+            <span class="adv-opt-name">Unitário</span>
+            <span class="adv-opt-desc">Entrada neste bar</span>
+          </div>
+          <span class="adv-opt-price">R$5</span>
+        </div>
+        <div class="adv-opt-card" id="adv-opt-night" onclick="selectAdvanceType('night')">
+          <div class="adv-opt-icon"><i class="fa fa-moon"></i></div>
+          <div class="adv-opt-info">
+            <span class="adv-opt-name">Noite Toda</span>
+            <span class="adv-opt-desc">Todos os bares</span>
+          </div>
+          <span class="adv-opt-price">R$10</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Banner crédito grátis -->
+    <div class="adv-free-banner" id="adv-free-banner" style="display:none">
+      <i class="fa fa-gift"></i>
+      <span>Você tem <strong id="adv-free-count">1</strong> ativação grátis — será usada automaticamente no Unitário.</span>
+    </div>
+
+    <!-- Info explicativa -->
+    <div class="adv-modal-info">
+      <i class="fa fa-info-circle"></i>
+      <span>Seu nome entra na lista do bar no dia <strong id="adv-info-date">—</strong>. A ativação é confirmada agora.</span>
+    </div>
+
+    <!-- Resumo selecionado -->
+    <div class="adv-modal-summary" id="adv-modal-summary" style="display:none">
+      <span class="adv-summary-type" id="adv-summary-type">—</span>
+      <span class="adv-summary-amount" id="adv-summary-amount">R$5</span>
+    </div>
+
+    <!-- Botão confirmar -->
+    <button class="adv-btn-confirm" id="adv-btn-confirm" onclick="confirmAdvanceActivation()" style="display:none">
+      <i class="fa fa-bolt"></i> Confirmar ativação antecipada
+    </button>
+
+    <!-- Estado: já ativado -->
+    <div id="adv-already-done" style="display:none">
+      <div class="adv-done-badge">
+        <i class="fa fa-check-circle"></i>
+        <div>
+          <strong>Você já está na lista!</strong>
+          <p id="adv-done-detail">Ativação confirmada para este benefício.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  MODAL — BAR RESPONDE FÃ                             ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="modal-bar-reply" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box modal-bar-reply-box">
+    <button class="modal-close" onclick="closeModal('modal-bar-reply')"><i class="fa fa-times"></i></button>
+    <h3 class="modal-title"><i class="fa fa-reply"></i> Responder fã</h3>
+
+    <!-- Info do fã -->
+    <div class="mbr-fan-info" id="mbr-fan-info">
+      <div class="mbr-fan-avatar" id="mbr-fan-avatar">?</div>
+      <div class="mbr-fan-details">
+        <p class="mbr-fan-name" id="mbr-fan-name">Cliente</p>
+        <p class="mbr-fan-role" id="mbr-fan-role">Cliente</p>
+        <p class="mbr-fan-date" id="mbr-fan-date"></p>
+      </div>
+    </div>
+
+    <!-- Resposta anterior (se existir) -->
+    <div class="mbr-prev-reply" id="mbr-prev-reply" style="display:none">
+      <p class="mbr-prev-label"><i class="fa fa-check-circle"></i> Resposta anterior</p>
+      <p class="mbr-prev-text" id="mbr-prev-text"></p>
+    </div>
+
+    <!-- Campo de texto -->
+    <textarea id="bar-reply-text" class="mbr-textarea" rows="4" maxlength="200"
+      oninput="barReplyTextInput()"
+      placeholder="Escreva uma mensagem personalizada para este fã..."></textarea>
+    <span class="mbr-char-count" id="mbr-char-count">0 / 200</span>
+
+    <button class="btn btn-primary mt-16" id="btn-send-bar-reply" onclick="sendBarReply()">
+      <i class="fa fa-paper-plane"></i> Enviar resposta
+    </button>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  MODAL — EDITAR PERFIL CLIENTE                       ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="modal-client-edit" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box modal-edit-profile">
+    <button class="modal-close" onclick="closeModal('modal-client-edit')"><i class="fa fa-times"></i></button>
+    <h3 class="modal-title"><i class="fa fa-user-edit"></i> Editar perfil</h3>
+
+    <!-- Avatar -->
+    <div class="cedit-avatar-wrap" onclick="triggerAvatarUpload('cliente')">
+      <div class="cedit-avatar" id="cedit-avatar-preview">?</div>
+      <div class="cedit-avatar-hint"><i class="fa fa-camera"></i> Alterar foto</div>
+    </div>
+
+    <div class="cedit-fields">
+      <!-- Nome -->
+      <div class="cedit-field-group">
+        <label for="cedit-name"><i class="fa fa-user"></i> Nome completo</label>
+        <input type="text" id="cedit-name" placeholder="Seu nome completo" autocomplete="name" />
+      </div>
+
+      <!-- Telefone -->
+      <div class="cedit-field-group">
+        <label for="cedit-phone"><i class="fa fa-phone"></i> WhatsApp / Telefone</label>
+        <input type="tel" id="cedit-phone" placeholder="(11) 99999-9999" autocomplete="tel" />
+      </div>
+
+      <!-- Gênero -->
+      <div class="cedit-field-group">
+        <label for="cedit-gender"><i class="fa fa-venus-mars"></i> Gênero</label>
+        <select id="cedit-gender">
+          <option value="">Selecionar...</option>
+          <option value="masculino">Masculino</option>
+          <option value="feminino">Feminino</option>
+          <option value="nao_binario">Não-binário</option>
+          <option value="outro">Outro</option>
+          <option value="prefiro_nao_dizer">Prefiro não dizer</option>
+        </select>
+      </div>
+
+      <!-- Data de nascimento -->
+      <div class="cedit-field-group">
+        <label for="cedit-birth"><i class="fa fa-birthday-cake"></i> Data de nascimento</label>
+        <input type="date" id="cedit-birth" />
+      </div>
+    </div>
+
+    <button class="btn btn-primary mt-16" id="btn-save-client-edit" onclick="saveClientProfile()">
+      <i class="fa fa-check"></i> Salvar alterações
+    </button>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  MODAL — QR CODE                                     ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="modal-qrcode" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box modal-qr">
+    <button class="modal-close" onclick="closeModal('modal-qrcode')"><i class="fa fa-times"></i></button>
+
+    <!-- Ícone de sucesso animado -->
+    <div class="act-success-ring">
+      <div class="act-success-pulse"></div>
+      <div class="act-success-icon"><i class="fa fa-check"></i></div>
+    </div>
+
+    <!-- Mensagem principal -->
+    <h3 class="act-success-title">Benefício ativado!</h3>
+    <p class="act-success-msg">Aproveite o evento e curta a noite! 🎉</p>
+
+    <!-- Nome do bar / tipo -->
+    <div class="act-success-meta">
+      <span class="act-success-bar" id="qr-bar-label"></span>
+      <span class="act-success-type" id="qr-benefit-label"></span>
+    </div>
+
+    <!-- Validade -->
+    <div class="act-success-expiry">
+      <i class="fa fa-moon"></i>
+      <span>Válido até as <strong>06h00</strong> de hoje</span>
+    </div>
+
+    <!-- Botão night_link: ir para início e escolher outro bar -->
+    <button class="btn btn-night-checkin mt-16" id="btn-qr-night-checkin" style="display:none"
+      onclick="closeModal('modal-qrcode'); setTimeout(() => switchTab('home'), 250)">
+      <i class="fa fa-store"></i> Usar em outro bar agora
+    </button>
+
+    <button class="act-success-close-btn" onclick="closeModal('modal-qrcode')">
+      <i class="fa fa-arrow-right"></i> Fechar
+    </button>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  MODAL — RESGATE DE SALDO                            ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="modal-withdraw" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-withdraw')"><i class="fa fa-times"></i></button>
+    <h3 class="modal-title"><i class="fa fa-wallet"></i> Resgatar saldo</h3>
+    <div id="withdraw-alert" class="alert" style="display:none"></div>
+    <div class="alert" style="display:flex;align-items:flex-start;gap:8px;background:rgba(251,191,36,.10);border:1px solid rgba(251,191,36,.35);color:#fbbf24;font-size:13px;margin-bottom:12px">
+      <i class="fa fa-clock" style="margin-top:2px;flex-shrink:0"></i>
+      <span>Após a solicitação, temos até <strong>7 dias úteis</strong> para realizar o depósito. É permitido <strong>1 resgate por mês</strong>.</span>
+    </div>
+    <div class="withdraw-balance-show">
+      <p class="withdraw-label">Saldo disponível</p>
+      <p class="withdraw-value" id="modal-withdraw-balance">R$ 0,00</p>
+    </div>
+    <div class="field-group">
+      <label>Valor a resgatar (R$)</label>
+      <input type="number" id="withdraw-amount" placeholder="Ex: 10.00" min="1" step="0.50" />
+    </div>
+    <div class="field-group">
+      <label>Chave Pix</label>
+      <input type="text" id="withdraw-pix" placeholder="CPF, e-mail ou telefone" />
+    </div>
+    <div class="field-group">
+      <label>Observação <span class="optional">(opcional)</span></label>
+      <input type="text" id="withdraw-notes" placeholder="Alguma observação..." />
+    </div>
+    <button class="btn btn-primary mt-16" onclick="requestWithdraw()">
+      <i class="fa fa-check"></i> Solicitar resgate
+    </button>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  MODAL — CHAT ONLINE                                 ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="modal-chat" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box modal-chat-box">
+    <button class="modal-close" onclick="closeChatModal()"><i class="fa fa-times"></i></button>
+    <div class="chat-modal-header">
+      <div class="chat-modal-avatar" id="chat-modal-avatar">?</div>
+      <div>
+        <p class="chat-modal-name" id="chat-modal-name">Usuário</p>
+        <p class="chat-modal-status"><span class="online-dot"></span> online agora</p>
+      </div>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-msg-empty"><i class="fa fa-comments"></i><p>Inicie uma conversa!</p></div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" id="chat-input" placeholder="Escreva uma mensagem..." onkeydown="if(event.key==='Enter') sendChatMessage()" />
+      <button class="btn-chat-send" onclick="sendChatMessage()"><i class="fa fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  MODAL — AVALIAR BAR (Histórico de Ativações)        ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div id="hist-review-modal" class="hrm-overlay" style="display:none" onclick="closeHistReviewModal(event)">
+  <div class="hrm-box">
+
+    <!-- Fechar -->
+    <button class="hrm-close" onclick="closeHistReviewModal()">
+      <i class="fa fa-times"></i>
+    </button>
+
+    <!-- Cabeçalho: nome do bar -->
+    <div class="hrm-header">
+      <div class="hrm-bar-icon"><i class="fa fa-glass-cheers"></i></div>
+      <div class="hrm-header-info">
+        <p class="hrm-label">Avaliando</p>
+        <h3 class="hrm-bar-name" id="hrm-bar-name">—</h3>
+      </div>
+    </div>
+
+    <!-- Já avaliou -->
+    <div id="hrm-already" class="hrm-already" style="display:none">
+      <div class="hrm-already-stars" id="hrm-already-stars"></div>
+      <p class="hrm-already-text">Você já avaliou este bar.</p>
+      <p class="hrm-already-sub" id="hrm-already-comment"></p>
+      <button class="hrm-close-btn" onclick="closeHistReviewModal()">Fechar</button>
+    </div>
+
+    <!-- Formulário -->
+    <div id="hrm-form" class="hrm-form">
+
+      <p class="hrm-form-label">Sua nota</p>
+      <div class="hrm-stars-row" id="hrm-stars-row">
+        <button class="hrm-star-btn" onclick="setHistReviewStar(1)"><i class="far fa-star"></i></button>
+        <button class="hrm-star-btn" onclick="setHistReviewStar(2)"><i class="far fa-star"></i></button>
+        <button class="hrm-star-btn" onclick="setHistReviewStar(3)"><i class="far fa-star"></i></button>
+        <button class="hrm-star-btn" onclick="setHistReviewStar(4)"><i class="far fa-star"></i></button>
+        <button class="hrm-star-btn" onclick="setHistReviewStar(5)"><i class="far fa-star"></i></button>
+      </div>
+      <p class="hrm-star-hint" id="hrm-star-hint">Toque nas estrelas para avaliar</p>
+
+      <p class="hrm-form-label">Comentário <span class="hrm-optional">(opcional)</span></p>
+      <textarea
+        id="hrm-textarea"
+        class="hrm-textarea"
+        placeholder="Como foi sua experiência no bar?"
+        maxlength="500"
+        rows="3"
+        oninput="document.getElementById('hrm-char').textContent = this.value.length + ' / 500'"
+      ></textarea>
+      <span class="hrm-char" id="hrm-char">0 / 500</span>
+
+      <div id="hrm-error" class="hrm-error" style="display:none"></div>
+
+      <button class="hrm-submit-btn" id="hrm-submit-btn" onclick="submitHistReview()">
+        <i class="fa fa-paper-plane"></i> Publicar avaliação
+      </button>
+
+    </div><!-- /hrm-form -->
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/supabase-auth.js"></script>
+<script src="js/app.js?v=20261023c"></script>
+</body>
+</html>

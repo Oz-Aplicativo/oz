@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OZ — Pitch Deck · Investidores</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/pitch.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     LOGIN
+══════════════════════════════════════════ -->
+<div id="pitch-login" class="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="images/oz-logo.png" alt="OZ" class="pitch-logo-img" />
+    </div>
+    <h1 class="login-title">Pitch · Investidores</h1>
+    <p class="login-sub">Acesso restrito — Sob NDA</p>
+    <div id="login-error" class="alert-error" style="display:none"></div>
+    <div class="field-group">
+      <label class="field-label">Seu nome</label>
+      <input type="text" id="pitch-name" class="field-input" placeholder="Nome completo" autocomplete="name" />
+    </div>
+    <div class="field-group">
+      <label class="field-label">Senha de acesso</label>
+      <input type="password" id="pitch-pass" class="field-input" placeholder="••••••••"
+             onkeydown="if(event.key==='Enter') doPitchLogin()" autocomplete="current-password" />
+    </div>
+    <div class="nda-check-row">
+      <input type="checkbox" id="pitch-nda" />
+      <label for="pitch-nda">
+        Confirmo que aceito o <strong>Acordo de Confidencialidade (NDA)</strong> e não divulgarei
+        estas informações a terceiros sem autorização expressa da OZ.
+      </label>
+    </div>
+    <button id="pitch-login-btn" class="btn-primary" onclick="doPitchLogin()" disabled>
+      <i class="fa fa-lock-open"></i> Acessar Pitch
+    </button>
+    <p class="login-footer">Não tem acesso? <a href="mailto:tecnologia@ozaplicativo.com.br">Solicitar ao time OZ</a></p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PITCH APP
+══════════════════════════════════════════ -->
+<div id="pitch-app" style="display:none">
+  <div class="pitch-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="pitch-sidebar">
+      <div class="pitch-sidebar-logo">
+        <img src="images/oz-logo.png" alt="OZ" class="sidebar-logo-img" />
+        <span class="sidebar-logo-label">Pitch <span>Deck</span></span>
+      </div>
+      <nav class="pitch-nav" id="pitch-nav"></nav>
+      <div class="sidebar-footer">
+        <button class="sidebar-logout" onclick="doPitchLogout()">
+          <i class="fa fa-sign-out-alt"></i> Sair
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="pitch-main" id="pitch-main">
+
+
+<!-- ═══════════════════════════════════════════════
+     01 · PROPOSTA DE VALOR
+═══════════════════════════════════════════════ -->
+<section id="s01" class="slide active">
+  <div class="slide-eyebrow">01 · Proposta de Valor</div>
+  <h1 class="slide-h1">A noite tem <span>dono</span>.<br>Agora tem <span>plataforma</span>.</h1>
+  <p class="slide-lead">
+    OZ é o primeiro marketplace de benefícios noturnos do Brasil — conecta clientes, bares e promoters
+    num ecossistema de ativações em tempo real, rastreadas por QR Code e liquidadas automaticamente via PIX.
+    Ninguém paga mensalidade. Ninguém trabalha no escuro. O bar paga só quando o cliente chega.
+  </p>
+
+  <div class="hero-badge-row">
+    <span class="hbadge accent">✨ Marketplace de Noite</span>
+    <span class="hbadge">Pay-per-Activation</span>
+    <span class="hbadge">3 Perfis · 1 Ecossistema</span>
+    <span class="hbadge">PIX · QR Code · Tempo Real</span>
+    <span class="hbadge">MVP: Pinheiros + Vila Madalena</span>
+  </div>
+
+  <div class="two-col-visual">
+    <div>
+      <div class="big-quote">
+        "O bar investe em marketing sem saber se alguém veio por causa disso.
+        O cliente não sabe o que vai encontrar. O promoter trabalha de graça.
+        <strong>A OZ resolve os três ao mesmo tempo.</strong>"
+      </div>
+      <div class="stat-row" style="margin-top:28px">
+        <div class="stat-box accent">
+          <div class="stat-num">R$0</div>
+          <div class="stat-lbl">mensalidade para o cliente</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">100%</div>
+          <div class="stat-lbl">resultado mensurável para o bar</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">PIX</div>
+          <div class="stat-lbl">comissão automática promoter</div>
+        </div>
+      </div>
+    </div>
+    <div class="ecosystem-visual">
+      <div class="eco-center">OZ</div>
+      <div class="eco-node eco-top">🧑‍🤝‍🧑<br><small>Cliente</small></div>
+      <div class="eco-node eco-left">🍸<br><small>Bar</small></div>
+      <div class="eco-node eco-right">📣<br><small>Promoter</small></div>
+      <div class="eco-line eco-line-top"></div>
+      <div class="eco-line eco-line-left"></div>
+      <div class="eco-line eco-line-right"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     02 · O PROBLEMA
+═══════════════════════════════════════════════ -->
+<section id="s02" class="slide">
+  <div class="slide-eyebrow">02 · O Problema</div>
+  <h2 class="slide-h2">Três dores reais,<br>sem <span>solução integrada</span></h2>
+  <p class="slide-lead">
+    O mercado noturno brasileiro tem R$ 150B/ano em movimento, mas opera no escuro:
+    sem rastreamento, sem conversão mensurável, sem ferramentas para os três lados.
+  </p>
+
+  <div class="grid-3" style="margin-bottom:28px">
+    <div class="card accent-border">
+      <div class="card-icon">😤</div>
+      <div class="card-tag">Dor #1 — Cliente</div>
+      <div class="card-title">"O que tem hoje em cada bar?"</div>
+      <div class="card-text">
+        O cliente decide onde sair sem informação real. Descobre promoções só depois de chegar —
+        ou vê um post no Instagram sem saber se ainda vale. <strong>A experiência é uma surpresa
+        que raramente agrada.</strong> Resultado: fica em casa ou vai sempre ao mesmo lugar.
+      </div>
+      <div class="pain-meter">
+        <div class="pain-label">Frequência da dor</div>
+        <div class="pain-bar"><div class="pain-fill" style="width:88%"></div></div>
+        <div class="pain-pct">88% das saídas noturnas</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <div class="card-tag">Dor #2 — Bar</div>
+      <div class="card-title">"Gastei em marketing. Veio alguém?"</div>
+      <div class="card-text">
+        O bar gasta R$ 3–10K/mês em impulsionamento, influencer e panfleto.
+        Não tem como medir quantas pessoas vieram por causa de cada ação.
+        <strong>Custo fixo alto, ROI invisível.</strong> Resultado: corta marketing,
+        perde movimento, fecha antes do tempo.
+      </div>
+      <div class="pain-meter">
+        <div class="pain-label">Bares sem métrica de conversão</div>
+        <div class="pain-bar"><div class="pain-fill" style="width:94%"></div></div>
+        <div class="pain-pct">94% dos bares no Brasil</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon">💸</div>
+      <div class="card-tag">Dor #3 — Promoter</div>
+      <div class="card-title">"Trouxe 30 pessoas. Recebi?"</div>
+      <div class="card-text">
+        O promoter indica, convence, traz. Mas não tem como provar quantas pessoas vieram
+        por causa dele. A comissão depende de confiança, não de sistema.
+        <strong>Trabalho informal, sem segurança.</strong> Resultado: desmotiva, para de indicar.
+      </div>
+      <div class="pain-meter">
+        <div class="pain-label">Promoters sem sistema de rastreamento</div>
+        <div class="pain-bar"><div class="pain-fill" style="width:99%"></div></div>
+        <div class="pain-pct">~99% do mercado atual</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <div class="hb-title">📍 A dor é mais intensa em Pinheiros e Vila Madalena</div>
+    <div class="hb-text">
+      Os dois bairros concentram a maior densidade de bares premium de SP — mais de 400 estabelecimentos
+      num raio de 3km. Ticket médio R$ 100–250/visita. Público 23–38 anos, digitalmente nativo,
+      que toma decisão pelo celular em menos de 5 minutos antes de sair.
+      <strong>É o ambiente perfeito para validar e escalar o modelo.</strong>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     03 · A SOLUÇÃO
+═══════════════════════════════════════════════ -->
+<section id="s03" class="slide">
+  <div class="slide-eyebrow">03 · A Solução</div>
+  <h2 class="slide-h2">Um ecossistema que <span>fecha o ciclo</span></h2>
+  <p class="slide-lead">
+    OZ é a camada de conexão que faltava entre os três lados do mercado noturno.
+    Cada parte do ecossistema resolve uma dor específica — e todos se beneficiam quando o outro cresce.
+  </p>
+
+  <div class="solution-grid">
+    <div class="sol-card">
+      <div class="sol-num">01</div>
+      <div class="sol-icon">🧑‍🤝‍🧑</div>
+      <div class="sol-title">Para o Cliente</div>
+      <div class="sol-sub">Descobrir → Ativar → Aproveitar</div>
+      <ul class="check-list">
+        <li>Vê em tempo real quais bares têm benefício ativo <em>agora</em></li>
+        <li>Filtra por tipo de bar (balada, boteco, rooftop…) e benefício (bebida, comida, VIP, desconto)</li>
+        <li>Ativa com um toque — recebe QR Code com validade e controle de vagas</li>
+        <li>Histórico completo de ativações, favoritos e avaliações</li>
+        <li><strong>100% gratuito para sempre</strong></li>
+      </ul>
+    </div>
+    <div class="sol-card accent">
+      <div class="sol-num">02</div>
+      <div class="sol-icon">🍸</div>
+      <div class="sol-title">Para o Bar</div>
+      <div class="sol-sub">Publicar → Medir → Otimizar</div>
+      <ul class="check-list">
+        <li>Publica benefício em segundos — ao vivo ou agendado para qualquer dia</li>
+        <li>Controla vagas em tempo real: evita superlotação e frustração</li>
+        <li>Dashboard completo: quantas ativações, qual horário de pico, qual benefício converteu mais</li>
+        <li>Paga apenas por ativação confirmada — <strong>zero risco, zero mensalidade</strong></li>
+        <li>Sabe exatamente o ROI de cada promoção</li>
+      </ul>
+    </div>
+    <div class="sol-card">
+      <div class="sol-num">03</div>
+      <div class="sol-icon">📣</div>
+      <div class="sol-title">Para o Promoter</div>
+      <div class="sol-sub">Indicar → Rastrear → Receber</div>
+      <ul class="check-list">
+        <li>Código rastreado único — cada cliente que vem pelo seu link é contabilizado</li>
+        <li>"Pick do dia": escolhe o bar que vai indicar naquela noite</li>
+        <li>Acompanha ativações em tempo real no painel</li>
+        <li>Comissão creditada automaticamente — saque via PIX a qualquer hora</li>
+        <li><strong>Transforma trabalho informal em renda formal e mensurável</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:24px">
+    <div class="hb-title">🔑 O diferencial que nenhum concorrente tem</div>
+    <div class="hb-text">
+      OZ é a única plataforma que integra os <strong>três lados</strong> do mercado noturno num único ecossistema rastreável.
+      Não é um app de eventos. Não é um guia de bares. Não é um programa de afiliados.
+      É um <strong>marketplace de conversão em tempo real</strong> — onde cada ativação gera dados, receita e relacionamento
+      para os três lados simultaneamente.
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     04 · COMO FUNCIONA
+═══════════════════════════════════════════════ -->
+<section id="s04" class="slide">
+  <div class="slide-eyebrow">04 · Como Funciona</div>
+  <h2 class="slide-h2">Do benefício publicado à <span>comissão paga</span></h2>
+  <p class="slide-lead">
+    Fluxo completo end-to-end — sem intervenção manual, sem planilha, sem confiança cega.
+    Tudo rastreado, tudo automático.
+  </p>
+
+  <div class="flow-full">
+    <div class="flow-step-h">
+      <div class="fsh-num">1</div>
+      <div class="fsh-body">
+        <div class="fsh-actor">🍸 Bar</div>
+        <div class="fsh-title">Publica o benefício</div>
+        <div class="fsh-text">Define categoria (bebida, comida, VIP, desconto), quantidade de vagas, horário de início e fim. Pode publicar agora ou agendar para qualquer dia da semana.</div>
+      </div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step-h">
+      <div class="fsh-num">2</div>
+      <div class="fsh-body">
+        <div class="fsh-actor">📣 Promoter</div>
+        <div class="fsh-title">Escolhe e divulga</div>
+        <div class="fsh-text">Faz o "pick do dia" — marca o bar que vai indicar. Compartilha seu código rastreado nas redes. Cada cliente que entrar via seu código é contabilizado automaticamente.</div>
+      </div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step-h">
+      <div class="fsh-num">3</div>
+      <div class="fsh-body">
+        <div class="fsh-actor">🧑‍🤝‍🧑 Cliente</div>
+        <div class="fsh-title">Descobre e ativa</div>
+        <div class="fsh-text">Abre o app, vê os bares com benefício ativo agora, filtra, toca em "Ativar". Recebe QR Code com validade. Pode inserir código do promoter para bônus adicional.</div>
+      </div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step-h">
+      <div class="fsh-num">4</div>
+      <div class="fsh-body">
+        <div class="fsh-actor">✅ Confirmação</div>
+        <div class="fsh-title">Bar escaneia e confirma</div>
+        <div class="fsh-text">Cliente chega, mostra QR Code. Bar confirma no app. Vaga decrementada em tempo real. Ativação registrada. Benefício liberado instantaneamente.</div>
+      </div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step-h accent">
+      <div class="fsh-num">5</div>
+      <div class="fsh-body">
+        <div class="fsh-actor">💰 Liquidação</div>
+        <div class="fsh-title">Sistema liquida automaticamente</div>
+        <div class="fsh-text">Cobrança gerada ao bar. Comissão do promoter creditada. OZ retém o spread. Promoter saca via PIX quando quiser. <strong>Zero intervenção humana.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:28px">
+    <div class="card">
+      <div class="card-tag">⚡ Benefícios ao vivo</div>
+      <div class="card-text" style="margin-top:8px">
+        Bar publica agora — aparece imediatamente para todos os clientes na aba "Descobrir".
+        Ideal para noites espontâneas, happy hour de última hora, encheção de casa.
+      </div>
+    </div>
+    <div class="card accent-border">
+      <div class="card-tag">📅 Benefícios agendados</div>
+      <div class="card-text" style="margin-top:8px">
+        Bar programa a semana inteira com antecedência. Promoters já sabem o que vai acontecer
+        e podem divulgar antes. Clientes planejam a noite. Conversão muito maior.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     05 · PERFIS & ECOSSISTEMA
+═══════════════════════════════════════════════ -->
+<section id="s05" class="slide">
+  <div class="slide-eyebrow">05 · Perfis & Ecossistema</div>
+  <h2 class="slide-h2">Três perfis que se <span>reforçam</span></h2>
+  <p class="slide-lead">
+    O modelo de negócio da OZ cria um efeito de rede triplo: cada novo bar atrai mais clientes,
+    cada novo cliente atrai mais promoters, cada promoter traz mais bares.
+  </p>
+
+  <div class="network-effect">
+    <div class="ne-box">
+      <div class="ne-label">Mais Bares</div>
+      <div class="ne-arrow">↓</div>
+      <div class="ne-detail">Mais opções → mais clientes baixam o app</div>
+    </div>
+    <div class="ne-connector">→</div>
+    <div class="ne-box accent">
+      <div class="ne-label">Mais Clientes</div>
+      <div class="ne-arrow">↓</div>
+      <div class="ne-detail">Mais ativações → mais promoters querem participar</div>
+    </div>
+    <div class="ne-connector">→</div>
+    <div class="ne-box">
+      <div class="ne-label">Mais Promoters</div>
+      <div class="ne-arrow">↓</div>
+      <div class="ne-detail">Mais divulgação → mais bares veem resultado</div>
+    </div>
+    <div class="ne-connector">→</div>
+    <div class="ne-box">
+      <div class="ne-label">Mais Bares</div>
+      <div class="ne-arrow">↺</div>
+      <div class="ne-detail">Ciclo se repete com crescimento acelerado</div>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top:24px">
+    <div class="card accent-border">
+      <div class="card-icon">🧑‍🤝‍🧑</div>
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Descobre e ativa</div>
+      <ul class="check-list" style="margin-top:10px">
+        <li>Cadastro gratuito — sem mensalidade jamais</li>
+        <li>Filtra por tipo de bar e categoria de benefício</li>
+        <li>QR Code com validade e controle de vagas</li>
+        <li>Histórico, favoritos, avaliações</li>
+        <li>Notificações de benefícios próximos</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-icon">🍸</div>
+      <div class="card-tag">Bar Parceiro</div>
+      <div class="card-title">Publica e mensura</div>
+      <ul class="check-list" style="margin-top:10px">
+        <li>Painel completo de gestão de benefícios</li>
+        <li>Publicação ao vivo ou agendada</li>
+        <li>Dashboard: ativações, horário de pico, perfil do visitante</li>
+        <li>Paga apenas por resultado confirmado</li>
+        <li>Cancela com compensação automática ao cliente</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-icon">📣</div>
+      <div class="card-tag">Promoter</div>
+      <div class="card-title">Indica e recebe</div>
+      <ul class="check-list" style="margin-top:10px">
+        <li>Código rastreado único por promoter</li>
+        <li>"Pick do dia" — escolhe o bar a indicar</li>
+        <li>Acompanha ativações em tempo real</li>
+        <li>Comissão automática por ativação confirmada</li>
+        <li>Saque PIX sem burocracia</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     06 · MVP — PINHEIROS E VILA MADALENA
+═══════════════════════════════════════════════ -->
+<section id="s06" class="slide">
+  <div class="slide-eyebrow">06 · MVP — Fase 1</div>
+  <h2 class="slide-h2">Pinheiros &amp; <span>Vila Madalena</span></h2>
+  <p class="slide-lead">
+    O MVP da OZ está focado nos dois bairros com maior densidade de bares premium de São Paulo —
+    o laboratório perfeito para validar o modelo antes de escalar.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:24px">
+    <div>
+      <div class="mvp-map-box">
+        <div class="mvp-map-title">📍 Por que esses bairros?</div>
+        <div class="mvp-stats">
+          <div class="mvp-stat">
+            <div class="mvp-num">400<span>+</span></div>
+            <div class="mvp-lbl">bares num raio de 3km</div>
+          </div>
+          <div class="mvp-stat">
+            <div class="mvp-num">R$150</div>
+            <div class="mvp-lbl">ticket médio por visita</div>
+          </div>
+          <div class="mvp-stat">
+            <div class="mvp-num">23–38</div>
+            <div class="mvp-lbl">idade média do público</div>
+          </div>
+          <div class="mvp-stat">
+            <div class="mvp-num">5min</div>
+            <div class="mvp-lbl">tempo de decisão via celular</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card-tag" style="margin-bottom:12px">🎯 Estratégia de entrada</div>
+      <ul class="check-list">
+        <li><strong>Bares-âncora:</strong> fechar 5–8 bares de alto tráfego como vitrine do modelo</li>
+        <li><strong>Promoters locais:</strong> recrutar 50 promoters que já frequentam esses bairros</li>
+        <li><strong>Benefício de lançamento:</strong> primeiras 4 semanas com comissão zero para o bar — prova de conceito</li>
+        <li><strong>Eventos de ativação:</strong> noites temáticas OZ nos bares âncora para atrair primeiros 1.000 clientes</li>
+        <li><strong>Growth orgânico:</strong> promoters divulgam → clientes ativam → bares veem resultado → indicam outros bares</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:20px">
+    <div class="card-tag">📊 Meta MVP — 90 dias após lançamento</div>
+    <div style="height:200px; margin-top:16px">
+      <canvas id="chart-mvp"></canvas>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="stat-box accent">
+      <div class="stat-num">30</div>
+      <div class="stat-lbl">bares ativos em 90 dias</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">200</div>
+      <div class="stat-lbl">promoters com pick ativo</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">5.000</div>
+      <div class="stat-lbl">ativações no primeiro trimestre</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     07 · MODELO DE RECEITA
+═══════════════════════════════════════════════ -->
+<section id="s07" class="slide">
+  <div class="slide-eyebrow">07 · Modelo de Receita</div>
+  <h2 class="slide-h2">Receita por <span>resultado real</span></h2>
+  <p class="slide-lead">
+    OZ só ganha quando o cliente chega ao bar e a ativação é confirmada.
+    Zero custo fixo para o bar. Zero risco. Alinhamento total de incentivos.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:28px">
+    <div>
+      <div class="revenue-flow">
+        <div class="rev-step">
+          <div class="rev-icon">🍸</div>
+          <div class="rev-body">
+            <div class="rev-title">Bar paga R$ X por ativação</div>
+            <div class="rev-text">Definido por categoria e tipo de benefício. Só cobrado após confirmação pelo bar.</div>
+          </div>
+        </div>
+        <div class="rev-split">
+          <div class="rev-split-line"></div>
+          <div class="rev-split-label">Split automático</div>
+        </div>
+        <div class="rev-step">
+          <div class="rev-icon">📣</div>
+          <div class="rev-body">
+            <div class="rev-title">Promoter recebe % da ativação</div>
+            <div class="rev-text">Creditado automaticamente. Saque PIX imediato. Sem burocracia.</div>
+          </div>
+        </div>
+        <div class="rev-split">
+          <div class="rev-split-line"></div>
+          <div class="rev-split-label">OZ retém o spread</div>
+        </div>
+        <div class="rev-step accent">
+          <div class="rev-icon">💰</div>
+          <div class="rev-body">
+            <div class="rev-title">OZ: diferença entre taxa e repasse</div>
+            <div class="rev-text">Margem líquida da plataforma por cada ativação confirmada.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card-tag" style="margin-bottom:12px">📊 Composição da Receita</div>
+      <div style="height:220px">
+        <canvas id="chart-revenue"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <table class="p-table">
+    <thead>
+      <tr><th>Fonte</th><th>Quem Paga</th><th>Modelo</th><th>Margem OZ</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Taxa de ativação</td>
+        <td>Bar parceiro</td>
+        <td>% sobre valor confirmado</td>
+        <td><span class="pill green">~65%</span></td>
+        <td><span class="pill green">Ativo</span></td>
+      </tr>
+      <tr>
+        <td>Spread de comissão (promoter)</td>
+        <td>Retido da taxa</td>
+        <td>Taxa cobrada − repasse</td>
+        <td><span class="pill green">~40%</span></td>
+        <td><span class="pill green">Ativo</span></td>
+      </tr>
+      <tr>
+        <td>Destaque de bares (featured)</td>
+        <td>Bar parceiro</td>
+        <td>CPM / posição premium</td>
+        <td><span class="pill green">~90%</span></td>
+        <td><span class="pill yellow">Q4 2025</span></td>
+      </tr>
+      <tr>
+        <td>Reservas antecipadas premium</td>
+        <td>Cliente / Bar</td>
+        <td>Taxa fixa por reserva</td>
+        <td><span class="pill green">~80%</span></td>
+        <td><span class="pill yellow">2026</span></td>
+      </tr>
+      <tr>
+        <td>API / White-label redes</td>
+        <td>Redes / Franquias</td>
+        <td>Licença SaaS mensal</td>
+        <td><span class="pill green">~85%</span></td>
+        <td><span class="pill">Futuro</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     08 · MERCADO
+═══════════════════════════════════════════════ -->
+<section id="s08" class="slide">
+  <div class="slide-eyebrow">08 · Mercado & TAM</div>
+  <h2 class="slide-h2">Mercado <span>gigante</span>,<br>zero digitalização de conversão</h2>
+  <p class="slide-lead">
+    Bares e entretenimento noturno movimentam mais de R$ 150B/ano no Brasil.
+    Nenhum player de conversão rastreável existe neste mercado.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:28px">
+    <div>
+      <div class="card-tag" style="margin-bottom:12px">📊 Tamanho do mercado (R$ Bilhões)</div>
+      <div style="height:240px">
+        <canvas id="chart-tam"></canvas>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="stat-box accent">
+        <div class="stat-num">R$150B</div>
+        <div class="stat-lbl">TAM — mercado total bares + entretenimento/ano no Brasil</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">R$18B</div>
+        <div class="stat-lbl">SAM — bares com ticket e perfil compatível com OZ</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">R$320M</div>
+        <div class="stat-lbl">SOM — SP · 3 anos · 2% de penetração conservadora</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-tag">📍 Por que o Brasil, por que agora</div>
+      <ul class="check-list" style="margin-top:10px">
+        <li>1,3M+ bares sem nenhuma ferramenta de conversão digital</li>
+        <li>PIX normalizou micropagamentos e comissões instantâneas</li>
+        <li>Gen Z e Millennials decidem onde ir pelo celular, em minutos</li>
+        <li>Pós-pandemia acelerou digitalização do setor de hospitalidade</li>
+        <li>Nenhum concorrente com os três lados integrados</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-tag">📍 Foco MVP — Pinheiros + Vila Madalena</div>
+      <ul class="check-list" style="margin-top:10px">
+        <li>+400 bares num raio de 3km — maior concentração de SP</li>
+        <li>Ticket médio R$ 100–250 por visita noturna</li>
+        <li>Público 23–38 anos, renda A/B, decide via celular</li>
+        <li>Alta circulação de promoters naturais (influencers locais)</li>
+        <li>Bairros com cultura de sair: 3–5 vezes/semana é comum</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     09 · COMPETIDORES
+═══════════════════════════════════════════════ -->
+<section id="s09" class="slide">
+  <div class="slide-eyebrow">09 · Competidores</div>
+  <h2 class="slide-h2">Ninguém conecta <span>os três lados</span></h2>
+  <p class="slide-lead">
+    OZ não compete com apps de eventos, guias de bares ou programas de fidelidade.
+    É uma categoria nova: <strong>marketplace de conversão noturna rastreável</strong>.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:24px">
+    <div>
+      <div class="card-tag" style="margin-bottom:12px">📊 Mapa competitivo — funcionalidades</div>
+      <div style="height:260px">
+        <canvas id="chart-radar"></canvas>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;justify-content:center">
+      <div class="card accent-border">
+        <div class="card-tag">✦ Posição única da OZ</div>
+        <div class="card-text">
+          OZ é a única plataforma que integra simultaneamente:
+          <strong>benefícios em tempo real + promoter comissionado + pay-per-activation + QR Code nativo + PIX automático.</strong>
+          Nenhum concorrente tem mais de 2 desses 5 atributos.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-tag">🛡️ Barreira de entrada</div>
+        <div class="card-text">
+          A rede de promoters humanos é a maior barreira: leva 6–12 meses para construir uma rede
+          de promoters engajados com código rastreado em bairros específicos.
+          <strong>Quem chegar depois parte do zero.</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="p-table">
+    <thead>
+      <tr><th>Plataforma</th><th>Real-time</th><th>Promoter $</th><th>Pay/activation</th><th>QR Code</th><th>PIX</th><th>3 perfis</th></tr>
+    </thead>
+    <tbody>
+      <tr style="background:rgba(201,122,154,0.06)">
+        <td><strong>OZ ✦</strong></td>
+        <td><span class="pill green">✅</span></td><td><span class="pill green">✅</span></td>
+        <td><span class="pill green">✅</span></td><td><span class="pill green">✅</span></td>
+        <td><span class="pill green">✅</span></td><td><span class="pill green">✅</span></td>
+      </tr>
+      <tr>
+        <td>Sympla / Ingresso</td>
+        <td><span class="pill">❌</span></td><td><span class="pill">❌</span></td>
+        <td><span class="pill">❌</span></td><td><span class="pill yellow">⚠️</span></td>
+        <td><span class="pill yellow">⚠️</span></td><td><span class="pill">❌</span></td>
+      </tr>
+      <tr>
+        <td>iFood Mesa / Rappi</td>
+        <td><span class="pill yellow">⚠️</span></td><td><span class="pill">❌</span></td>
+        <td><span class="pill yellow">⚠️</span></td><td><span class="pill">❌</span></td>
+        <td><span class="pill green">✅</span></td><td><span class="pill">❌</span></td>
+      </tr>
+      <tr>
+        <td>Clube de vantagens (Livelo etc)</td>
+        <td><span class="pill">❌</span></td><td><span class="pill">❌</span></td>
+        <td><span class="pill">❌</span></td><td><span class="pill yellow">⚠️</span></td>
+        <td><span class="pill">❌</span></td><td><span class="pill">❌</span></td>
+      </tr>
+      <tr>
+        <td>Instagram / WhatsApp</td>
+        <td><span class="pill yellow">⚠️</span></td><td><span class="pill yellow">⚠️</span></td>
+        <td><span class="pill">❌</span></td><td><span class="pill">❌</span></td>
+        <td><span class="pill yellow">⚠️</span></td><td><span class="pill">❌</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     10 · PROJEÇÕES
+═══════════════════════════════════════════════ -->
+<section id="s10" class="slide">
+  <div class="slide-eyebrow">10 · Projeções Financeiras</div>
+  <h2 class="slide-h2">Crescimento <span>consistente</span></h2>
+  <p class="slide-lead">
+    Projeções conservadoras: crescimento a partir de Pinheiros/Vila Madalena, expansão SP em 2026, nacional em 2027.
+    Premissas: ticket médio R$ 50, comissão OZ 20%, churn mensal bares 5%.
+  </p>
+
+  <div class="card" style="margin-bottom:24px">
+    <div class="card-tag">📈 Crescimento de Ativações e Receita OZ (mensal)</div>
+    <div style="height:250px;margin-top:16px">
+      <canvas id="chart-growth"></canvas>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <table class="p-table">
+      <thead>
+        <tr><th>Período</th><th>Bares</th><th>Ativações/mês</th><th>GMV</th><th>Receita OZ</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>MVP — 90 dias</td>
+          <td>30</td><td>5.000</td>
+          <td>R$ 250K</td><td>R$ 50K</td>
+        </tr>
+        <tr>
+          <td>6 meses</td>
+          <td>60</td><td>12.000</td>
+          <td>R$ 600K</td><td>R$ 120K</td>
+        </tr>
+        <tr>
+          <td>12 meses</td>
+          <td>120</td><td>28.000</td>
+          <td>R$ 1,4M</td><td>R$ 280K</td>
+        </tr>
+        <tr>
+          <td>2026</td>
+          <td>300</td><td>80.000</td>
+          <td>R$ 4M</td><td>R$ 800K</td>
+        </tr>
+        <tr>
+          <td>2027</td>
+          <td>800</td><td>220.000</td>
+          <td>R$ 11M</td><td>R$ 2,2M</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card accent-border">
+        <div class="card-tag">🎯 Break-even</div>
+        <div class="stat-num" style="font-size:38px;color:var(--accent);margin:8px 0 4px">Mês 8</div>
+        <div class="card-text">Com 80 bares ativos e ~18.000 ativações/mês. Custo operacional estimado: R$ 45K/mês.</div>
+      </div>
+      <div class="card">
+        <div class="card-tag">📐 Premissas-chave</div>
+        <ul class="check-list" style="margin-top:8px">
+          <li>Ticket médio por ativação: R$ 50</li>
+          <li>Taxa OZ: 20% · Repasse promoter: 8%</li>
+          <li>CAC bar via promoter: ~R$ 0</li>
+          <li>LTV bar ativo: R$ 9.600/ano</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     11 · ROADMAP
+═══════════════════════════════════════════════ -->
+<section id="s11" class="slide">
+  <div class="slide-eyebrow">11 · Roadmap</div>
+  <h2 class="slide-h2">Execução <span>faseada</span></h2>
+  <p class="slide-lead">
+    Do MVP em dois bairros ao produto nacional — cada fase validada antes de escalar.
+  </p>
+
+  <div class="roadmap-timeline">
+    <div class="rm-phase">
+      <div class="rm-badge accent">Fase 1 · Agora</div>
+      <div class="rm-title">MVP Pinheiros + Vila Madalena</div>
+      <ul class="check-list">
+        <li>30 bares âncora nos dois bairros</li>
+        <li>200 promoters locais ativos</li>
+        <li>5.000 ativações no trimestre</li>
+        <li>Validação do modelo econômico</li>
+        <li>Iteração rápida baseada em dados reais</li>
+      </ul>
+    </div>
+    <div class="rm-arrow">→</div>
+    <div class="rm-phase">
+      <div class="rm-badge">Fase 2 · Q4 2025</div>
+      <div class="rm-title">Expansão SP + App Nativo</div>
+      <ul class="check-list">
+        <li>120 bares em toda São Paulo</li>
+        <li>App iOS + Android (React Native)</li>
+        <li>Push notifications e campanhas temáticas</li>
+        <li>Integração PDV (Linx, Totvs)</li>
+        <li>Dashboard avançado para bares</li>
+      </ul>
+    </div>
+    <div class="rm-arrow">→</div>
+    <div class="rm-phase">
+      <div class="rm-badge">Fase 3 · 2026</div>
+      <div class="rm-title">Rio + BH + Curitiba</div>
+      <ul class="check-list">
+        <li>300 bares em 3 capitais</li>
+        <li>Modelo city-lead replicável</li>
+        <li>Reservas antecipadas com pagamento</li>
+        <li>Programa de bares âncora nacional</li>
+        <li>Série A com tração provada</li>
+      </ul>
+    </div>
+    <div class="rm-arrow">→</div>
+    <div class="rm-phase">
+      <div class="rm-badge">Fase 4 · 2027</div>
+      <div class="rm-title">Scale Nacional</div>
+      <ul class="check-list">
+        <li>800+ bares em 8 capitais</li>
+        <li>White-label para redes e franquias</li>
+        <li>API aberta para integrações</li>
+        <li>Dados proprietários de comportamento noturno</li>
+        <li>Caminho para Série B</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:24px">
+    <div class="card-tag">📊 Marcos por fase</div>
+    <div style="height:180px;margin-top:14px">
+      <canvas id="chart-roadmap"></canvas>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     12 · CAPTAÇÃO SEED
+═══════════════════════════════════════════════ -->
+<section id="s12" class="slide">
+  <div class="slide-eyebrow">12 · Rodada Seed · NDA</div>
+  <h2 class="slide-h2">Rodada <span>Seed</span></h2>
+  <p class="slide-lead">
+    Capital para transformar o MVP de Pinheiros/Vila Madalena no produto dominante do mercado noturno brasileiro.
+  </p>
+
+  <div class="stat-row" style="margin-bottom:28px">
+    <div class="stat-box accent">
+      <div class="stat-num">R$1,5M</div>
+      <div class="stat-lbl">Captação alvo · Seed</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">R$7,5M</div>
+      <div class="stat-lbl">Valuation cap · pre-money</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">20%</div>
+      <div class="stat-lbl">Equity ofertado</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">24M</div>
+      <div class="stat-lbl">Runway estimado</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:24px">
+    <div>
+      <div class="card-tag" style="margin-bottom:12px">📊 Alocação do Capital</div>
+      <div style="height:220px">
+        <canvas id="chart-allocation"></canvas>
+      </div>
+    </div>
+    <div>
+      <table class="p-table">
+        <thead>
+          <tr><th>Destino</th><th>Valor</th><th>%</th><th>Resultado</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Time (dev mobile + growth + ops)</td><td>R$ 500K</td><td>33%</td><td>App iOS/Android + equipe de 6</td></tr>
+          <tr><td>Aquisição de bares (SP)</td><td>R$ 350K</td><td>23%</td><td>300 bares em SP</td></tr>
+          <tr><td>Marketing & crescimento</td><td>R$ 300K</td><td>20%</td><td>100K usuários cadastrados</td></tr>
+          <tr><td>Tecnologia & infraestrutura</td><td>R$ 200K</td><td>14%</td><td>Escalabilidade + segurança</td></tr>
+          <tr><td>Legal, compliance & reserva</td><td>R$ 150K</td><td>10%</td><td>LGPD + runway seguro</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <div class="hb-title">💡 Por que é o momento certo para investir</div>
+    <div class="hb-text">
+      MVP validado com bares e promoters reais gerando ativações e comissões reais.
+      Modelo econômico provado. Mercado de R$ 150B sem concorrente direto.
+      Equipe com execução comprovada. <strong>O capital da rodada Seed transforma
+      um produto validado num líder de mercado — antes que alguém maior descubra o espaço.</strong>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     13 · EQUIPE
+═══════════════════════════════════════════════ -->
+<section id="s13" class="slide">
+  <div class="slide-eyebrow">13 · Equipe · NDA</div>
+  <h2 class="slide-h2">Quem está <span>construindo</span></h2>
+  <p class="slide-lead">
+    Time fundador com execução comprovada — a plataforma foi construída do zero, está em operação real,
+    e tem dados reais de uso.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:24px">
+    <div class="card accent-border">
+      <div class="card-icon">👤</div>
+      <div class="card-tag">Co-Fundador · CEO</div>
+      <div class="card-title">Produto, Mercado & Operação</div>
+      <div class="card-text">
+        Profundo conhecimento do mercado de hospitalidade e entretenimento noturno em SP.
+        Vivência real nos bairros do MVP — conhece os donos de bares, os promoters,
+        e o comportamento do público. Responsável por parcerias, crescimento e estratégia de go-to-market.
+      </div>
+      <hr class="card-divider" />
+      <div class="pill-row">
+        <span class="pill">Hospitalidade</span>
+        <span class="pill">GTM</span>
+        <span class="pill">Parcerias</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon">💻</div>
+      <div class="card-tag">Co-Fundador · CTO</div>
+      <div class="card-title">Tecnologia & Arquitetura</div>
+      <div class="card-text">
+        Projetou e construiu toda a plataforma: sistema de ativação, QR Code com validade e controle de vagas,
+        pagamentos PIX integrados, edge functions de cancelamento e compensação, painel admin com dashboard
+        financeiro, sistema de chat, presença online e toda a infraestrutura em Supabase + PostgREST.
+      </div>
+      <hr class="card-divider" />
+      <div class="pill-row">
+        <span class="pill">Full-stack</span>
+        <span class="pill">Supabase</span>
+        <span class="pill">PIX API</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:20px">
+    <div class="card-tag">🛠 Stack tecnológico — construído e em produção</div>
+    <div class="pill-row" style="margin-top:12px;flex-wrap:wrap">
+      <span class="pill">HTML/CSS/JS</span>
+      <span class="pill">Supabase (PostgreSQL)</span>
+      <span class="pill">PostgREST</span>
+      <span class="pill">Edge Functions (Deno)</span>
+      <span class="pill">Supabase Auth</span>
+      <span class="pill">PIX API</span>
+      <span class="pill">QR Code nativo</span>
+      <span class="pill">PWA</span>
+    </div>
+  </div>
+
+  <div class="card accent-border">
+    <div class="card-tag">🚀 Contratações planejadas com a Seed</div>
+    <div class="grid-3" style="margin-top:14px">
+      <div>
+        <div class="card-title" style="font-size:14px">Dev Mobile</div>
+        <div class="card-text">React Native · iOS + Android · integração PDV</div>
+      </div>
+      <div>
+        <div class="card-title" style="font-size:14px">Growth Hacker</div>
+        <div class="card-text">Bares + promoters · aquisição orgânica e paga</div>
+      </div>
+      <div>
+        <div class="card-title" style="font-size:14px">Head de Parcerias</div>
+        <div class="card-text">Onboarding de bares · SP e expansão</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     14 · CONTATO
+═══════════════════════════════════════════════ -->
+<section id="s14" class="slide">
+  <div class="slide-eyebrow">14 · Next Steps · NDA</div>
+  <h2 class="slide-h2">Vamos <span>conversar</span>?</h2>
+  <p class="slide-lead">Se este pitch despertou interesse, o próximo passo é simples e rápido.</p>
+
+  <div class="contact-box">
+    <img src="images/oz-logo.png" alt="OZ" class="contact-logo" />
+    <div class="contact-title">OZ Aplicativo</div>
+    <div class="contact-sub">Marketplace de benefícios noturnos · Pinheiros, São Paulo</div>
+
+    <div class="contact-steps">
+      <div class="contact-step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Call de 30 min</strong> — demonstração ao vivo da plataforma com dados reais de ativações e comissões</div>
+      </div>
+      <div class="contact-step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Data room completo</strong> — cap table, financeiro detalhado, contratos e documentação técnica (mediante NDA formal)</div>
+      </div>
+      <div class="contact-step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Term sheet Seed</strong> — alinhamento de valuation, equity, uso do capital e direitos do investidor</div>
+      </div>
+    </div>
+
+    <a href="mailto:tecnologia@ozaplicativo.com.br" class="contact-btn">
+      <i class="fa fa-envelope"></i> tecnologia@ozaplicativo.com.br
+    </a>
+
+    <div class="pill-row" style="justify-content:center;margin-top:20px">
+      <span class="pill accent">🔒 Sob NDA</span>
+      <span class="pill">Pinheiros · São Paulo</span>
+      <span class="pill">Rodada Seed · R$1,5M</span>
+      <span class="pill">@ozaplicativo</span>
+    </div>
+  </div>
+</section>
+
+
+    </main>
+  </div>
+</div>
+
+<script src="js/pitch.js"></script>
+</body>
+</html>

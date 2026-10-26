@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OZ Admin — Painel</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="css/admin.css?v=20261022" />
+</head>
+<body>
+
+  <!-- ══ LOGIN ══ -->
+  <div id="admin-login" class="login-screen">
+    <div class="login-card">
+      <div class="login-logo">
+        <img src="images/oz-logo-new.png" alt="OZ" class="admin-logo-img">
+      </div>
+      <h1 class="login-title">Admin</h1>
+      <p class="login-sub">Painel restrito de administração</p>
+      <div id="login-error" class="alert-error" style="display:none"></div>
+      <div class="field-group">
+        <label class="field-label">E-mail</label>
+        <input type="email" id="admin-user" class="field-input" placeholder="admin@oz.com" autocomplete="email" />
+      </div>
+      <div class="field-group">
+        <label class="field-label">Senha</label>
+        <input type="password" id="admin-pass" class="field-input" placeholder="••••••••" autocomplete="current-password"
+               onkeydown="if(event.key==='Enter') doAdminLogin()" />
+      </div>
+      <button id="admin-login-btn" class="btn-primary" onclick="doAdminLogin()">
+        <i class="fa fa-sign-in-alt"></i> Entrar
+      </button>
+    </div>
+  </div>
+
+  <!-- ══ PAINEL ══ -->
+  <div id="admin-panel" class="panel" style="display:none">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <img src="images/oz-logo-new.png" alt="OZ" class="admin-logo-img-sidebar">
+        <span>Admin</span>
+      </div>
+      <nav class="sidebar-nav">
+
+        <!-- Balanço -->
+        <button class="nav-item active" data-section="balanco" onclick="switchSection('balanco', this)">
+          <i class="fa fa-chart-line"></i>
+          <span>Balanço Geral</span>
+        </button>
+
+        <div class="nav-divider"></div>
+
+        <!-- Clientes -->
+        <p class="nav-group-label"><span>Crescimento</span></p>
+        <button class="nav-item" data-section="clientes" onclick="switchSection('clientes', this)">
+          <i class="fa fa-users"></i>
+          <span>Clientes</span>
+        </button>
+        <button class="nav-item" data-section="bares" onclick="switchSection('bares', this)">
+          <i class="fa fa-glass-cheers"></i>
+          <span>Bares</span>
+        </button>
+        <button class="nav-item" data-section="patrocinados" onclick="switchSection('patrocinados', this)">
+          <i class="fa fa-bullhorn"></i>
+          <span>Patrocinados</span>
+        </button>
+        <button class="nav-item" data-section="promoters" onclick="switchSection('promoters', this)">
+          <i class="fa fa-star"></i>
+          <span>Promoters</span>
+        </button>
+        <button class="nav-item" data-section="ativacoes" onclick="switchSection('ativacoes', this)">
+          <i class="fa fa-bolt"></i>
+          <span>Ativações</span>
+        </button>
+
+        <div class="nav-divider"></div>
+
+        <!-- Aprovações -->
+        <p class="nav-group-label"><span>Aprovações</span></p>
+        <button class="nav-item" data-section="approvals" data-tab="pending" onclick="switchSection('approvals', this); switchAdminTab('pending')">
+          <i class="fa fa-clock"></i>
+          <span>Pendentes</span>
+          <span class="nav-badge" id="badge-pending" style="display:none">0</span>
+        </button>
+        <button class="nav-item" data-section="approvals" data-tab="approved" onclick="switchSection('approvals', this); switchAdminTab('approved')">
+          <i class="fa fa-check-circle"></i>
+          <span>Aprovados</span>
+        </button>
+        <button class="nav-item" data-section="approvals" data-tab="rejected" onclick="switchSection('approvals', this); switchAdminTab('rejected')">
+          <i class="fa fa-times-circle"></i>
+          <span>Rejeitados</span>
+        </button>
+        <button class="nav-item" data-section="approvals" data-tab="all" onclick="switchSection('approvals', this); switchAdminTab('all')">
+          <i class="fa fa-list"></i>
+          <span>Todos</span>
+        </button>
+
+        <div class="nav-divider"></div>
+
+        <!-- Benefícios -->
+        <p class="nav-group-label"><span>Benefícios</span></p>
+        <button class="nav-item" data-section="beneficios" onclick="switchSection('beneficios', this)">
+          <i class="fa fa-bolt"></i>
+          <span>Ativações por Categoria</span>
+        </button>
+
+        <div class="nav-divider"></div>
+
+        <!-- Avaliações -->
+        <p class="nav-group-label"><span>Qualidade</span></p>
+        <button class="nav-item" data-section="reviews" onclick="switchSection('reviews', this)">
+          <i class="fa fa-exclamation-triangle"></i>
+          <span>Avaliações Negativas</span>
+          <span class="nav-badge nav-badge-red" id="badge-bad-reviews" style="display:none">0</span>
+        </button>
+      </nav>
+      <button class="btn-logout" onclick="doAdminLogout()">
+        <i class="fa fa-sign-out-alt"></i> <span>Sair</span>
+      </button>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+
+      <!-- ════ SEÇÃO: BALANÇO GERAL ════ -->
+      <section id="section-balanco" class="content-section">
+
+        <header class="main-header">
+          <div class="header-left">
+            <h1 class="header-title">Balanço Geral</h1>
+            <p class="header-sub">Visão consolidada da plataforma em tempo real</p>
+          </div>
+          <div class="header-right">
+            <span class="last-update-lbl">Atualizado: <span id="balanco-updated">—</span></span>
+            <button class="btn-refresh" onclick="loadBalanco()" title="Atualizar">
+              <i class="fa fa-sync-alt" id="balanco-refresh-icon"></i>
+            </button>
+          </div>
+        </header>
+
+        <div class="balanco-scroll">
+
+          <!-- Card hero: Ganho líquido da plataforma -->
+          <div class="bk-hero-card">
+            <div class="bk-hero-left">
+              <div class="bk-hero-icon"><i class="fa fa-building"></i></div>
+              <div>
+                <p class="bk-hero-label">Ganho líquido da plataforma</p>
+                <p class="bk-hero-value" id="bk-net-profit">—</p>
+                <p class="bk-hero-sub" id="bk-net-sub">Receita bruta − repasses a promoters</p>
+              </div>
+            </div>
+            <div class="bk-hero-right">
+              <div class="bk-hero-stat">
+                <span class="bk-hero-stat-lbl">Receita bruta</span>
+                <span class="bk-hero-stat-val green" id="bk-hero-revenue">—</span>
+              </div>
+              <div class="bk-hero-stat">
+                <span class="bk-hero-stat-lbl">Repasses totais</span>
+                <span class="bk-hero-stat-val red" id="bk-hero-commissions">—</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- KPIs principais -->
+          <div class="bk-grid">
+            <div class="bk-card bk-accent">
+              <div class="bk-icon" style="background:rgba(212,168,67,.15);color:#d4a843"><i class="fa fa-users"></i></div>
+              <div class="bk-info">
+                <span class="bk-label">Usuários cadastrados</span>
+                <span class="bk-value" id="bk-total-users">—</span>
+                <span class="bk-sub" id="bk-users-sub"></span>
+              </div>
+            </div>
+            <div class="bk-card">
+              <div class="bk-icon" style="background:rgba(59,130,246,.15);color:#60a5fa"><i class="fa fa-bolt"></i></div>
+              <div class="bk-info">
+                <span class="bk-label">Total de ativações</span>
+                <span class="bk-value" id="bk-total-acts">—</span>
+                <span class="bk-sub" id="bk-acts-sub"></span>
+              </div>
+            </div>
+            <div class="bk-card">
+              <div class="bk-icon" style="background:rgba(34,197,94,.15);color:#4ade80"><i class="fa fa-coins"></i></div>
+              <div class="bk-info">
+                <span class="bk-label">Volume financeiro</span>
+                <span class="bk-value" id="bk-volume">—</span>
+                <span class="bk-sub" id="bk-volume-sub"></span>
+              </div>
+            </div>
+            <div class="bk-card">
+              <div class="bk-icon" style="background:rgba(168,85,247,.15);color:#c084fc"><i class="fa fa-star"></i></div>
+              <div class="bk-info">
+                <span class="bk-label">Promoters ativos</span>
+                <span class="bk-value" id="bk-promoters">—</span>
+                <span class="bk-sub" id="bk-promoters-sub"></span>
+              </div>
+            </div>
+            <div class="bk-card">
+              <div class="bk-icon" style="background:rgba(245,158,11,.15);color:#fbbf24"><i class="fa fa-glass-cheers"></i></div>
+              <div class="bk-info">
+                <span class="bk-label">Bares na plataforma</span>
+                <span class="bk-value" id="bk-bars">—</span>
+                <span class="bk-sub" id="bk-bars-sub"></span>
+              </div>
+            </div>
+            <div class="bk-card">
+              <div class="bk-icon" style="background:rgba(239,68,68,.15);color:#f87171"><i class="fa fa-hand-holding-usd"></i></div>
+              <div class="bk-info">
+                <span class="bk-label">Comissões geradas</span>
+                <span class="bk-value" id="bk-commissions">—</span>
+                <span class="bk-sub" id="bk-commissions-sub"></span>
+              </div>
+            </div>
+            <div class="bk-card">
+              <div class="bk-icon" style="background:rgba(20,184,166,.15);color:#2dd4bf"><i class="fa fa-chart-bar"></i></div>
+              <div class="bk-info">
+                <span class="bk-label">ARPU — mês anterior</span>
+                <span class="bk-value" id="bk-arpu">—</span>
+                <span class="bk-sub" id="bk-arpu-sub"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Segunda linha: financeiro detalhado -->
+          <div class="bk-row-2">
+
+            <div class="bk-panel">
+              <div class="bk-panel-header">
+                <i class="fa fa-wallet" style="color:#d4a843"></i>
+                <span>Financeiro da Plataforma</span>
+              </div>
+              <div class="bk-fin-list">
+
+                <!-- Receita -->
+                <div class="bk-fin-row">
+                  <span class="bk-fin-lbl"><i class="fa fa-arrow-up" style="color:#4ade80"></i> Receita bruta (ativações pagas)</span>
+                  <span class="bk-fin-val green" id="bk-revenue">R$ 0,00</span>
+                </div>
+
+                <!-- Bloco de repasses -->
+                <div class="bk-fin-group">
+                  <div class="bk-fin-group-header">
+                    <i class="fa fa-arrow-down" style="color:#f87171"></i>
+                    <span>Repasses a promoters</span>
+                    <span class="bk-fin-group-total" id="bk-comm-total">R$ 0,00</span>
+                  </div>
+                  <div class="bk-fin-subrow">
+                    <span class="bk-fin-sublbl"><i class="fa fa-check-circle" style="color:#4ade80"></i> Pagos (saques confirmados)</span>
+                    <span class="bk-fin-val green" id="bk-paid-out">R$ 0,00</span>
+                  </div>
+                  <div class="bk-fin-subrow">
+                    <span class="bk-fin-sublbl"><i class="fa fa-paper-plane" style="color:#93c5fd"></i> Solicitados (aguardando)</span>
+                    <span class="bk-fin-val blue" id="bk-solicited-out">R$ 0,00</span>
+                  </div>
+                  <div class="bk-fin-subrow">
+                    <span class="bk-fin-sublbl"><i class="fa fa-wallet" style="color:#fbbf24"></i> Pendentes (em carteira)</span>
+                    <span class="bk-fin-val yellow" id="bk-pending-out">R$ 0,00</span>
+                  </div>
+                </div>
+
+                <div class="bk-fin-divider"></div>
+                <div class="bk-fin-row bk-fin-total">
+                  <span class="bk-fin-lbl"><i class="fa fa-building" style="color:#4ade80"></i> <strong>Ganho líquido da plataforma</strong></span>
+                  <span class="bk-fin-val green" id="bk-net-fin">R$ 0,00</span>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="bk-panel">
+              <div class="bk-panel-header">
+                <i class="fa fa-users" style="color:#60a5fa"></i>
+                <span>Usuários por Tipo</span>
+              </div>
+              <div class="bk-chart-wrap" style="height:200px">
+                <canvas id="chart-users"></canvas>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Saques de promoters recentes -->
+          <div class="bk-panel bk-panel-full">
+            <div class="bk-panel-header">
+              <i class="fa fa-exchange-alt" style="color:#4ade80"></i>
+              <span>Saques de Promoters</span>
+            </div>
+            <div class="bk-table-wrap">
+              <table class="bk-table" id="table-withdrawals">
+                <thead>
+                  <tr>
+                    <th>Promoter</th>
+                    <th>Valor</th>
+                    <th>Chave Pix</th>
+                    <th>Status</th>
+                    <th>Observação</th>
+                    <th>Ação</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-withdrawals">
+                  <tr><td colspan="6" class="bk-td-empty"><i class="fa fa-spinner fa-spin"></i> Carregando…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div><!-- /balanco-scroll -->
+      </section>
+
+      <!-- ════ SEÇÃO: AVALIAÇÕES NEGATIVAS ════ -->
+      <section id="section-reviews" class="content-section" style="display:none">
+
+        <header class="main-header">
+          <div class="header-left">
+            <h1 class="header-title">Avaliações Negativas</h1>
+            <p class="header-sub">Avaliações abaixo de 3 estrelas — requerem atenção</p>
+          </div>
+          <div class="header-right">
+            <div class="filter-row" id="reviews-filter-row">
+              <button class="filter-btn active" data-stars="all" onclick="setReviewsFilter('all', this)">Todas</button>
+              <button class="filter-btn" data-stars="1" onclick="setReviewsFilter('1', this)">
+                <i class="fa fa-star" style="color:#ef4444"></i> 1 estrela
+              </button>
+              <button class="filter-btn" data-stars="2" onclick="setReviewsFilter('2', this)">
+                <i class="fa fa-star" style="color:#f97316"></i> 2 estrelas
+              </button>
+            </div>
+            <button class="btn-refresh" onclick="loadBadReviews()" title="Atualizar">
+              <i class="fa fa-sync-alt" id="reviews-refresh-icon"></i>
+            </button>
+          </div>
+        </header>
+
+        <!-- KPIs rápidos -->
+        <div class="stats-bar" id="reviews-stats-bar">
+          <div class="stat-item">
+            <span class="stat-num red" id="stat-bad-total">0</span>
+            <span class="stat-lbl">Total negativas</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num" style="color:#ef4444" id="stat-one-star">0</span>
+            <span class="stat-lbl">1 estrela</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num" style="color:#f97316" id="stat-two-star">0</span>
+            <span class="stat-lbl">2 estrelas</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num green" id="stat-replied-reviews">0</span>
+            <span class="stat-lbl">Com resposta do bar</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num yellow" id="stat-no-reply">0</span>
+            <span class="stat-lbl">Sem resposta</span>
+          </div>
+        </div>
+
+        <!-- Ranking de bares pior avaliados -->
+        <div class="wrb-wrap">
+          <div class="wrb-header">
+            <i class="fa fa-exclamation-triangle" style="color:#ef4444"></i>
+            <span>Bares com pior avaliação</span>
+            <span class="wrb-sub">média das avaliações negativas recebidas</span>
+          </div>
+          <div class="wrb-list" id="wrb-list">
+            <div class="wrb-loading"><i class="fa fa-spinner fa-spin"></i></div>
+          </div>
+        </div>
+
+        <!-- Lista de avaliações -->
+        <div class="reviews-list" id="reviews-list">
+          <div class="loading-state">
+            <i class="fa fa-spinner fa-spin"></i>
+            <p>Carregando avaliações…</p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ════ SEÇÃO: BENEFÍCIOS ════ -->
+      <section id="section-beneficios" class="content-section" style="display:none">
+
+        <header class="main-header">
+          <div class="header-left">
+            <h1 class="header-title"><i class="fa fa-bolt" style="color:var(--gold)"></i> Benefícios</h1>
+            <p class="header-sub">Ativações agrupadas por categoria de benefício</p>
+          </div>
+          <div class="header-right">
+            <span class="last-update-lbl">Atualizado: <span id="ben-updated">—</span></span>
+            <button class="btn-refresh" onclick="loadBeneficios()" title="Atualizar">
+              <i class="fa fa-sync-alt"></i>
+            </button>
+          </div>
+        </header>
+
+        <div class="balanco-scroll" id="ben-scroll">
+
+          <!-- KPIs rápidos -->
+          <div class="bk-grid-4" id="ben-kpis">
+            <div class="bk-stat-card">
+              <p class="bk-stat-label">Benefícios postados</p>
+              <p class="bk-stat-value" id="ben-total-scheds">—</p>
+            </div>
+            <div class="bk-stat-card">
+              <p class="bk-stat-label">Total de ativações</p>
+              <p class="bk-stat-value" id="ben-total-acts">—</p>
+            </div>
+            <div class="bk-stat-card">
+              <p class="bk-stat-label">Categoria mais ativa</p>
+              <p class="bk-stat-value" id="ben-top-cat">—</p>
+            </div>
+            <div class="bk-stat-card">
+              <p class="bk-stat-label">Bares com benefício</p>
+              <p class="bk-stat-value" id="ben-bars-count">—</p>
+            </div>
+          </div>
+
+          <!-- Tabela por categoria -->
+          <div class="bk-panel bk-panel-full">
+            <div class="bk-panel-hd">
+              <i class="fa fa-th-large" style="color:var(--gold)"></i>
+              <span>Ativações por Categoria</span>
+            </div>
+            <div class="bk-table-wrap">
+              <table class="bk-table" id="ben-cat-table">
+                <thead>
+                  <tr>
+                    <th>Categoria</th>
+                    <th style="text-align:center">Benefícios postados</th>
+                    <th style="text-align:center">Total ativações</th>
+                    <th style="text-align:right">% do total</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-ben-cat">
+                  <tr><td colspan="4" class="bk-td-empty"><i class="fa fa-spinner fa-spin"></i> Carregando…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Tabela de benefícios recentes -->
+          <div class="bk-panel bk-panel-full">
+            <div class="bk-panel-hd">
+              <i class="fa fa-calendar-alt" style="color:#60a5fa"></i>
+              <span>Benefícios Recentes</span>
+              <span class="bk-panel-sub">Últimos 30 agendamentos</span>
+            </div>
+            <div class="bk-table-wrap">
+              <table class="bk-table">
+                <thead>
+                  <tr>
+                    <th>Bar</th>
+                    <th>Benefício</th>
+                    <th style="text-align:center">Categoria</th>
+                    <th style="text-align:center">Data</th>
+                    <th style="text-align:center">Ativações</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-ben-recent">
+                  <tr><td colspan="5" class="bk-td-empty"><i class="fa fa-spinner fa-spin"></i> Carregando…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div><!-- /balanco-scroll -->
+      </section>
+
+      <!-- ════ SEÇÃO: CLIENTES ════ -->
+      <section id="section-clientes" class="content-section" style="display:none">
+
+        <header class="main-header">
+          <div class="header-left">
+            <h1 class="header-title"><i class="fa fa-users" style="color:#60a5fa"></i> Clientes</h1>
+            <p class="header-sub">Evolução de novos cadastros por origem de convite</p>
+          </div>
+          <div class="header-right">
+            <span class="last-update-lbl">Atualizado: <span id="cli-updated">—</span></span>
+            <button class="btn-refresh" onclick="loadClientes()" title="Atualizar">
+              <i class="fa fa-sync-alt"></i>
+            </button>
+          </div>
+        </header>
+
+        <div class="balanco-scroll">
+
+          <!-- KPIs -->
+          <div class="bk-grid-4" id="cli-kpis" style="grid-template-columns:repeat(auto-fill,minmax(190px,1fr))">
+            <div class="bk-stat-card">
+              <p class="bk-stat-label">Total de clientes</p>
+              <p class="bk-stat-value" id="cli-total">—</p>
+            </div>
+            <div class="bk-stat-card">
+              <p class="bk-stat-label" style="color:#c084fc">Convidados por promoter</p>
+              <p class="bk-stat-value" style="color:#c084fc" id="cli-by-promoter">—</p>
+            </div>
+            <div class="bk-stat-card">
+              <p class="bk-stat-label" style="color:#60a5fa">Convidados por cliente</p>
+              <p class="bk-stat-value" style="color:#60a5fa" id="cli-by-client">—</p>
+            </div>
+            <div class="bk-stat-card">
+              <p class="bk-stat-label" style="color:#8888aa">Sem código de convite</p>
+              <p class="bk-stat-value" style="color:#8888aa" id="cli-organic">—</p>
+            </div>
+            <div class="bk-stat-card" style="border-color:rgba(74,222,128,.25)">
+              <p class="bk-stat-label" style="color:#4ade80"><i class="fa fa-bolt" style="margin-right:4px"></i>Ativos no último mês</p>
+              <p class="bk-stat-value" style="color:#4ade80" id="cli-active-month">—</p>
+              <p class="bk-stat-sub" id="cli-active-pct" style="font-size:11px;color:#8888aa;margin-top:2px"></p>
+            </div>
+            <div class="bk-stat-card" style="border-color:rgba(251,113,133,.25)">
+              <p class="bk-stat-label" style="color:#fb7185">
+                <i class="fa fa-user-minus"></i>Churn mensal
+                <button class="kpi-info-btn" onclick="toggleKpiInfo(this)" title="Ver definição">i</button>
+              </p>
+              <div class="kpi-info-panel" style="border-color:rgba(251,113,133,.25)">
+                <strong style="color:#fb7185;font-size:12px">📉 Churn Mensal</strong>
+                Proporção de clientes que completaram 60 dias consecutivos sem ativar nenhum benefício dentro do mês corrente.<br><br>
+                <strong style="color:#e2e2f0">Numerador — clientes que "churaram" no mês:</strong>
+                Clientes que satisfazem <em>todas</em> as condições:<br>
+                • Última ativação válida ocorreu entre 60 e 90 dias atrás<br>
+                • Estão cadastrados há pelo menos 60 dias<br>
+                • Já realizaram ao menos 1 ativação válida<br><br>
+                <strong style="color:#e2e2f0">Denominador — base ativa 60 dias atrás:</strong>
+                Clientes que tinham ativado ao menos 1 vez e cuja última ativação foi entre 60 e 120 dias atrás (estavam dentro da janela de atividade ≤ 60 dias naquele momento).<br><br>
+                <strong style="color:#e2e2f0">Ativações excluídas do cálculo:</strong>
+                canceladas, free_credit, free_credit_used, night_checkin.<br>
+                <span class="kpi-formula">Churn = (clientes com últ. ativ. entre 60–90 dias atrás, cadastrados há ≥60 dias)<br>÷ (clientes com últ. ativ. entre 60–120 dias atrás)</span>
+              </div>
+              <p class="bk-stat-value" style="color:#fb7185" id="cli-churn-pct">—</p>
+              <p class="bk-stat-sub" id="cli-churn-sub" style="font-size:11px;color:#8888aa;margin-top:2px"></p>
+            </div>
+            <div class="bk-stat-card" style="border-color:rgba(34,211,238,.25)">
+              <p class="bk-stat-label" style="color:#22d3ee">
+                <i class="fa fa-redo"></i>Retenção
+                <button class="kpi-info-btn" onclick="toggleKpiInfo(this)" title="Ver definição">i</button>
+              </p>
+              <div class="kpi-info-panel" style="border-color:rgba(34,211,238,.25)">
+                <strong style="color:#22d3ee;font-size:12px">🔄 Retenção</strong>
+                Proporção de clientes que demonstraram engajamento continuado na plataforma — ou seja, voltaram a ativar pelo menos uma segunda vez e permanecem ativos nos últimos 60 dias.<br><br>
+                <strong style="color:#e2e2f0">Numerador — clientes retidos:</strong>
+                Clientes com ≥ 2 ativações válidas <em>e</em> cuja última ativação ocorreu nos últimos 60 dias.<br><br>
+                <strong style="color:#e2e2f0">Denominador — base total com engajamento:</strong>
+                Clientes com ≥ 1 ativação válida em qualquer data.<br><br>
+                <strong style="color:#e2e2f0">Ativações excluídas do cálculo:</strong>
+                canceladas, free_credit, free_credit_used, night_checkin.<br>
+                <span class="kpi-formula">Retenção = (clientes com ≥2 ativ. e última ativ. ≤ 60 dias atrás)<br>÷ (clientes com ≥1 ativ. válida)</span>
+              </div>
+              <p class="bk-stat-value" style="color:#22d3ee" id="cli-retention-pct">—</p>
+              <p class="bk-stat-sub" id="cli-retention-sub" style="font-size:11px;color:#8888aa;margin-top:2px"></p>
+            </div>
+            <div class="bk-stat-card" style="border-color:rgba(250,204,21,.25)">
+              <p class="bk-stat-label" style="color:#facc15">
+                <i class="fa fa-coins"></i>LTV (clientes ativos)
+                <button class="kpi-info-btn" onclick="toggleKpiInfo(this)" title="Ver definição">i</button>
+              </p>
+              <div class="kpi-info-panel" style="border-color:rgba(250,204,21,.25)">
+                <strong style="color:#facc15;font-size:12px">💰 LTV — Lifetime Value</strong>
+                Receita total esperada de um cliente ativo ao longo da sua vida na plataforma.<br><br>
+                <strong style="color:#e2e2f0">Considera apenas clientes ativos:</strong>
+                clientes com ≥ 1 ativação válida e última ativação nos últimos 60 dias.<br><br>
+                <strong style="color:#e2e2f0">Ticket médio por ativação:</strong>
+                soma dos valores pagos pelos clientes ativos ÷ total de ativações pagas desses clientes.<br><br>
+                <strong style="color:#e2e2f0">Nº médio de ativações/mês por usuário:</strong>
+                total de ativações válidas dos clientes ativos ÷ clientes ativos ÷ tempo médio na plataforma (em meses).<br><br>
+                <strong style="color:#e2e2f0">Tempo médio na plataforma:</strong>
+                média dos dias desde o cadastro até hoje, convertida em meses.<br><br>
+                <strong style="color:#e2e2f0">Ativações excluídas:</strong>
+                canceladas, free_credit, free_credit_used, night_checkin.<br>
+                <span class="kpi-formula">LTV = ticket médio × (ativações totais ÷ clientes ativos) × tempo médio em meses<br><br>Onde:<br>ticket médio = receita paga ÷ ativações pagas<br>tempo médio = média(dias desde cadastro) ÷ 30</span>
+              </div>
+              <p class="bk-stat-value" style="color:#facc15" id="cli-ltv">—</p>
+              <p class="bk-stat-sub" id="cli-ltv-sub" style="font-size:11px;color:#8888aa;margin-top:2px"></p>
+            </div>
+          </div>
+
+          <!-- Gráfico de evolução -->
+          <div class="bk-panel bk-panel-full">
+            <div class="bk-panel-hd">
+              <i class="fa fa-chart-line" style="color:#60a5fa"></i>
+              <span>Novos clientes ao longo do tempo</span>
+              <!-- Seletor de granularidade -->
+              <div class="cli-granularity" style="margin-left:auto;display:flex;gap:6px">
+                <button class="cli-gran-btn active" id="cli-gran-week"  onclick="setCliGranularity('week',  this)">Semanas</button>
+                <button class="cli-gran-btn"         id="cli-gran-month" onclick="setCliGranularity('month', this)">Meses</button>
+              </div>
+            </div>
+            <div style="position:relative;height:340px">
+              <canvas id="chart-cli-growth"></canvas>
+            </div>
+            <!-- Legenda manual -->
+            <div class="cli-legend">
+              <span class="cli-leg-dot" style="background:#c084fc"></span>
+              <span class="cli-leg-lbl">Convidados por promoter</span>
+              <span class="cli-leg-dot" style="background:#60a5fa;margin-left:18px"></span>
+              <span class="cli-leg-lbl">Convidados por cliente</span>
+              <span class="cli-leg-dot" style="background:#6b7280;margin-left:18px"></span>
+              <span class="cli-leg-lbl">Sem convite</span>
+            </div>
+          </div>
+
+          <!-- Qualidade do cliente: taxa de adeptos -->
+          <div class="bk-panel bk-panel-full">
+            <div class="bk-panel-hd">
+              <i class="fa fa-seedling" style="color:#4ade80"></i>
+              <span>Qualidade dos Novos Clientes — Taxa de Adeptos</span>
+              <button class="kpi-info-btn" onclick="toggleKpiInfo(this)" title="Ver definição" style="margin-left:6px">i</button>
+              <div class="cli-granularity" style="margin-left:auto;display:flex;gap:6px">
+                <button class="cli-gran-btn active" id="quality-gran-week"  onclick="setQualityGranularity('week',  this)">Semanas</button>
+                <button class="cli-gran-btn"         id="quality-gran-month" onclick="setQualityGranularity('month', this)">Meses</button>
+              </div>
+            </div>
+            <div class="kpi-info-panel" style="border-color:rgba(74,222,128,.25);margin-bottom:8px">
+              <strong style="color:#4ade80;font-size:12px">🌱 Taxa de Adeptos — Qualidade dos Novos Clientes</strong>
+              Mede a proporção de clientes cadastrados em cada período que realizaram pelo menos 1 ativação válida (tornaram-se "adeptos").<br><br>
+              <strong style="color:#e2e2f0">Eixo X:</strong> período de cadastro (semana ou mês).<br><br>
+              <strong style="color:#e2e2f0">Eixo Y:</strong> % de clientes cadastrados no período que realizaram ≥ 1 ativação válida.<br><br>
+              <strong style="color:#e2e2f0">Numerador:</strong> clientes cadastrados no período com ≥ 1 ativação válida (em qualquer data posterior).<br><br>
+              <strong style="color:#e2e2f0">Denominador:</strong> total de clientes cadastrados no período.<br><br>
+              <strong style="color:#e2e2f0">Ativações excluídas:</strong> canceladas, free_credit, free_credit_used. Ativações do tipo Noite Toda (incluindo night_checkin) são contabilizadas.<br><br>
+              <strong style="color:#fbbf24">Nota:</strong> os últimos 30 dias são exibidos em tracejado pois a coorte ainda está maturando — clientes recentes ainda podem realizar a 1ª ativação.<br>
+              <span class="kpi-formula">Taxa de adeptos (período T) = clientes cadastrados em T com ≥1 ativação válida<br>÷ total de clientes cadastrados em T</span>
+            </div>
+            <div style="position:relative;height:320px">
+              <canvas id="chart-cli-quality"></canvas>
+            </div>
+            <div class="cli-legend" style="margin-top:10px">
+              <span class="cli-leg-dot" style="background:#4ade80"></span>
+              <span class="cli-leg-lbl">Taxa de adeptos (coorte madura)</span>
+              <span class="cli-leg-dot" style="background:#4ade80;opacity:.4;margin-left:18px"></span>
+              <span class="cli-leg-lbl">Últimos 30 dias (maturando)</span>
+            </div>
+          </div>
+
+          <!-- Análise de Perfil -->
+          <div class="bk-panel bk-panel-full" id="cli-profile-panel">
+            <div class="bk-panel-hd">
+              <i class="fa fa-id-card" style="color:#f472b6"></i>
+              <span>Análise de Perfil</span>
+              <span class="bk-panel-sub" id="cli-profile-sub"></span>
+            </div>
+            <div class="cli-profile-grid">
+
+              <!-- Gênero -->
+              <div class="cli-profile-block">
+                <p class="cli-profile-title"><i class="fa fa-venus-mars"></i> Gênero</p>
+                <div class="cli-bars" id="cli-gender-bars">
+                  <div class="cli-bar-loading"><i class="fa fa-spinner fa-spin"></i></div>
+                </div>
+              </div>
+
+              <!-- Faixa etária -->
+              <div class="cli-profile-block">
+                <p class="cli-profile-title"><i class="fa fa-birthday-cake"></i> Faixa etária</p>
+                <div class="cli-bars" id="cli-age-bars">
+                  <div class="cli-bar-loading"><i class="fa fa-spinner fa-spin"></i></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Tabela dos últimos cadastros -->
+          <div class="bk-panel bk-panel-full">
+            <div class="bk-panel-hd">
+              <i class="fa fa-user-plus" style="color:#4ade80"></i>
+              <span>Últimos cadastros</span>
+              <span class="bk-panel-sub" id="cli-recent-sub">mais recentes</span>
+            </div>
+            <div class="bk-table-wrap">
+              <table class="bk-table">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th style="text-align:center">Origem</th>
+                    <th style="text-align:center">Cadastro</th>
+                    <th style="text-align:center">Ativações</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-cli-recent">
+                  <tr><td colspan="5" class="bk-td-empty"><i class="fa fa-spinner fa-spin"></i> Carregando…</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="cli-recent-footer" style="display:none;padding:14px 4px 4px;display:flex;align-items:center;gap:12px">
+              <span id="cli-recent-count" style="font-size:12px;color:var(--text2)"></span>
+              <button id="btn-cli-recent-more" class="bk-btn-small" onclick="cliRecentLoadMore()" style="margin-left:auto">
+                <i class="fa fa-plus"></i> Mostrar mais 30
+              </button>
+            </div>
+          </div>
+
+          <!-- Ranking de Ativações -->
+          <div class="bk-panel bk-panel-full">
+            <div class="bk-panel-hd">
+              <i class="fa fa-trophy" style="color:#fbbf24"></i>
+              <span>Ranking de Ativações</span>
+              <span class="bk-panel-sub" id="cli-rank-sub">mais ativos</span>
+            </div>
+            <div class="bk-table-wrap">
+              <table class="bk-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Cliente</th>
+                    <th>E-mail</th>
+                    <th style="text-align:center">Ativações</th>
+                    <th style="text-align:center">Pagas</th>
+                    <th style="text-align:center">Grátis</th>
+                    <th style="text-align:right">Total gasto</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-clients-acts">
+                  <tr><td colspan="7" class="bk-td-empty"><i class="fa fa-spinner fa-spin"></i> Carregando…</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="cli-rank-footer" style="display:none;padding:14px 4px 4px;display:flex;align-items:center;gap:12px">
+              <span id="cli-rank-count" style="font-size:12px;color:var(--text2)"></span>
+              <button id="btn-cli-rank-more" class="bk-btn-small" onclick="cliRankLoadMore()" style="margin-left:auto">
+                <i class="fa fa-plus"></i> Mostrar mais 30
+              </button>
+            </div>
+            <p style="margin:8px 0 0;font-size:11px;color:rgba(255,255,255,.35);padding:0 4px">
+              <span style="display:inline-block;padding:1px 5px;border-radius:8px;font-size:10px;font-weight:700;background:rgba(250,204,21,.15);color:#fbbf24;border:1px solid rgba(250,204,21,.3);margin-right:4px">⭐ N</span>
+              indica quantas ativações deste cliente geraram comissão a um promoter.
+            </p>
+          </div>
+
+        </div><!-- /balanco-scroll -->
+      </section>
+
+      <!-- ════ SEÇÃO: BARES ════ -->
+      <section id="section-patrocinados" class="content-section" style="display:none">
+
+        <header class="main-header">
+          <div class="header-left">
+            <h1 class="header-title"><i class="fa fa-bullhorn" style="color:#d4a843"></i> Patrocinados</h1>
+            <p class="header-sub">Escolha quem fica no topo da home e por quanto tempo</p>
+          </div>
+          <div class="header-right">
+            <button class="btn-refresh" onclick="loadSponsored()" title="Atualizar">
+              <i class="fa fa-sync-alt"></i>
+            </button>
+          </div>
+        </header>
+
+        <div class="balanco-scroll">
+          <div class="bk-panel bk-panel-full sponsor-panel">
+            <div class="bk-panel-hd">
+              <i class="fa fa-arrow-up" style="color:#d4a843"></i>
+              <span>Colocar um bar no topo</span>
+            </div>
+            <p class="sponsor-hint">Sem filtro, o bar patrocinado aparece primeiro na lista de hoje, desde que tenha benefício ativo. Se o cliente filtrar ou buscar e o bar não combinar, ele sai da lista.</p>
+
+            <div class="sponsor-form">
+              <div class="field-group">
+                <label>Bar</label>
+                <select id="sponsor-bar" class="field-input">
+                  <option value="">Carregando bares...</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label>Tempo no topo</label>
+                <select id="sponsor-duration" class="field-input" onchange="onSponsorDurationChange()">
+                  <option value="">Escolher duração</option>
+                  <option value="h24">24 horas</option>
+                  <option value="d3">3 dias</option>
+                  <option value="d7">7 dias</option>
+                  <option value="d15">15 dias</option>
+                  <option value="d30">30 dias</option>
+                  <option value="custom">Até uma data e hora</option>
+                </select>
+              </div>
+              <div class="field-group" id="sponsor-until-wrap" style="display:none">
+                <label>Fica no topo até</label>
+                <input type="datetime-local" id="sponsor-until" class="field-input" />
+              </div>
+              <button type="button" class="btn-primary sponsor-save" id="sponsor-save-btn" onclick="saveBarSponsor()">
+                <i class="fa fa-bullhorn"></i> Colocar no topo
+              </button>
+            </div>
+          </div>
+
+          <div class="bk-panel bk-panel-full sponsor-panel">
+            <div class="bk-panel-hd">
+              <i class="fa fa-star" style="color:#d4a843"></i>
+              <span>No topo agora</span>
+            </div>
+            <div id="sponsor-list" class="sponsor-list">
+              <p class="sponsor-empty">Carregando...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="section-bares" class="content-section" style="display:none">
+
+        <header class="main-header">
+          <div class="header-left">
+            <h1 class="header-title"><i class="fa fa-glass-cheers" style="color:#fbbf24"></i> Bares</h1>
+            <p class="header-sub">Engajamento e crescimento de bares na plataforma</p>
+          </div>
+          <div class="header-right">
+            <span class="last-update-lbl">Atualizado: <span id="bar-updated">—</span></span>
+            <button class="btn-refresh" onclick="loadBares()" title="Atualizar">
+              <i class="fa fa-sync-alt"></i>
+            </button>
+          </div>
+        </header>
+
+        <div class="balanco-scroll">
+
+          <!-- KPIs -->
+          <div class="bk-grid-4" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
+            <div class="bk-stat-card">
+              <p class="bk-stat-label">Total de bares</p>
+              <p class="bk-stat-value" id="bar-total">—</p>
+            </div>
+            <div class="bk-stat-card" style="border-color:rgba(74,222,128,.25)">
+              <p class="bk-stat-label" style="color:#4ade80"><i class="fa fa-bolt" style="margin-right:4px"></i>Bares ativos no último mês</p>
+              <p class="bk-stat-value" style="color:#4ade80" id="bar-active">—</p>
+              <p id="bar-active-pct" style="font-size:11px;color:#8888aa;margin-top:2px"></p>
+            </div>
+            <div class="bk-stat-card" style="border-color:rgba(248,113,113,.25)">
+              <p class="bk-stat-label" style="color:#f87171"><i class="fa fa-arrow-down" style="margin-right:4px"></i>Taxa de churn (mês passado)</p>
+              <p class="bk-stat-value" style="color:#f87171" id="bar-churn">—</p>
+              <p id="bar-churn-abs" style="font-size:11px;color:#8888aa;margin-top:2px"></p>
+            </div>
+            <div class="bk-stat-card">
+              <p class="bk-stat-label">Novos no último mês</p>
+              <p class="bk-stat-value" id="bar-new-month">—</p>
+            </div>
+          </div>
+
+          <!-- Gráfico de evolução -->
+          <div class="bk-panel bk-panel-full">
+            <div class="bk-panel-hd">
+              <i class="fa fa-chart-line" style="color:#fbbf24"></i>
+              <span>Evolução de bares ao longo do tempo</span>
+              <div style="margin-left:auto;display:flex;gap:6px">
+                <button class="cli-gran-btn active" id="bar-gran-week"  onclick="setBarGranularity('week',  this)">Semanas</button>
+                <button class="cli-gran-btn"         id="bar-gran-month" onclick="setBarGranularity('month', this)">Meses</button>
+              </div>
+            </div>
+            <div style="position:relative;height:340px">
+              <canvas id="chart-bar-growth"></canvas>
+            </div>
+            <!-- Legenda -->
+            <div class="cli-legend">
+              <span class="cli-leg-dot" style="background:#fbbf24"></span>
+              <span class="cli-leg-lbl">Total de bares na plataforma</span>
+              <span class="cli-leg-dot" style="background:#4ade80;margin-left:18px"></span>
+              <span class="cli-leg-lbl">Bares ativos no período</span>
+            </div>
+          </div>
+
+          <!-- Top 5 + Ativações por Tipo -->
+          <div class="bk-row-2">
+
+            <!-- Ranking de Bares -->
+            <div class="bk-panel">
+              <div class="bk-panel-hd">
+                <i class="fa fa-trophy" style="color:#fbbf24"></i>
+                <span>Ranking de Bares (ativações)</span>
+                <span class="bk-panel-sub" id="bar-rank-sub"></span>
+              </div>
+              <div class="bk-table-wrap" style="margin-top:12px">
+                <table class="bk-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Bar</th>
+                      <th style="text-align:center">Total</th>
+                      <th style="text-align:center">Último mês</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-bar-rank">
+                    <tr><td colspan="4" class="bk-td-empty"><i class="fa fa-spinner fa-spin"></i> Carregando…</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div id="bar-rank-footer" style="display:none;padding:12px 4px 0;display:flex;align-items:center;gap:12px">
+                <span id="bar-rank-count" style="font-size:12px;color:var(--text2)"></span>
+                <button id="btn-bar-rank-more" class="bk-btn-small" onclick="barRankLoadMore()" style="margin-left:auto">
+                  <i class="fa fa-plus"></i> Mostrar mais 15
+                </button>
+              </div>
+            </div>
+
+            <!-- Ativações por Tipo de Bar -->
+            <div class="bk-panel">
+              <div class="bk-panel-hd">
+                <i class="fa fa-chart-pie" style="color:#a78bfa"></i>
+                <span>Ativações por tipo de bar</span>
+                <span class="bk-panel-sub" id="bar-genre-sub"></span>
+              </div>
+              <div class="cli-bars" id="bar-genre-bars" style="padding-top:14px">
+                <div class="bk-loading"><i class="fa fa-spinner fa-spin"></i></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div><!-- /balanco-scroll -->
+      </section>
+
+      <!-- ════ SEÇÃO: PROMOTERS ════ -->
+      <section id="section-promoters" class="content-section" style="display:none">
+
+        <header class="main-header">
+          <div class="header-left">
+            <h1 class="header-title"><i class="fa fa-star" style="color:#c084fc"></i> Promoters</h1>
+            <p class="header-sub">Ranking de promoters por impacto na plataforma</p>
+          </div>
+          <div class="header-right">
+            <span class="last-update-lbl">Atualizado: <span id="promo-rank-updated">—</span></span>
+            <button class="btn-refresh" onclick="loadPromoters()" title="Atualizar">
+              <i class="fa fa-sync-alt"></i>
+            </button>
+          </div>
+        </header>
+
+        <div class="balanco-scroll">
+
+          <!-- KPIs -->
+          <div class="bk-grid-4" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
+            <div class="bk-stat-card">
+              <p class="bk-stat-label">Total de promoters</p>
+              <p class="bk-stat-value" id="promo-rank-total">—</p>
+            </div>
+            <div class="bk-stat-card">
+              <p class="bk-stat-label" style="color:#c084fc">Clientes indicados</p>
+              <p class="bk-stat-value" style="color:#c084fc" id="promo-rank-clients">—</p>
+            </div>
+            <div class="bk-stat-card">
+              <p class="bk-stat-label" style="color:#4ade80">Total gasto pelos indicados</p>
+              <p class="bk-stat-value" style="color:#4ade80" id="promo-rank-spent">—</p>
+            </div>
+            <div class="bk-stat-card">
+              <p class="bk-stat-label" style="color:#fbbf24">Média gasta por indicado</p>
+              <p class="bk-stat-value" style="color:#fbbf24" id="promo-rank-avg">—</p>
+            </div>
+          </div>
+
+          <!-- Ranking -->
+          <div class="bk-panel bk-panel-full">
+            <div class="bk-panel-hd">
+              <i class="fa fa-trophy" style="color:#c084fc"></i>
+              <span>Ranking de Promoters</span>
+              <span class="bk-panel-sub" id="promo-rank-sub"></span>
+            </div>
+            <div class="bk-table-wrap" style="margin-top:12px">
+              <table class="bk-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Promoter</th>
+                    <th>Código</th>
+                    <th style="text-align:center">Clientes indicados</th>
+                    <th style="text-align:right">Total gasto pelos indicados</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-promo-rank">
+                  <tr><td colspan="5" class="bk-td-empty"><i class="fa fa-spinner fa-spin"></i> Carregando…</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="promo-rank-footer" style="display:none;padding:12px 4px 0;display:flex;align-items:center;gap:12px">
+              <span id="promo-rank-count" style="font-size:12px;color:var(--text2)"></span>
+              <button id="btn-promo-rank-more" class="bk-btn-small" onclick="promoRankLoadMore()" style="margin-left:auto">
+                <i class="fa fa-plus"></i> Mostrar mais 10
+              </button>
+            </div>
+          </div>
+
+        </div><!-- /balanco-scroll -->
+      </section>
+
+
+      <!-- ════ SEÇÃO: ATIVAÇÕES ════ -->
+      <section id="section-ativacoes" class="content-section" style="display:none">
+
+        <header class="main-header">
+          <div class="header-left">
+            <h1 class="header-title"><i class="fa fa-bolt" style="color:#60a5fa"></i> Ativações</h1>
+            <p class="header-sub">Evolução das ativações na plataforma ao longo do tempo</p>
+          </div>
+          <div class="header-right">
+            <span class="last-update-lbl">Atualizado: <span id="acts-updated">—</span></span>
+            <button class="btn-refresh" onclick="loadAtivacoes()" title="Atualizar">
+              <i class="fa fa-sync-alt"></i>
+            </button>
+          </div>
+        </header>
+
+        <div class="balanco-scroll">
+
+          <div class="bk-panel bk-panel-full">
+            <div class="bk-panel-hd">
+              <i class="fa fa-chart-line" style="color:#60a5fa"></i>
+              <span>Ativações ao longo do tempo</span>
+              <div class="cli-granularity" style="margin-left:auto;display:flex;gap:6px">
+                <button class="cli-gran-btn active" id="acts-gran-week"  onclick="setActsGranularity('week',  this)">Semanas</button>
+                <button class="cli-gran-btn"        id="acts-gran-month" onclick="setActsGranularity('month', this)">Meses</button>
+              </div>
+            </div>
+            <div style="position:relative;height:340px">
+              <canvas id="chart-acts-growth"></canvas>
+            </div>
+          </div>
+
+          <!-- KPI: média de ativações por cliente ativo -->
+          <div class="bk-grid-4" style="margin-bottom:0">
+            <div class="bk-stat-card">
+              <span class="bk-stat-label">Clientes ativos no último mês</span>
+              <span class="bk-stat-value" id="acts-active-clients">—</span>
+            </div>
+            <div class="bk-stat-card">
+              <span class="bk-stat-label">Ativações no último mês</span>
+              <span class="bk-stat-value" id="acts-last-month">—</span>
+            </div>
+            <div class="bk-stat-card" style="border-color:#60a5fa">
+              <span class="bk-stat-label" style="color:#60a5fa">Média / cliente ativo</span>
+              <span class="bk-stat-value" style="color:#60a5fa" id="acts-avg-active">—</span>
+            </div>
+          </div>
+
+          <!-- Distribuição Unitária vs Noite Toda -->
+          <div class="bk-panel bk-panel-full">
+            <div class="bk-panel-hd">
+              <i class="fa fa-chart-pie" style="color:#c084fc"></i>
+              <span>Distribuição por Tipo</span>
+              <span class="bk-panel-sub" id="acts-type-sub" style="margin-left:8px"></span>
+            </div>
+            <div id="acts-type-bars" style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+              <div style="color:var(--text2);font-size:13px"><i class="fa fa-spinner fa-spin"></i> Carregando…</div>
+            </div>
+          </div>
+
+          <!-- Distribuição por tipo de benefício -->
+          <div class="bk-panel bk-panel-full">
+            <div class="bk-panel-hd">
+              <i class="fa fa-tags" style="color:#fbbf24"></i>
+              <span>Ativações por Tipo de Benefício</span>
+              <span class="bk-panel-sub" id="acts-cat-sub" style="margin-left:8px"></span>
+            </div>
+            <div id="acts-cat-bars" style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+              <div style="color:var(--text2);font-size:13px"><i class="fa fa-spinner fa-spin"></i> Carregando…</div>
+            </div>
+          </div>
+
+        </div><!-- /balanco-scroll -->
+      </section>
+
+      <section id="section-approvals" class="content-section" style="display:none">
+
+        <header class="main-header">
+          <div class="header-left">
+            <h1 class="header-title" id="tab-title">Pendentes de Aprovação</h1>
+            <p class="header-sub" id="tab-sub">Novos promoters e bares aguardando análise</p>
+          </div>
+          <div class="header-right">
+            <div class="filter-row">
+              <button class="filter-btn active" data-type="all" onclick="setTypeFilter('all', this)">Todos</button>
+              <button class="filter-btn" data-type="promoter" onclick="setTypeFilter('promoter', this)">
+                <i class="fa fa-star"></i> Promoters
+              </button>
+              <button class="filter-btn" data-type="bar" onclick="setTypeFilter('bar', this)">
+                <i class="fa fa-glass-cheers"></i> Bares
+              </button>
+            </div>
+            <button class="btn-refresh" onclick="loadAdminData()" title="Atualizar">
+              <i class="fa fa-sync-alt"></i>
+            </button>
+          </div>
+        </header>
+
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-num" id="stat-pending">0</span>
+            <span class="stat-lbl">Pendentes</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num green" id="stat-approved">0</span>
+            <span class="stat-lbl">Aprovados</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num red" id="stat-rejected">0</span>
+            <span class="stat-lbl">Rejeitados</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num yellow" id="stat-promoters">0</span>
+            <span class="stat-lbl">Promoters</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num blue" id="stat-bars">0</span>
+            <span class="stat-lbl">Bares</span>
+          </div>
+        </div>
+
+        <div class="cards-grid" id="cards-grid">
+          <div class="loading-state">
+            <i class="fa fa-spinner fa-spin"></i>
+            <p>Carregando dados…</p>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ══ MODAL DE DETALHES ══ -->
+  <div class="modal-overlay" id="detail-modal" style="display:none" onclick="closeDetailModal(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeDetailModal()"><i class="fa fa-times"></i></button>
+      <div class="modal-header">
+        <div class="modal-avatar" id="modal-avatar"></div>
+        <div>
+          <h2 class="modal-name" id="modal-name"></h2>
+          <span class="modal-role-badge" id="modal-role-badge"></span>
+          <span class="modal-status-badge" id="modal-status-badge"></span>
+        </div>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-actions" id="modal-actions"></div>
+    </div>
+  </div>
+
+  <!-- ══ MODAL DE REJEIÇÃO ══ -->
+  <div class="modal-overlay" id="reject-modal" style="display:none" onclick="closeRejectModal(event)">
+    <div class="modal-box modal-box-sm">
+      <button class="modal-close" onclick="closeRejectModal()"><i class="fa fa-times"></i></button>
+      <h2 class="modal-title-sm"><i class="fa fa-times-circle" style="color:#ef4444"></i> Rejeitar cadastro</h2>
+      <p class="modal-desc-sm">Informe o motivo da rejeição.</p>
+      <textarea id="reject-note" class="reject-textarea" placeholder="Ex.: Documentação insuficiente, região fora da cobertura…" rows="4"></textarea>
+      <div class="reject-actions">
+        <button class="btn-cancel" onclick="closeRejectModal()">Cancelar</button>
+        <button class="btn-reject-confirm" onclick="confirmReject()">
+          <i class="fa fa-times-circle"></i> Confirmar rejeição
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="admin-toast"></div>
+
+  <script src="js/supabase-auth.js"></script>
+  <script src="js/admin.js?v=20261022"></script>
+</body>
+</html>
