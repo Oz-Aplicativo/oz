@@ -1,0 +1,23 @@
+{
+  "name": "oz-app",
+  "private": true,
+  "version": "1.0.0",
+  "description": "OZ — o melhor da noite, com vantagens.",
+  "scripts": {
+    "icons": "python scripts/make-icons.py",
+    "native:assets": "npx @capacitor/assets generate --iconBackgroundColor \"#010410\" --iconBackgroundColorDark \"#010410\" --splashBackgroundColor \"#010410\" --splashBackgroundColorDark \"#010410\"",
+    "native:prepare": "node scripts/sync-www.js",
+    "native:sync": "node scripts/sync-www.js && npx cap sync",
+    "android": "npm run native:sync && npx cap open android",
+    "ios": "npm run native:sync && npx cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.5.3",
+    "@capacitor/core": "^8.5.3",
+    "@capacitor/ios": "^8.5.3",
+    "@capacitor/splash-screen": "^8.0.2",
+    "@capacitor/status-bar": "^8.0.4"
+  }
+}

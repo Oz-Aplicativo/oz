@@ -112,6 +112,10 @@ body::before {
 .screen.active  { display: flex; opacity: 1; transform: translateX(-50%) translateY(0); }
 .screen.with-nav { padding-bottom: var(--nav-h); }
 
+@media (display-mode: standalone) {
+  .screen { padding-top: env(safe-area-inset-top, 0); }
+}
+
 /* ═══════════════════════════════════
    WELCOME
 ═══════════════════════════════════ */

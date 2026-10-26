@@ -1,0 +1,31 @@
+{
+  "appId": "br.com.ozaplicativo.app",
+  "appName": "OZ",
+  "webDir": "www",
+  "backgroundColor": "#010410",
+  "android": {
+    "backgroundColor": "#010410",
+    "allowMixedContent": false
+  },
+  "ios": {
+    "contentInset": "automatic",
+    "preferredContentMode": "mobile",
+    "scheme": "OZ",
+    "backgroundColor": "#010410"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": true,
+      "launchShowDuration": 1200,
+      "backgroundColor": "#010410",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": false,
+      "splashFullScreen": true,
+      "splashImmersive": true
+    },
+    "StatusBar": {
+      "style": "LIGHT",
+      "backgroundColor": "#010410"
+    }
+  }
+}

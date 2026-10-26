@@ -7,3 +7,13 @@ node_modules/
 supabase/.temp/
 .cursor/
 _tmp_*
+www/
+android/app/build/
+android/.gradle/
+android/local.properties
+android/app/release/
+ios/App/Pods/
+ios/App/build/
+*.keystore
+*.jks
+*.mobileprovision
