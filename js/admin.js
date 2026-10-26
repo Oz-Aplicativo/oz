@@ -178,10 +178,12 @@ async function doAdminLogin() {
   if (btnEl) { btnEl.disabled = false; btnEl.textContent = 'Entrar'; }
   document.getElementById('admin-login').style.display = 'none';
   document.getElementById('admin-panel').style.display = 'flex';
+  closeAdminNav();
   loadBalanco();
 }
 
 function doAdminLogout() {
+  closeAdminNav();
   ADM.loggedIn = false;
   sessionStorage.removeItem('oz_admin');
   // Invalida cache do JWT admin para forçar novo login na próxima sessão
@@ -214,7 +216,12 @@ window.addEventListener('DOMContentLoaded', async () => {
   ADM.loggedIn = true;
   document.getElementById('admin-login').style.display = 'none';
   document.getElementById('admin-panel').style.display = 'flex';
+  closeAdminNav();
   loadBalanco();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeAdminNav();
 });
 
 /* ══════════════════════════════════════════════════
@@ -701,10 +708,37 @@ async function revertUser(userId, role) {
 /* ══════════════════════════════════════════════════
    NAVEGAÇÃO ENTRE SEÇÕES
 ══════════════════════════════════════════════════ */
+function closeAdminNav() {
+  const panel = document.getElementById('admin-panel');
+  if (!panel) return;
+  panel.classList.remove('nav-open');
+  const icon = document.querySelector('#admin-menu-btn i');
+  if (icon) icon.className = 'fa fa-bars';
+  document.getElementById('admin-menu-btn')?.setAttribute('aria-expanded', 'false');
+}
+
+function toggleAdminNav() {
+  const panel = document.getElementById('admin-panel');
+  if (!panel) return;
+  const open = panel.classList.toggle('nav-open');
+  const icon = document.querySelector('#admin-menu-btn i');
+  if (icon) icon.className = open ? 'fa fa-times' : 'fa fa-bars';
+  document.getElementById('admin-menu-btn')?.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+function setMobileSectionTitle(el, section) {
+  const titleEl = document.getElementById('mobile-section-title');
+  if (!titleEl) return;
+  const label = el?.querySelector('span:not(.nav-badge)');
+  titleEl.textContent = (label?.textContent || section || 'Admin').trim();
+}
+
 function switchSection(section, el) {
   // Atualiza nav
   document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
   if (el) el.classList.add('active');
+  setMobileSectionTitle(el, section);
+  closeAdminNav();
 
   // Mostra/esconde seções
   document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');

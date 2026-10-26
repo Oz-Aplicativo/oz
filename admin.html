@@ -2,13 +2,14 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0f" />
   <title>OZ Admin — Painel</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="css/admin.css?v=20261026c" />
+  <link rel="stylesheet" href="css/admin.css?v=20261026f" />
 </head>
 <body>
 
@@ -39,11 +40,29 @@
   <!-- ══ PAINEL ══ -->
   <div id="admin-panel" class="panel" style="display:none">
 
+    <header class="mobile-topbar">
+      <button type="button" class="mobile-menu-btn" id="admin-menu-btn" onclick="toggleAdminNav()" aria-label="Abrir menu" aria-expanded="false">
+        <i class="fa fa-bars"></i>
+      </button>
+      <div class="mobile-topbar-brand">
+        <img src="images/oz-logo-new.png" alt="OZ" class="admin-logo-img-sidebar">
+        <span id="mobile-section-title">Balanço Geral</span>
+      </div>
+      <button type="button" class="mobile-menu-btn" onclick="doAdminLogout()" aria-label="Sair">
+        <i class="fa fa-sign-out-alt"></i>
+      </button>
+    </header>
+
+    <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeAdminNav()"></div>
+
     <!-- Sidebar -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="admin-sidebar">
       <div class="sidebar-logo">
         <img src="images/oz-logo-new.png" alt="OZ" class="admin-logo-img-sidebar">
         <span>Admin</span>
+        <button type="button" class="sidebar-close" onclick="closeAdminNav()" aria-label="Fechar menu">
+          <i class="fa fa-times"></i>
+        </button>
       </div>
       <nav class="sidebar-nav">
 
@@ -1155,6 +1174,6 @@
   <div class="toast" id="admin-toast"></div>
 
   <script src="js/supabase-auth.js"></script>
-  <script src="js/admin.js?v=20261026c"></script>
+  <script src="js/admin.js?v=20261026e"></script>
 </body>
 </html>
